@@ -3,6 +3,7 @@ import 'package:pitchbox/styles/app_colors.dart';
 import 'package:pitchbox/styles/app_icons.dart';
 import 'package:pitchbox/styles/app_styles.dart';
 import 'package:pitchbox/styles/responsive_widget.dart';
+import 'package:pitchbox/layouts/new_acc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -177,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
 
-                      SizedBox(height: height * 0.05),
+                      SizedBox(height: height * 0.03),
 
                       Center(
                         child: Material(
@@ -192,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: AppColors.mainBlueColor,
                               ),
                               child: Text(
-                                'Sign In',
+                                'Login',
                                 style: ralewayStyle.copyWith(
                                   fontWeight: FontWeight.w700,
                                   color: AppColors.whiteColor,
@@ -203,7 +204,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-
+                      SizedBox(height: height * 0.05),
+                      NewAccount(
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return LoginScreen();
+                              },
+                            ),
+                          );
+                        },
+                      ),
                   ],
                   ),
                 ),
