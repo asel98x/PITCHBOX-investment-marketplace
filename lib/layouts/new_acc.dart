@@ -23,7 +23,7 @@ class NewAccount extends StatelessWidget {
         GestureDetector(
           onTap: press as void Function()?,
           child: Text(
-            login ? "Sign Up" : "Sign In",
+            login ? "Sign Up" : "Login",
             style: const TextStyle(
               color: AppColors.mainBlueColor,
               fontWeight: FontWeight.bold,

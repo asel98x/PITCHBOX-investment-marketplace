@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:pitchbox/layouts/social_sign_up.dart';
 import 'package:pitchbox/styles/app_colors.dart';
 import 'package:pitchbox/styles/app_icons.dart';
 import 'package:pitchbox/styles/app_styles.dart';
 import 'package:pitchbox/styles/responsive_widget.dart';
+import 'package:pitchbox/layouts/login_screen.dart';
 import 'package:pitchbox/layouts/new_acc.dart';
-import 'package:pitchbox/layouts/signup_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -54,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(height: height * 0.2),
+                      SizedBox(height: height * 0.10),
                       RichText(
                         text: TextSpan(
                           children: [
@@ -70,8 +71,51 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
 
-                      SizedBox(height: height * 0.064),
+                      SizedBox(height: height * 0.054),
 
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Text('Name',
+                          style: ralewayStyle.copyWith(
+                            fontSize: 12.0,
+                            color: AppColors.blueDarkColor,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 6.0),
+                      Container(
+                        height: 50.0,
+                        width: width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.0),
+                          color: AppColors.whiteColor,
+                        ),
+                        child: TextFormField(
+
+                          style: ralewayStyle.copyWith(
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.blueDarkColor,
+                            fontSize: 12.0,
+                          ),
+
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon: IconButton(
+                              onPressed: (){},
+                              icon: Image.asset(AppIcons.userIcon),
+                            ),
+                            contentPadding: const EdgeInsets.only(top: 16.0),
+                            hintText: 'Enter Name',
+                            hintStyle: ralewayStyle.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.blueDarkColor.withOpacity(0.5),
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: height * 0.014),
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0),
                         child: Text('Email',
@@ -163,21 +207,44 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
+                      SizedBox(height: height * 0.014),
 
-                      SizedBox(height: height * 0.03),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: (){},
-                          child: Text('Forgot Password?',
-                            style: ralewayStyle.copyWith(
+                      const SizedBox(height: 6.0),
+                      Container(
+                        height: 50.0,
+                        width: width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.0),
+                          color: AppColors.whiteColor,
+                        ),
+                        child: TextFormField(
+
+                          style: ralewayStyle.copyWith(
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.blueDarkColor,
+                            fontSize: 12.0,
+                          ),
+                          obscureText: true,
+
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+
+                            prefixIcon: IconButton(
+                              onPressed: (){},
+                              icon: Image.asset(AppIcons.lockIcon),
+                            ),
+                            contentPadding: const EdgeInsets.only(top: 16.0),
+                            hintText: 'Enter Password',
+                            hintStyle: ralewayStyle.copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.blueDarkColor.withOpacity(0.5),
                               fontSize: 12.0,
-                              color: AppColors.mainBlueColor,
-                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
                       ),
+
+
 
                       SizedBox(height: height * 0.03),
 
@@ -205,20 +272,26 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
+                      SizedBox(height: defaultPadding / 2),
+                      SocialSignUp(),
+
                       SizedBox(height: height * 0.05),
                       NewAccount(
+                        login: false,
                         press: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return SignupScreen();
+                                return LoginScreen();
                               },
                             ),
                           );
                         },
                       ),
-                  ],
+
+
+                    ],
                   ),
                 ),
               ),

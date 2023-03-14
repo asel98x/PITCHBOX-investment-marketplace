@@ -7,4 +7,7 @@ class AppColors {
   static const Color textColor = Color(0xff53587A);
   static const Color greyColor = Color(0xffAAAAAA);
   static const Color whiteColor = Color(0xffFFFFFF);
+
+
 }
+  const double defaultPadding = 16.0;
