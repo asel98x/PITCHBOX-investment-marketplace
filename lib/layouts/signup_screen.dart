@@ -261,7 +261,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 color: AppColors.mainBlueColor,
                               ),
                               child: Text(
-                                'Login',
+                                'Singup',
                                 style: ralewayStyle.copyWith(
                                   fontWeight: FontWeight.w700,
                                   color: AppColors.whiteColor,
