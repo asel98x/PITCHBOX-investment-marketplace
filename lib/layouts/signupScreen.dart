@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pitchbox/layouts/social_sign_up.dart';
-import 'package:pitchbox/styles/app_colors.dart';
-import 'package:pitchbox/styles/app_icons.dart';
-import 'package:pitchbox/styles/app_styles.dart';
-import 'package:pitchbox/styles/responsive_widget.dart';
-import 'package:pitchbox/layouts/login_screen.dart';
-import 'package:pitchbox/layouts/new_acc.dart';
+import 'package:pitchbox/layouts/socialSignUp.dart';
+import 'package:pitchbox/styles/appColors.dart';
+import 'package:pitchbox/styles/appIcons.dart';
+import 'package:pitchbox/styles/appStyles.dart';
+import 'package:pitchbox/styles/responsiveWidget.dart';
+import 'package:pitchbox/layouts/loginScreen.dart';
+import 'package:pitchbox/layouts/newAcc.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);

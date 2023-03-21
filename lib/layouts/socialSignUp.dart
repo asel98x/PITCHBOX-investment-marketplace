@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pitchbox/layouts/or_divider.dart';
-import 'package:pitchbox/layouts/social_icon.dart';
-import 'package:pitchbox/styles/app_icons.dart';
+import 'package:pitchbox/layouts/orDivider.dart';
+import 'package:pitchbox/layouts/socialIcon.dart';
 
 class SocialSignUp extends StatelessWidget {
   const SocialSignUp({

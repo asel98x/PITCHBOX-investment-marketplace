@@ -1,10 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:pitchbox/layouts/login_screen.dart';
+import 'package:pitchbox/layouts/loginScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pitchbox/layouts/splashScreen.dart';
+import 'package:pitchbox/provider/signinProvider.dart';
+import 'package:provider/provider.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   if(kIsWeb){
     await Firebase.initializeApp(
@@ -31,13 +35,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Responsive Layout',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: ((context) => SignInProvider()),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'PITCHBOX',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const SplashScreen(),
       ),
-      home: const LoginScreen(),
     );
   }
 }
