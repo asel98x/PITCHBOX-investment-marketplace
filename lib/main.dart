@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pitchbox/layouts/loginScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:pitchbox/layouts/splashScreen.dart';
+import 'package:pitchbox/provider/internetProvider.dart';
 import 'package:pitchbox/provider/signinProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: ((context) => SignInProvider()),
+        ),
+        ChangeNotifierProvider(
+          create: ((context) => InternetProvider()),
         ),
       ],
       child: MaterialApp(
