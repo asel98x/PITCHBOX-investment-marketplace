@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: ralewayStyle.copyWith(
                             fontWeight: FontWeight.w400,
                             color: AppColors.blueDarkColor,
-                            fontSize: 12.0,
+                            fontSize: 14.0,
                           ),
 
                           decoration: InputDecoration(
@@ -122,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.only(left: 16.0),
                         child: Text('Password',
                           style: ralewayStyle.copyWith(
-                            fontSize: 12.0,
+                            fontSize: 14.0,
                             color: AppColors.blueDarkColor,
                             fontWeight: FontWeight.w700,
                           ),

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resource>
+    <string name="app_name">PITCHBOX</string>
+    <string name="facebook_app_id">1559959867813271</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">3b7c0f661f5831c48e7153063d0397e5</string>
+</resource>
