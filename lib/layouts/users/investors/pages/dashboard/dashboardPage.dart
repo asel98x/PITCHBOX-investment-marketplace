@@ -1,68 +1,102 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:pitchbox/layouts/users/investors/pages/account/accountPage.dart';
+import 'package:pitchbox/layouts/users/investors/pages/home/HomePage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/alerts/alertsPage.dart';
-import 'package:pitchbox/layouts/users/investors/pages/home/homePage.dart';
+import 'package:pitchbox/layouts/users/investors/pages/account/accountPage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/news/newsPage.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:pitchbox/styles/appColors.dart';
 
-import 'dashboardController.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
+
   @override
-  Widget build(BuildContext context) {
-    return GetBuilder<DashboardController>(
-      builder: (controller) {
-        return Scaffold(
-          body: SafeArea(
-            child: IndexedStack(
-              index: controller.tabIndex,
-              children: [
-                HomePage(),
-                NewsPage(),
-                AlertsPage(),
-                AccountPage(),
-              ],
-            ),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            unselectedItemColor: Colors.black,
-            selectedItemColor: Colors.redAccent,
-            onTap: controller.changeTabIndex,
-            currentIndex: controller.tabIndex,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            items: [
-              _bottomNavigationBarItem(
-                icon: CupertinoIcons.home,
-                label: 'Home',
-              ),
-              _bottomNavigationBarItem(
-                icon: CupertinoIcons.sportscourt,
-                label: 'News',
-              ),
-              _bottomNavigationBarItem(
-                icon: CupertinoIcons.bell,
-                label: 'Alerts',
-              ),
-              _bottomNavigationBarItem(
-                icon: CupertinoIcons.person,
-                label: 'Account',
-              ),
-            ],
-          ),
-        );
-      },
-    );
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage>{
+
+  int _currentIndex = 0;
+  late PageController _pageController;
+
+  final List<Widget> _pages = [    HomePage(),    NewsPage(),    AlertsPage(),  AccountPage()  ,  ];
+
+  @override
+  void initState(){
+    super.initState();
+    _pageController = PageController();
   }
 
-  _bottomNavigationBarItem({required IconData icon, required String label}) {
-    return BottomNavigationBarItem(
-      icon: Icon(icon),
-      label: label,
+  @override
+  void dispose(){
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      body: Navigator(
+        onGenerateRoute: (settings) {
+          return MaterialPageRoute(
+            builder: (context) {
+              return _pages[_currentIndex];
+            },
+          );
+        },
+      ),
+      bottomNavigationBar: BottomNavyBar(
+          selectedIndex: _currentIndex,
+          onItemSelected:(index){
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(
+                title: Text("Startups",
+                  style: TextStyle(
+                    color: AppColors.blueDarkColor,
+                  ),
+                ),
+                icon: Icon(
+                  Icons.account_balance_sharp,
+                  color: AppColors.blueDarkColor,)
+            ),
+            BottomNavyBarItem(
+                title: Text("Loan",
+                  style: TextStyle(
+                    color: AppColors.blueDarkColor,
+                  ),
+                ),
+                icon: Icon(
+                  Icons.account_balance_wallet_outlined,
+                  color: AppColors.blueDarkColor,)
+            ),
+            BottomNavyBarItem(
+                title: Text("Users",
+                  style: TextStyle(
+                    color: AppColors.blueDarkColor,
+                  ),
+                ),
+                icon: Icon(
+                  Icons.account_circle_outlined,
+                  color: AppColors.blueDarkColor,)
+            ),
+            BottomNavyBarItem(
+                title: Text("Profile",
+                  style: TextStyle(
+                    color: AppColors.blueDarkColor,
+                  ),
+                ),
+                icon: Icon(
+                  Icons.account_box_outlined,
+                  color: AppColors.blueDarkColor,)
+            ),
+          ]
+      ),
     );
   }
 }
+

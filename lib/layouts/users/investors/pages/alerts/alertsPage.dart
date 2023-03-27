@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pitchbox/layouts/users/investors/pages/alerts/alertsController.dart';
 
-class AlertsPage extends GetView<AlertsController> {
+class AlertsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

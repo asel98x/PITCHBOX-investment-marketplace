@@ -209,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: height * 0.05),
                       NewAccount(
-                        press: () {
+                        press: () async{
                           Navigator.push(
                             context,
                             MaterialPageRoute(
