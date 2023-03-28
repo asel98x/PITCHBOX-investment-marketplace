@@ -19,7 +19,7 @@ class _DashboardPageState extends State<DashboardPage>{
   int _currentIndex = 0;
   late PageController _pageController;
 
-  final List<Widget> _pages = [    HomePage(),    NewsPage(),    AlertsPage(),  AccountPage()  ,  ];
+  final List<Widget> _pages = [HomePage(), NewsPage(), AlertsPage(), AccountPage()];
 
   @override
   void initState(){
@@ -37,15 +37,7 @@ class _DashboardPageState extends State<DashboardPage>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Navigator(
-        onGenerateRoute: (settings) {
-          return MaterialPageRoute(
-            builder: (context) {
-              return _pages[_currentIndex];
-            },
-          );
-        },
-      ),
+      body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavyBar(
           selectedIndex: _currentIndex,
           onItemSelected:(index){
@@ -99,4 +91,5 @@ class _DashboardPageState extends State<DashboardPage>{
     );
   }
 }
+
 

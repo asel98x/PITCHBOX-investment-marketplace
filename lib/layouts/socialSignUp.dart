@@ -3,6 +3,7 @@ import 'package:pitchbox/layouts/orDivider.dart';
 import 'package:pitchbox/layouts/socialIcon.dart';
 import 'package:pitchbox/layouts/users/investors/pages/dashboard/dashboardPage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/home/HomePage.dart';
+import 'package:pitchbox/layouts/users/userCheckScreen.dart';
 import 'package:provider/provider.dart';
 import '../provider/internetProvider.dart';
 import '../provider/signinProvider.dart';
@@ -17,7 +18,6 @@ class SocialSignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         const OrDivider(),
@@ -25,10 +25,8 @@ class SocialSignUp extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SocalIcon(
-            icon: "assets/images/facebook.svg",
-            press: () {
-
-            },
+              icon: "assets/images/facebook.svg",
+              press: () {},
             ),
             SocalIcon(
               icon: "assets/images/google.svg",
@@ -65,15 +63,15 @@ class SocialSignUp extends StatelessWidget {
               await sp.getUserDataFromFirestore(sp.uid).then((value) => sp
                   .saveDataToSharedPreferences()
                   .then((value) => sp.setSignIn().then((value) {
-                    handleAfterSignIn(context);
-              })));
+                        handleAfterSignIn(context);
+                      })));
             } else {
               // user does not exist
               sp.saveDataToFirestore().then((value) => sp
                   .saveDataToSharedPreferences()
                   .then((value) => sp.setSignIn().then((value) {
-                    handleAfterSignIn(context);
-              })));
+                        handleAfterSignIn(context);
+                      })));
             }
           });
         }
@@ -81,12 +79,10 @@ class SocialSignUp extends StatelessWidget {
     }
   }
 
-
   // handle after signin
   handleAfterSignIn(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      nextScreenReplace(context, DashboardPage());
+      nextScreenReplace(context, UserCheckScreen());
     });
   }
-
 }

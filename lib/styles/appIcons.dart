@@ -9,5 +9,6 @@ class AppIcons {
   static const String facebookIcon = 'assets/images/facebook.png';
   static const String googleicon = 'assets/images/google-plus.png';
   static const String twitterIcon = 'assets/images/twitter.png';
-
+  static const String investor = 'assets/images/investor.png';
+  static const String entrepreneur = 'assets/images/entrepreneur.png';
 }
