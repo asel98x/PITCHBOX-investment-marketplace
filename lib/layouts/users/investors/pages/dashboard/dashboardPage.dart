@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pitchbox/layouts/users/investors/pages/account/userProfilePage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/home/HomePage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/alerts/alertsPage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/account/accountPage.dart';
@@ -19,7 +20,7 @@ class _DashboardPageState extends State<DashboardPage>{
   int _currentIndex = 0;
   late PageController _pageController;
 
-  final List<Widget> _pages = [HomePage(), NewsPage(), AlertsPage(), AccountPage()];
+  final List<Widget> _pages = [HomePage(), NewsPage(), AlertsPage(), userProfilePage()];
 
   @override
   void initState(){

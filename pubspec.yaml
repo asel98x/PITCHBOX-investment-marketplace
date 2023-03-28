@@ -52,6 +52,7 @@ dependencies:
   path_provider: ^2.0.14
   get: ^4.6.5
   bottom_navy_bar: ^6.0.0
+  sizer: ^2.0.15
 
 dev_dependencies:
   flutter_test:
