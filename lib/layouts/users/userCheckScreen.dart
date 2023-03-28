@@ -70,7 +70,7 @@ class _UserCheckScreenState extends State<UserCheckScreen> {
                   SizedBox(height: 20),
                   InkWell(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>DashboardPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>passwordDialog()));
                     },
                     child: Container(
                       decoration: BoxDecoration(

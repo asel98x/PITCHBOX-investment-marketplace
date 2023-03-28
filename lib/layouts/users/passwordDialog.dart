@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Euntrepreneur/pages/dashboard/EunDashboardPage.dart';
 import 'investors/pages/dashboard/dashboardPage.dart';
 
 class passwordDialog extends StatefulWidget {
@@ -87,10 +88,14 @@ class _passwordDialogState extends State<passwordDialog> {
                 ElevatedButton(
                   onPressed: () {
                     // Perform password validation and submit if valid
-                    if (_password1Controller.text == _password2Controller.text) {
+                    if (_password1Controller.text == "12") {
+                      // Passwords match, submit
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>EunDashboardPage()));
+                    }else if (_password1Controller.text == "23") {
                       // Passwords match, submit
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>DashboardPage()));
-                    } else {
+                    }
+                    else {
                       // Passwords don't match, show error message
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text('Passwords do not match'),
