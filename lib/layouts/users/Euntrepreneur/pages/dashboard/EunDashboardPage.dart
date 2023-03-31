@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pitchbox/layouts/users/Euntrepreneur/pages/account/EunUserProfilePage.dart';
 import 'package:pitchbox/layouts/users/Euntrepreneur/pages/alerts/EunAlertsPage.dart';
-import 'package:pitchbox/layouts/users/Euntrepreneur/pages/home/EunHomePage.dart';
+import 'package:pitchbox/layouts/users/Euntrepreneur/pages/businessList/EunBusinessList.dart';
 import 'package:pitchbox/layouts/users/Euntrepreneur/pages/news/EunNewsPage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/account/userProfilePage.dart';
-import 'package:pitchbox/layouts/users/investors/pages/home/HomePage.dart';
+import 'package:pitchbox/layouts/users/investors/pages/home/businessList.dart';
 import 'package:pitchbox/layouts/users/investors/pages/alerts/alertsPage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/account/accountPage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/news/newsPage.dart';
@@ -24,7 +24,7 @@ class _EunDashboardPageState extends State<EunDashboardPage>{
   int _currentIndex = 0;
   late PageController _pageController;
 
-  final List<Widget> _pages = [EunHomePage(), EunNewsPage(), EunAlertsPage(), EunUserProfilePage()];
+  final List<Widget> _pages = [EunBusinessList(), EunNewsPage(), EunAlertsPage(), EunUserProfilePage()];
 
   @override
   void initState(){

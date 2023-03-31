@@ -60,9 +60,9 @@ class _EunUserProfilePageState extends State<EunUserProfilePage> {
               Text(
                 "Edit Profile",
                 style: ralewayStyle.copyWith(
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.blueDarkColor,
                   fontSize: 25.0,
-                  color: AppColors.textColor,
-                  fontWeight: FontWeight.w600,
                 ),
               ),
               SizedBox(
@@ -125,23 +125,12 @@ class _EunUserProfilePageState extends State<EunUserProfilePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                    onPressed: () {},
-                    child: Text("Cancel",
-                        style: TextStyle(
-                            fontSize: 16,
-                            letterSpacing: 2.2,
-                            color: Colors.black)),
-                  ),
+
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       primary: AppColors.mainBlueColor,
-                      padding: EdgeInsets.symmetric(horizontal: 50),
+                      padding: EdgeInsets.symmetric(horizontal: 130),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
 

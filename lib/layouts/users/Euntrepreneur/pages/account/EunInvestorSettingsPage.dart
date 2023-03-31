@@ -4,6 +4,7 @@ import 'package:pitchbox/styles/appColors.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../provider/signinProvider.dart';
+import '../../../../../styles/appStyles.dart';
 import '../../../../../utils/nextScreen.dart';
 import '../../../../loginScreen.dart';
 
@@ -36,7 +37,11 @@ class _EunInvestorSettingsPageState extends State<EunInvestorSettingsPage> {
           children: [
             Text(
               "Settings",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+              style: ralewayStyle.copyWith(
+                fontWeight: FontWeight.w800,
+                color: AppColors.blueDarkColor,
+                fontSize: 25.0,
+              ),
             ),
             SizedBox(
               height: 40,
@@ -52,7 +57,11 @@ class _EunInvestorSettingsPageState extends State<EunInvestorSettingsPage> {
                 ),
                 Text(
                   "Account",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: ralewayStyle.copyWith(
+                    fontSize: 18.0,
+                    color: AppColors.blueDarkColor,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ],
             ),
@@ -82,7 +91,11 @@ class _EunInvestorSettingsPageState extends State<EunInvestorSettingsPage> {
                 ),
                 Text(
                   "Notifications",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: ralewayStyle.copyWith(
+                    fontSize: 18.0,
+                    color: AppColors.blueDarkColor,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ],
             ),
