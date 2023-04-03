@@ -1,11 +1,12 @@
 import 'package:pitchbox/backend/model/user.dart';
 
 class Entrepreneur extends User {
-  String _professionalExperience;
-  String _entrepreneurshipExperience;
-  String _education;
-  String _industryCertifications;
-  String _awardsAchievements;
+  List<String> _professionalExperience;
+  List<String>  _entrepreneurshipExperience;
+  List<String>  _education;
+  List<String>  _industryCertifications;
+  List<String>  _awardsAchievements;
+  List<String>  _trackRecord;
 
   Entrepreneur({
     required int uId,
@@ -22,18 +23,21 @@ class Entrepreneur extends User {
     required String twitter,
     required String facebook,
     required String instagram,
+    required String website,
     required String provider,
     required String imgUrl,
-    required String professionalExperience,
-    required String entrepreneurshipExperience,
-    required String education,
-    required String industryCertifications,
-    required String awardsAchievements,
+    required List<String> professionalExperience,
+    required List<String> entrepreneurshipExperience,
+    required List<String> education,
+    required List<String> industryCertifications,
+    required List<String> awardsAchievements,
+    required List<String> trackRecord,
   })  : _professionalExperience = professionalExperience,
         _entrepreneurshipExperience = entrepreneurshipExperience,
         _education = education,
         _industryCertifications = industryCertifications,
         _awardsAchievements = awardsAchievements,
+        _trackRecord = trackRecord,
         super(
         uId: uId,
         name: name,
@@ -49,27 +53,31 @@ class Entrepreneur extends User {
         twitter: twitter,
         facebook: facebook,
         instagram: instagram,
+        website: website,
         provider: provider,
         imgUrl: imgUrl,
       );
 
-  String get professionalExperience => _professionalExperience;
-  set professionalExperience(String professionalExperience) =>
+  List<String> get professionalExperience => _professionalExperience;
+  set professionalExperience(List<String> professionalExperience) =>
       _professionalExperience = professionalExperience;
 
-  String get entrepreneurshipExperience => _entrepreneurshipExperience;
-  set entrepreneurshipExperience(String entrepreneurshipExperience) =>
+  List<String> get entrepreneurshipExperience => _entrepreneurshipExperience;
+  set entrepreneurshipExperience(List<String> entrepreneurshipExperience) =>
       _entrepreneurshipExperience = entrepreneurshipExperience;
 
-  String get education => _education;
-  set education(String education) => _education = education;
+  List<String> get education => _education;
+  set education(List<String> education) => _education = education;
 
-  String get industryCertifications => _industryCertifications;
-  set industryCertifications(String industryCertifications) =>
+  List<String> get industryCertifications => _industryCertifications;
+  set industryCertifications(List<String> industryCertifications) =>
       _industryCertifications = industryCertifications;
 
-  String get awardsAchievements => _awardsAchievements;
-  set awardsAchievements(String awardsAchievements) =>
+  List<String> get awardsAchievements => _awardsAchievements;
+  set awardsAchievements(List<String> awardsAchievements) =>
       _awardsAchievements = awardsAchievements;
-}
 
+  List<String> get trackRecord => _trackRecord;
+  set trackRecord(List<String> trackRecord) =>
+      _trackRecord = trackRecord;
+}

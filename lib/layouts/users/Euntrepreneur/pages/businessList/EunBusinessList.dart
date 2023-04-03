@@ -35,7 +35,7 @@ class _EunBusinessListState extends State<EunBusinessList> {
                 ),
               ),
             ),
-            Expanded(
+            Flexible(
               child: ListView.builder(
                 itemCount: 20, // replace with actual user data length
                 itemBuilder: (context, index) {
@@ -57,4 +57,5 @@ class _EunBusinessListState extends State<EunBusinessList> {
       ),
     );
   }
+
 }

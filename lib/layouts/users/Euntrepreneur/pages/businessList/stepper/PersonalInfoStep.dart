@@ -1,11 +1,19 @@
 class PersonalInfoStep {
-  late String firstName;
-  late String lastName;
+  late String fullName;
   late String email;
   late String phone;
+  late String city;
+  late List<String> professionalExperience;
 
-  PersonalInfoStep({required this.firstName, required this.lastName, required this.email, required this.phone});
+  PersonalInfoStep({
+    required this.fullName,
+    required this.email,
+    required this.phone,
+    required this.city,
+    required this.professionalExperience,
+  });
 }
+
 
 
 

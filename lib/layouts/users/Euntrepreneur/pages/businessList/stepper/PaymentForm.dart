@@ -31,66 +31,68 @@ class _PaymentFormState extends State<PaymentForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextFormField(
-            controller: _cardNumberController,
-            decoration: InputDecoration(
-              labelText: 'Card Number',
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your card number';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _expirationDateController,
-            decoration: InputDecoration(
-              labelText: 'Expiration Date (MM/YY)',
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your expiration date';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _cvvController,
-            decoration: InputDecoration(
-              labelText: 'CVV',
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your CVV';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-
-              ElevatedButton(
-                child: Text('Submit'),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    widget.paymentStep.cardNumber = _cardNumberController.text;
-                    widget.paymentStep.expirationDate = _expirationDateController.text;
-                    widget.paymentStep.cvv = _cvvController.text;
-                    widget.onSubmit();
-                  }
-                },
+    return SingleChildScrollView(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextFormField(
+              controller: _cardNumberController,
+              decoration: InputDecoration(
+                labelText: 'Card Number',
               ),
-            ],
-          ),
-        ],
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter your card number';
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              controller: _expirationDateController,
+              decoration: InputDecoration(
+                labelText: 'Expiration Date (MM/YY)',
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter your expiration date';
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              controller: _cvvController,
+              decoration: InputDecoration(
+                labelText: 'CVV',
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter your CVV';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+
+                ElevatedButton(
+                  child: Text('Submit'),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      widget.paymentStep.cardNumber = _cardNumberController.text;
+                      widget.paymentStep.expirationDate = _expirationDateController.text;
+                      widget.paymentStep.cvv = _cvvController.text;
+                      widget.onSubmit();
+                    }
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

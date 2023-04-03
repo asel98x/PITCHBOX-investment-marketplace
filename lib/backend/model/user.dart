@@ -13,6 +13,7 @@ abstract class User {
   String _twitter;
   String _facebook;
   String _instagram;
+  String _website;
   String _provider;
   String _imgUrl;
 
@@ -31,6 +32,7 @@ abstract class User {
     required String twitter,
     required String facebook,
     required String instagram,
+    required String website,
     required String provider,
     required String imgUrl,
   })  : _uId = uId,
@@ -47,6 +49,7 @@ abstract class User {
         _twitter = twitter,
         _facebook = facebook,
         _instagram = instagram,
+        _website = website,
         _provider = provider,
         _imgUrl = imgUrl;
 
@@ -91,6 +94,9 @@ abstract class User {
 
   String get instagram => _instagram;
   set instagram(String instagram) => _instagram = instagram;
+
+  String get website => _website;
+  set website(String website) => _website = website;
 
   String get provider => _provider;
   set provider(String provider) => _provider = provider;

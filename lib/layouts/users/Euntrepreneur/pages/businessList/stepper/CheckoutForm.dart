@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pitchbox/backend/model/businessTeam.dart';
+import 'package:pitchbox/backend/model/entrepreneur.dart';
+import '../../../../../../backend/model/business.dart';
 import 'AddressForm.dart';
 import 'PaymentForm.dart';
 import 'PersonalInfoForm.dart';
 import 'PersonalInfoStep.dart';
+import 'businessInfoForm.dart';
 
 class CheckoutForm extends StatefulWidget {
   @override
@@ -12,12 +16,12 @@ class CheckoutForm extends StatefulWidget {
 class _CheckoutFormState extends State<CheckoutForm> {
   int _currentStep = 0;
 
-  PersonalInfoStep _personalInfoStep =
-  PersonalInfoStep(firstName: '', lastName: '', email: '', phone: '');
-  AddressStep _addressStep =
-  AddressStep(street: '', city: '', state: '', zipCode: '');
-  PaymentStep _paymentStep =
-  PaymentStep(cardNumber: '', expirationDate: '', cvv: '');
+  Business _business = Business(businessId: '', businessName: '', companyDescription: '', website: '', executiveSummary: '', businessModel: '', valueProposition: '', productOrServiceOffering: '', businessIndustry: '', fundingNeeds: '');
+  Entrepreneur _entrepreneur = Entrepreneur(uId: 0, name: '', email: '', mobile: '', street: '', city: '', state: '', zipCode: '', country: '', industry: '', linkedin: '', twitter: '', facebook: '', instagram: '', provider: '', imgUrl: '', professionalExperience: [], entrepreneurshipExperience: [], education: [], industryCertifications: [], awardsAchievements: [], trackRecord: [], website: '');
+  BusinessTeam _businessTeam = BusinessTeam(teamMemberId: '', teamMember: '', teamMemberRole: '', teamMemberExperience: '', teamMemberAchievements: '', teamMemberLinkedIn_Profiles: '', teamMemberResponsibilities: '', teamCulture: '');
+  PersonalInfoStep _personalInfoStep =PersonalInfoStep(fullName: '', city: '', email: '', phone: '', professionalExperience: []);
+  AddressStep _addressStep =AddressStep(street: '', city: '', state: '', zipCode: '');
+  PaymentStep _paymentStep =PaymentStep(cardNumber: '', expirationDate: '', cvv: '');
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   void _goToNextStep() {
@@ -61,20 +65,18 @@ class _CheckoutFormState extends State<CheckoutForm> {
                           ? StepState.editing
                           : StepState.complete,
                       isActive: _currentStep >= 0,
-                      title: Text('Personal Information'),
-                      content: PersonalInfoForm(
-                        personalInfoStep: _personalInfoStep,
+                      title: Text('Business Information'),
+                      content: businessInfoForm(
+                        business: _business,
                         onNext: _goToNextStep,
                       ),
                     ),
                     Step(
-                      state: _currentStep <= 1
-                          ? StepState.editing
-                          : StepState.complete,
-                      isActive: _currentStep >= 1,
-                      title: Text('Shipping Address'),
-                      content: AddressForm(
-                        addressStep: _addressStep,
+                      state: _currentStep <= 0 ? StepState.editing : StepState.complete,
+                      isActive: _currentStep >= 0,
+                      title: Text('Personal Information'),
+                      content: PersonalInfoForm(
+                        entrepreneur: _entrepreneur,
                         onNext: _goToNextStep,
                       ),
                     ),
@@ -92,27 +94,22 @@ class _CheckoutFormState extends State<CheckoutForm> {
                     ),
                   ],
                 ),
+
                 if (_currentStep == 2)
                   ElevatedButton(
                     child: Text('Place Order'),
                     onPressed: () {
-                      print(_personalInfoStep.firstName);
-                      print(_personalInfoStep.lastName);
-                      print(_personalInfoStep.phone);
-                      print(_personalInfoStep.email);
 
-                      print("-------------------------");
+                      print(_business.businessName);
+                      print(_business.businessIndustry);
+                      print(_business.executiveSummary);
+                      print(_business.companyDescription);
+                      print(_business.businessModel);
+                      print(_business.valueProposition);
+                      print(_business.productOrServiceOffering);
+                      print(_business.fundingNeeds);
+                      print(_business.website);
 
-                      print(_addressStep.street);
-                      print(_addressStep.city);
-                      print(_addressStep.state);
-                      print(_addressStep.zipCode);
-
-                      print("-------------------------");
-
-                      print(_paymentStep.cardNumber);
-                      print(_paymentStep.expirationDate);
-                      print(_paymentStep.cvv);
                     },
                   ),
               ],
