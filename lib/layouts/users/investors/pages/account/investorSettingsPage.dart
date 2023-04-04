@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pitchbox/layouts/signupScreen.dart';
+import 'package:pitchbox/layouts/users/investors/pages/account/stepper/investorCheckout.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:provider/provider.dart';
 
@@ -72,8 +74,8 @@ class _InvestorSettingsPageState extends State<InvestorSettingsPage> {
             SizedBox(
               height: 10,
             ),
-            buildAccountOptionRow(context, "Change password"),
-            buildAccountOptionRow(context, "Content settings"),
+            buildAccountOptionRow(context, "Investor Profile Manage"),
+            buildAccountOptionRow(context, "Signup Screen"),
             buildAccountOptionRow(context, "Social"),
             buildAccountOptionRow(context, "Language"),
             buildAccountOptionRow(context, "Privacy and security"),
@@ -143,8 +145,9 @@ class _InvestorSettingsPageState extends State<InvestorSettingsPage> {
           title,
           style: TextStyle(
               fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey[600]),
+              fontWeight: FontWeight.normal,
+              color: AppColors.textColor),
+
         ),
         Transform.scale(
             scale: 0.7,
@@ -159,28 +162,18 @@ class _InvestorSettingsPageState extends State<InvestorSettingsPage> {
   GestureDetector buildAccountOptionRow(BuildContext context, String title) {
     return GestureDetector(
       onTap: () {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text(title),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text("Option 1"),
-                    Text("Option 2"),
-                    Text("Option 3"),
-                  ],
-                ),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text("Close")),
-                ],
-              );
-            });
+
+        if (title == "Investor Profile Manage") {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => InvestorCheckout()));
+        } else if (title == "Signup Screen") {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => SignupScreen()));
+        } else if (title == "Social") {
+
+        } else if (title == "Language") {
+
+        } else if (title == "Privacy and security") {
+
+        }
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -191,13 +184,13 @@ class _InvestorSettingsPageState extends State<InvestorSettingsPage> {
               title,
               style: TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey[600],
+                fontWeight: FontWeight.normal,
+                color: AppColors.textColor,
               ),
             ),
             Icon(
               Icons.arrow_forward_ios,
-              color: Colors.grey,
+              color: AppColors.textColor,
             ),
           ],
         ),

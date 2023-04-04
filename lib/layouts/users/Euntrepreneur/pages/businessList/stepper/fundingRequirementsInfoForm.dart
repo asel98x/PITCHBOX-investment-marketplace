@@ -1,43 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:pitchbox/backend/model/business.dart';
+import 'package:pitchbox/backend/model/fund.dart';
 
 
-class businessInfoForm extends StatefulWidget {
-  late final Business business;
+class fundingRequirementsInfoForm extends StatefulWidget {
+  late final Fund fund;
   late final Function onNext;
 
-  businessInfoForm({required this.business, required this.onNext});
+  fundingRequirementsInfoForm({required this.fund, required this.onNext});
 
   @override
-  _businessInfoFormState createState() => _businessInfoFormState();
+  _fundingRequirementsInfoFormState createState() => _fundingRequirementsInfoFormState();
 }
 
-class _businessInfoFormState extends State<businessInfoForm> {
+class _fundingRequirementsInfoFormState extends State<fundingRequirementsInfoForm> {
   final _formKey = GlobalKey<FormState>();
-  final _businessName = TextEditingController();
-  final _businessIndustry = TextEditingController();
-  final _businessLocation = TextEditingController();
-  final _companyDescription = TextEditingController();
-  final _website = TextEditingController();
-  final _executiveSummary = TextEditingController();
-  final _businessModel = TextEditingController();
-  final _valueProposition = TextEditingController();
-  final _productOrServiceOffering = TextEditingController();
-  final _fundingNeeds = TextEditingController();
+  final _fundAmount = TextEditingController();
+  final _fundPurpose = TextEditingController();
+  final _timeline = TextEditingController();
+  final _fundingSources = TextEditingController();
+  final _investmentTerms = TextEditingController();
+  final _investorBenefits = TextEditingController();
+  final _riskFactors = TextEditingController();
+  final _minimumInvestmentAmount = TextEditingController();
+  final _maximumInvestmentAmount = TextEditingController();
+  final _investmentStage = TextEditingController();
+  final _industryFocus = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    if (widget.business != null) {
-      _businessName.text = widget.business.businessName;
-      _executiveSummary.text = widget.business.executiveSummary;
-      _businessIndustry.text = widget.business.businessIndustry;
-      _businessLocation.text = widget.business.businessLocation;
-      _companyDescription.text = widget.business.companyDescription;
-      _businessModel.text = widget.business.businessModel;
-      _valueProposition.text = widget.business.valueProposition;
-      _productOrServiceOffering.text = widget.business.productOrServiceOffering;
-      _website.text = widget.business.website;
+    if (widget.fund != null) {
+      _fundAmount.text = widget.fund.fundAmount;
+      _fundPurpose.text = widget.fund.fundPurpose;
+      _timeline.text = widget.fund.timeline;
+      _fundingSources.text = widget.fund.fundingSources;
+      _investmentTerms.text = widget.fund.investmentTerms;
+      _investorBenefits.text = widget.fund.investorBenefits;
+      _riskFactors.text = widget.fund.riskFactors;
+      _minimumInvestmentAmount.text = widget.fund.minimumInvestmentAmount;
+      _maximumInvestmentAmount.text = widget.fund.maximumInvestmentAmount;
+      _investmentStage.text = widget.fund.investmentStage;
+      _industryFocus.text = widget.fund.industryFocus;
     }
   }
 
@@ -50,11 +54,11 @@ class _businessInfoFormState extends State<businessInfoForm> {
         child: Column(
           children: [
             TextFormField(
-              controller: _businessName,
+              controller: _fundAmount,
               decoration: InputDecoration(
-                labelText: 'Business Name',
+                labelText: 'Fund Amount',
                 suffixIcon: Tooltip(
-                  message: 'Business Name',
+                  message: 'Fund Amount',
                   child: IconButton(
                     icon: Icon(Icons.info),
                     onPressed: () {},
@@ -67,18 +71,18 @@ class _businessInfoFormState extends State<businessInfoForm> {
               ),
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter Business Name';
+                  return 'Please enter Fund Amount';
                 }
                 return null;
               },
             ),
             SizedBox(height: 20),
             TextFormField(
-              controller: _businessIndustry,
+              controller: _fundPurpose,
               decoration: InputDecoration(
-                labelText: 'Business Industry',
+                labelText: 'Fund Purpose',
                 suffixIcon: Tooltip(
-                  message: 'Business Industry',
+                  message: 'Fund Purpose',
                   child: IconButton(
                     icon: Icon(Icons.info),
                     onPressed: () {},
@@ -91,42 +95,18 @@ class _businessInfoFormState extends State<businessInfoForm> {
               ),
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter Business Industry';
+                  return 'Please enter Fund Purpose';
                 }
                 return null;
               },
             ),
             SizedBox(height: 20),
             TextFormField(
-              controller: _businessLocation,
+              controller: _timeline,
               decoration: InputDecoration(
-                labelText: 'Business Location',
+                labelText: 'Timeline',
                 suffixIcon: Tooltip(
-                  message: 'Business Location',
-                  child: IconButton(
-                    icon: Icon(Icons.info),
-                    onPressed: () {},
-                  ),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(),
-                ),
-              ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter Business Location';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: _executiveSummary,
-              decoration: InputDecoration(
-                labelText: 'Executive Summary',
-                suffixIcon: Tooltip(
-                  message: 'Executive Summary',
+                  message: 'Timeline',
                   child: IconButton(
                     icon: Icon(Icons.info),
                     onPressed: () {},
@@ -140,18 +120,18 @@ class _businessInfoFormState extends State<businessInfoForm> {
               maxLines: 3, // Set the maximum number of lines for the input
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter a Executive Summary';
+                  return 'Please enter a Timeline';
                 }
                 return null;
               },
             ),
             SizedBox(height: 20),
             TextFormField(
-              controller: _companyDescription,
+              controller: _fundingSources,
               decoration: InputDecoration(
-                labelText: 'Company Description',
+                labelText: 'Funding Sources',
                 suffixIcon: Tooltip(
-                  message: 'Company Description',
+                  message: 'Funding Sources',
                   child: IconButton(
                     icon: Icon(Icons.info),
                     onPressed: () {},
@@ -165,18 +145,18 @@ class _businessInfoFormState extends State<businessInfoForm> {
               maxLines: 3, // Set the maximum number of lines for the input
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter a Company Description';
+                  return 'Please enter Funding Sources';
                 }
                 return null;
               },
             ),
             SizedBox(height: 20),
             TextFormField(
-              controller: _businessModel,
+              controller: _investmentTerms,
               decoration: InputDecoration(
-                labelText: 'Business Model',
+                labelText: 'Investment Terms',
                 suffixIcon: Tooltip(
-                  message: 'Business Model',
+                  message: 'Investment Terms',
                   child: IconButton(
                     icon: Icon(Icons.info),
                     onPressed: () {},
@@ -190,18 +170,18 @@ class _businessInfoFormState extends State<businessInfoForm> {
               maxLines: 3, // Set the maximum number of lines for the input
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter a Business Model';
+                  return 'Please enter Investment Terms';
                 }
                 return null;
               },
             ),
             SizedBox(height: 20),
             TextFormField(
-              controller:  _valueProposition,
+              controller:  _investorBenefits,
               decoration: InputDecoration(
-                labelText: ' Value Proposition',
+                labelText: ' Investor Benefits',
                 suffixIcon: Tooltip(
-                  message: 'Value Proposition',
+                  message: 'Investor Benefits',
                   child: IconButton(
                     icon: Icon(Icons.info),
                     onPressed: () {},
@@ -215,18 +195,18 @@ class _businessInfoFormState extends State<businessInfoForm> {
               maxLines: 3, // Set the maximum number of lines for the input
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter a Value Proposition';
+                  return 'Please enter Investor Benefits';
                 }
                 return null;
               },
             ),
             SizedBox(height: 20),
             TextFormField(
-              controller:  _productOrServiceOffering,
+              controller:  _riskFactors,
               decoration: InputDecoration(
-                labelText: ' Product Or Service Offering',
+                labelText: 'Risk Factors',
                 suffixIcon: Tooltip(
-                  message: 'Product Or Service Offering',
+                  message: 'Risk Factors',
                   child: IconButton(
                     icon: Icon(Icons.info),
                     onPressed: () {},
@@ -240,17 +220,17 @@ class _businessInfoFormState extends State<businessInfoForm> {
               maxLines: 3, // Set the maximum number of lines for the input
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter Product Or Service Offering';
+                  return 'Please enter Risk Factors';
                 }
                 return null;
               },
             ),SizedBox(height: 20),
             TextFormField(
-              controller: _fundingNeeds,
+              controller: _minimumInvestmentAmount,
               decoration: InputDecoration(
-                labelText: 'Funding Needs',
+                labelText: 'Minimum Investment Amount',
                 suffixIcon: Tooltip(
-                  message: 'Funding Needs',
+                  message: 'Minimum Investment Amount',
                   child: IconButton(
                     icon: Icon(Icons.info),
                     onPressed: () {},
@@ -264,18 +244,18 @@ class _businessInfoFormState extends State<businessInfoForm> {
               maxLines: 3,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Funding Needs';
+                  return 'Please enter Minimum Investment Amount';
                 }
                 return null;
               },
             ),
             SizedBox(height: 20),
             TextFormField(
-              controller: _website,
+              controller: _maximumInvestmentAmount,
               decoration: InputDecoration(
-                labelText: 'Website',
+                labelText: 'Maximum Investment Amount',
                 suffixIcon: Tooltip(
-                  message: 'Website',
+                  message: 'Maximum Investment Amount',
                   child: IconButton(
                     icon: Icon(Icons.info),
                     onPressed: () {},
@@ -288,7 +268,55 @@ class _businessInfoFormState extends State<businessInfoForm> {
               ),
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter Website';
+                  return 'Please enter Maximum Investment Amount';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 20),
+            TextFormField(
+              controller: _investmentStage,
+              decoration: InputDecoration(
+                labelText: 'Investment Stage',
+                suffixIcon: Tooltip(
+                  message: 'Investment Stage',
+                  child: IconButton(
+                    icon: Icon(Icons.info),
+                    onPressed: () {},
+                  ),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(),
+                ),
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter Investment Stage';
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 20),
+            TextFormField(
+              controller: _industryFocus,
+              decoration: InputDecoration(
+                labelText: 'Industry Focus',
+                suffixIcon: Tooltip(
+                  message: 'Industry Focus',
+                  child: IconButton(
+                    icon: Icon(Icons.info),
+                    onPressed: () {},
+                  ),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(),
+                ),
+              ),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter Industry Focus';
                 }
                 return null;
               },
@@ -297,34 +325,21 @@ class _businessInfoFormState extends State<businessInfoForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children:[
-              //   ElevatedButton(
-              //   child: Text('Previous'),
-              //   onPressed: () {
-              //     widget.onNext(Business(
-              //       businessName: _businessName.text,
-              //       executiveSummary: _executiveSummary.text,
-              //       companyDescription: _companyDescription.text,
-              //       businessModel: _businessModel.text,
-              //       valueProposition: _valueProposition.text,
-              //       productOrServiceOffering: _productOrServiceOffering.text,
-              //       website: _website.text, businessId: '',
-              //     ), -1);
-              //   },
-              // ),
                 ElevatedButton(
                   child: Text('Next'),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      widget.business.businessName = _businessName.text;
-                      widget.business.businessIndustry = _businessIndustry.text;
-                      widget.business.businessLocation = _businessLocation.text;
-                      widget.business.executiveSummary = _executiveSummary.text;
-                      widget.business.companyDescription = _companyDescription.text;
-                      widget.business.businessModel = _businessModel.text;
-                      widget.business.valueProposition = _valueProposition.text;
-                      widget.business.productOrServiceOffering = _productOrServiceOffering.text;
-                      widget.business.fundingNeeds = _fundingNeeds.text;
-                      widget.business.website = _website.text;
+                      widget.fund.fundAmount = _fundAmount.text;
+                      widget.fund.fundPurpose = _fundPurpose.text;
+                      widget.fund.timeline = _timeline.text;
+                      widget.fund.fundingSources = _fundingSources.text;
+                      widget.fund.investmentTerms = _investmentTerms.text;
+                      widget.fund.investorBenefits = _investorBenefits.text;
+                      widget.fund.riskFactors = _riskFactors.text;
+                      widget.fund.minimumInvestmentAmount = _minimumInvestmentAmount.text;
+                      widget.fund.maximumInvestmentAmount = _maximumInvestmentAmount.text;
+                      widget.fund.investmentStage = _investmentStage.text;
+                      widget.fund.industryFocus = _industryFocus.text;
                       widget.onNext();
                     }
                   },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pitchbox/styles/appColors.dart';
 
 import 'stepper/CheckoutForm.dart';
 
@@ -18,6 +19,7 @@ class _EunBusinessListState extends State<EunBusinessList> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Business List'),
+          backgroundColor: AppColors.mainBlueColor,
           centerTitle: true,
         ),
         body: Column(
@@ -53,6 +55,7 @@ class _EunBusinessListState extends State<EunBusinessList> {
                 builder: (BuildContext context) => CheckoutForm()));
           },
           child: Icon(Icons.add),
+            backgroundColor: AppColors.mainBlueColor,
         ),
       ),
     );

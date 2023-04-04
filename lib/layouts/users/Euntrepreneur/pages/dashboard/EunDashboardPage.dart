@@ -5,7 +5,6 @@ import 'package:pitchbox/layouts/users/Euntrepreneur/pages/alerts/EunAlertsPage.
 import 'package:pitchbox/layouts/users/Euntrepreneur/pages/businessList/EunBusinessList.dart';
 import 'package:pitchbox/layouts/users/Euntrepreneur/pages/news/EunNewsPage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/account/userProfilePage.dart';
-import 'package:pitchbox/layouts/users/investors/pages/home/businessList.dart';
 import 'package:pitchbox/layouts/users/investors/pages/alerts/alertsPage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/account/accountPage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/news/newsPage.dart';

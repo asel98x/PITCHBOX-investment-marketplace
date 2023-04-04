@@ -246,7 +246,8 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: Icon(Icons.remove_circle),
+                        color: AppColors.redColor,
                         onPressed: () {
                           setState(() {
                             _professionalExperienceController.removeAt(index);
@@ -313,7 +314,8 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: Icon(Icons.remove_circle),
+                        color: AppColors.redColor,
                         onPressed: () {
                           setState(() {
                             _entrepreneurshipExperienceController.removeAt(index);
@@ -379,7 +381,8 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: Icon(Icons.remove_circle),
+                        color: AppColors.redColor,
                         onPressed: () {
                           setState(() {
                             _educationController.removeAt(index);
@@ -445,7 +448,8 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: Icon(Icons.remove_circle),
+                        color: AppColors.redColor,
                         onPressed: () {
                           setState(() {
                             _industryCertificationsController.removeAt(index);
@@ -511,7 +515,8 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: Icon(Icons.remove_circle),
+                        color: AppColors.redColor,
                         onPressed: () {
                           setState(() {
                             _awardsAchievementsController.removeAt(index);
@@ -577,7 +582,8 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: Icon(Icons.remove_circle),
+                        color: AppColors.redColor,
                         onPressed: () {
                           setState(() {
                             _trackRecordController.removeAt(index);

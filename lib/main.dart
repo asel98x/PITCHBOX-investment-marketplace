@@ -8,7 +8,8 @@ import 'package:pitchbox/provider/internetProvider.dart';
 import 'package:pitchbox/provider/signinProvider.dart';
 import 'package:provider/provider.dart';
 
-import 'layouts/users/Euntrepreneur/pages/businessList/stepper/test.dart';
+import 'layouts/users/Euntrepreneur/pages/businessList/stepper/BusinessTeamMember.dart';
+import 'layouts/users/investors/pages/dashboard/dashboardPage.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +55,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: BusinessTeamForm(),
+        home: DashboardPage(),
       ),
     );
   }

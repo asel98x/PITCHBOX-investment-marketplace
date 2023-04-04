@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class BusinessListPage extends StatefulWidget {
   const BusinessListPage({Key? key}) : super(key: key);
 
@@ -9,9 +8,8 @@ class BusinessListPage extends StatefulWidget {
 }
 
 class _BusinessListPageState extends State<BusinessListPage> {
-
   // Define a list to keep track of the completion status of each step
-  List<bool> _stepCompleted = [false, false, false];
+  List<bool> _stepCompleted=[true,true,true];
   int _activeStepIndex = 0;
 
   TextEditingController name = TextEditingController();
@@ -61,8 +59,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
       ),
     ),
     Step(
-        state:
-        _activeStepIndex <= 1 ? StepState.editing : StepState.complete,
+        state: _activeStepIndex <= 1 ? StepState.editing : StepState.complete,
         isActive: _activeStepIndex >= 1,
         title: const Text('Address'),
         content: Container(
@@ -112,64 +109,62 @@ class _BusinessListPageState extends State<BusinessListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
         title: const Text('Flutter Stepper'),
-      ),
-      body: Stepper(
-        type: StepperType.horizontal,
-        currentStep: _activeStepIndex,
-        steps: stepList(),
-        onStepContinue: () {
-          if (_activeStepIndex < (stepList().length - 1)) {
-            setState(() {
-              // Mark the current step as completed
-              _stepCompleted[_activeStepIndex] = true;
-              // Move to the next step
-              _activeStepIndex += 1;
-            });
-          } else {
-            print('Submitted');
-          }
-        },
-        onStepCancel: () {
-          if (_activeStepIndex == 0) {
-            return;
-          }
+    ),
+    body: Stepper(
+    type: StepperType.vertical,
+    currentStep: _activeStepIndex,
+    steps: stepList(),
+    onStepContinue: () {
+    if (_activeStepIndex < (stepList().length - 1)) {
+    setState(() {
+    // Mark the current step as completed
+    _stepCompleted[_activeStepIndex] = true;
+    // Move to the next step
+    _activeStepIndex += 1;
+    });
+    } else {
+    print('Submitted');
+    }
+    },
+    onStepCancel: () {
+    if (_activeStepIndex == 0) {
+      return;
+    }
+    setState(() {
+      _activeStepIndex -= 1;
+    });
+    },
+      onStepTapped: (int index) {
+        if (_stepCompleted[index]) {
           setState(() {
-            _activeStepIndex -= 1;
+            _activeStepIndex = index;
           });
-        },
-        onStepTapped: (int index) {
-          if (_stepCompleted[index]) {
-            setState(() {
-              _activeStepIndex = index;
-            });
-          }
-        },
-        controlsBuilder: (BuildContext context, ControlsDetails controlsDetails) {
-          final isLastStep = _activeStepIndex == stepList().length - 1;
-          final isCompleted = _stepCompleted[_activeStepIndex];
-          return Row(
-            children: [
-              if (_activeStepIndex > 0)
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: controlsDetails.onStepCancel,
-                    child: const Text('Back'),
-                  ),
-                ),
+        }
+      },
+      controlsBuilder: (BuildContext context, ControlsDetails controlsDetails) {
+        final isLastStep = _activeStepIndex == stepList().length - 1;
+        final isCompleted = _stepCompleted[_activeStepIndex];
+        return Row(
+          children: [
+            if (_activeStepIndex > 0)
               Expanded(
                 child: ElevatedButton(
-                  onPressed: isCompleted ? controlsDetails.onStepContinue : null,
-                  child: isLastStep ? const Text('Submit') : const Text('Next'),
+                  onPressed: controlsDetails.onStepCancel,
+                  child: const Text('Back'),
                 ),
               ),
-            ],
-          );
-        },
-      ),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: isCompleted ? controlsDetails.onStepContinue : null,
+                child: isLastStep ? const Text('Submit') : const Text('Next'),
+              ),
+            ),
+          ],
+        );
+      },
+    ),
     );
   }
-
-
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pitchbox/layouts/orDivider.dart';
 import 'package:pitchbox/layouts/socialIcon.dart';
 import 'package:pitchbox/layouts/users/investors/pages/dashboard/dashboardPage.dart';
-import 'package:pitchbox/layouts/users/investors/pages/home/businessList.dart';
 import 'package:pitchbox/layouts/users/userCheckScreen.dart';
 import 'package:provider/provider.dart';
 import '../provider/internetProvider.dart';

@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../backend/model/businessTeam.dart';
 
-class BusinessTeamForm extends StatefulWidget {
+class testForm extends StatefulWidget {
+
+
   @override
-  _BusinessTeamFormState createState() => _BusinessTeamFormState();
+  _testFormState createState() => _testFormState();
 }
 
-class _BusinessTeamFormState extends State<BusinessTeamForm> {
+class _testFormState extends State<testForm> {
   List<BusinessTeam> _teamMembers = [];
+
 
   void _addTeamMember() {
     setState(() {
@@ -27,7 +30,6 @@ class _BusinessTeamFormState extends State<BusinessTeamForm> {
       _teamMembers.add(newMember);
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -113,28 +115,26 @@ class _BusinessTeamFormState extends State<BusinessTeamForm> {
                               },
                             ),
                             TextFormField(
-                              initialValue:
-                              _teamMembers[index].teamMemberLinkedIn_Profiles,
+                              initialValue: _teamMembers[index]
+                                  .teamMemberLinkedIn_Profiles,
                               decoration: InputDecoration(
                                   labelText: 'LinkedIn Profiles'),
                               onChanged: (value) {
                                 setState(() {
                                   _teamMembers[index]
-                                      .teamMemberLinkedIn_Profiles =
-                                      value;
+                                      .teamMemberLinkedIn_Profiles = value;
                                 });
                               },
                             ),
                             TextFormField(
-                              initialValue:
-                              _teamMembers[index].teamMemberResponsibilities,
-                              decoration:
-                              InputDecoration(labelText: 'Responsibilities'),
+                              initialValue: _teamMembers[index]
+                                  .teamMemberResponsibilities,
+                              decoration: InputDecoration(
+                                  labelText: 'Responsibilities'),
                               onChanged: (value) {
                                 setState(() {
                                   _teamMembers[index]
-                                      .teamMemberResponsibilities =
-                                      value;
+                                      .teamMemberResponsibilities = value;
                                 });
                               },
                             ),
@@ -161,15 +161,13 @@ class _BusinessTeamFormState extends State<BusinessTeamForm> {
           SizedBox(height: 20),
           ElevatedButton(
               child: Text('Next'),
-            onPressed: (){
+              onPressed: () {
 
-            }
-          ),
+
+              }),
           SizedBox(height: 20),
         ],
       ),
     );
   }
-
 }
-

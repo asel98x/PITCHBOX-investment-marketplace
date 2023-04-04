@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pitchbox/layouts/users/investors/pages/account/userProfilePage.dart';
-import 'package:pitchbox/layouts/users/investors/pages/home/businessList.dart';
 import 'package:pitchbox/layouts/users/investors/pages/alerts/alertsPage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/account/accountPage.dart';
 import 'package:pitchbox/layouts/users/investors/pages/news/newsPage.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:pitchbox/layouts/users/investors/pages/startups/businessList.dart';
 import 'package:pitchbox/styles/appColors.dart';
 
 

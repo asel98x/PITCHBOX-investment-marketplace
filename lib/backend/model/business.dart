@@ -2,6 +2,7 @@ class Business {
    String _businessId;
    String _businessIndustry;
    String _businessName;
+   String _businessLocation;
    String _companyDescription;
    String _website;
    String _executiveSummary;
@@ -14,6 +15,7 @@ class Business {
       required String businessId,
       required String businessIndustry,
       required String businessName,
+      required String businessLocation,
       required String companyDescription,
       required String website,
       required String executiveSummary,
@@ -25,6 +27,7 @@ class Business {
        : _businessId = businessId,
           _businessIndustry = businessIndustry,
           _businessName = businessName,
+          _businessLocation = businessLocation,
           _companyDescription = companyDescription,
           _website = website,
           _executiveSummary = executiveSummary,
@@ -45,6 +48,10 @@ class Business {
    String get businessName => _businessName;
 
    set businessName(String businessName) => _businessName = businessName;
+
+   String get businessLocation => _businessLocation;
+
+   set businessLocation(String businessLocation) => _businessLocation = businessLocation;
 
    String get companyDescription => _companyDescription;
 
