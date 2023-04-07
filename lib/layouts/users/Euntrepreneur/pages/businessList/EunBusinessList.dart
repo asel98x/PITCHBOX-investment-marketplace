@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pitchbox/layouts/users/Euntrepreneur/pages/businessList/stepper/businessListCheckoutForm.dart';
 import 'package:pitchbox/styles/appColors.dart';
 
 import 'stepper/CheckoutForm.dart';
@@ -20,7 +21,6 @@ class _EunBusinessListState extends State<EunBusinessList> {
         appBar: AppBar(
           title: Text('Business List'),
           backgroundColor: AppColors.mainBlueColor,
-          centerTitle: true,
         ),
         body: Column(
           children: [
@@ -52,7 +52,7 @@ class _EunBusinessListState extends State<EunBusinessList> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => CheckoutForm()));
+                builder: (BuildContext context) => BusinessListCheckoutForm()));
           },
           child: Icon(Icons.add),
             backgroundColor: AppColors.mainBlueColor,

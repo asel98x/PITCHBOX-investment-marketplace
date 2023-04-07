@@ -1,28 +1,61 @@
-// import 'package:pitchbox/backend/model/user.dart';
-//
-// class investor extends User{
-//   String _investorId;
-//   String _professionalBackground;
-//   List<String> _investmentExperience;
-//
-//   investor({
-//     required int uId,
-//     required String name,
-//     required String email,
-//     required String mobile,
-//     required String street,
-//     required String city,
-//     required String state,
-//     required String zipCode,
-//     required String country,
-//     required String industry,
-//     required String linkedin,
-//     required String twitter,
-//     required String facebook,
-//     required String instagram,
-//     required String website,
-//     required String provider,
-//     required String imgUrl,
-//   });
-//
-// }
+import 'package:pitchbox/backend/model/user.dart';
+
+class Investor {
+  String investorId;
+  String fullName;
+  String email;
+  String investmentInterest;
+  List<String> professionalBackground;
+  List<String> investmentExperience;
+  String accreditedInvestorStatus;
+  String linkedinProfile;
+
+  List<String> investmentstrategy;
+  List<String> investmentSuccessStory;
+
+  Investor({
+    required this.investorId,
+    required this.fullName,
+    required this.email,
+    required this.investmentInterest,
+    required this.professionalBackground,
+    required this.investmentExperience,
+    required this.accreditedInvestorStatus,
+    required this.linkedinProfile,
+
+    required this.investmentstrategy,
+    required this.investmentSuccessStory,
+  });
+
+  factory Investor.fromMap(Map<String, dynamic> map) {
+    return Investor(
+      investorId: map['investorId'],
+      fullName: map['fullName'],
+      email: map['email'],
+      investmentInterest: map['investmentInterest'],
+      professionalBackground: List<String>.from(map['professionalBackground']),
+      investmentExperience: List<String>.from(map['investmentExperience']),
+      accreditedInvestorStatus: map['accreditedInvestorStatus'],
+      linkedinProfile: map['linkedinProfile'],
+
+      investmentstrategy: List<String>.from(map['investmentstrategy']),
+      investmentSuccessStory: List<String>.from(map['investmentSuccessStory']),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'investorId': investorId,
+      'fullName': fullName,
+      'email': email,
+      'investmentInterest': investmentInterest,
+      'professionalBackground': professionalBackground,
+      'investmentExperience': investmentExperience,
+      'accreditedInvestorStatus': accreditedInvestorStatus,
+      'linkedinProfile': linkedinProfile,
+
+      'investmentstrategy': investmentstrategy,
+      'investmentSuccessStory': investmentSuccessStory,
+    };
+  }
+}

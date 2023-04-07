@@ -1,6 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:pitchbox/backend/controller/investorController.dart';
+import 'package:pitchbox/backend/model/fund.dart';
+import 'package:pitchbox/backend/model/investor.dart';
 import 'package:pitchbox/styles/appStyles.dart';
 
+import '../../../../../../backend/service/investorService.dart';
 import '../../../../../../styles/appColors.dart';
 
 class InvestorCheckout extends StatefulWidget {
@@ -11,8 +17,13 @@ class InvestorCheckout extends StatefulWidget {
 }
 
 class _InvestorCheckoutState extends State<InvestorCheckout> {
-  List<bool> _stepCompleted = [true, true, true, true];
+  final _formKey = GlobalKey<FormState>();
+  final _industryController = IndustryController();
+  InvestorService _investorService = InvestorService();
+  List<String> _selectedIndustries = [];
+  List<bool> _stepCompleted = [true, true, true];
   int _activeStepIndex = 0;
+  bool isSubmitting = false;
 
 //---------------Personal Information----------------------
   final _name = TextEditingController();
@@ -31,7 +42,7 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
   final List<String> _selectedInvestmentStage = ['seed', 'early-stage', 'growth-stage'];
   String? _selectedInvestmentExperience;
   final _investmentStage = TextEditingController();
-  final _industryFocus = TextEditingController();
+  final _industryFocus = <TextEditingController>[TextEditingController()];
   final _geographicLocation = TextEditingController();
   final _investmentGoals = TextEditingController();
   final _investmentCriteria = TextEditingController();
@@ -41,6 +52,12 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
   final _investmentSuccessStories = <TextEditingController>[
     TextEditingController()
   ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
 
   void _addprofessionalBackgroundField() {
     setState(() {
@@ -61,6 +78,84 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
       _investmentSuccessStories.add(TextEditingController());
     });
   }
+  void _printSelectedIndustries() {
+    print(_selectedIndustries);
+  }
+
+
+  void _addValue() async {
+      late String investorId =  '';
+      late String fullName= _name.text;
+      late String email =  _email.text;
+      late String investmentInterest = _investmentInterests.text;
+      late List<String> professionalBackground = _professionalBackground.map((e) => e.text).toList();
+      late List<String> investmentExperience = _investmentExperience.map((e) => e.text).toList();
+      late String accreditedInvestorStatus = _accreditedInvestorStatus.text;
+      late String linkedinProfile = _linkedInProfile.text;
+
+      late List<String> investmentStrategy = _investmentStrategy.map((e) => e.text).toList();
+      late List<String> investmentSuccessStories = _investmentSuccessStories.map((e) => e.text).toList();
+
+      late String minimumInvestment = _minimumInvestment.text;
+      late String maximumInvestment = _maximumInvestment.text;
+      late String investmentStage = _investmentStage.text;
+      late String geographicLocation = _geographicLocation.text;
+      late String investmentGoals = _investmentGoals.text;
+      late String investmentCriteria = _investmentCriteria.text;
+      late List<String> industryFocus = _industryFocus.map((e) => e.text).toList();
+
+//      _formKey.currentState!.save();
+      try {
+        await _investorService.addInvestorProfile(
+          Investor(
+            investorId: '',
+            fullName: fullName,
+            email: email,
+            investmentInterest: investmentInterest,
+            professionalBackground: professionalBackground,
+            investmentExperience: investmentExperience,
+            accreditedInvestorStatus: accreditedInvestorStatus,
+            linkedinProfile: linkedinProfile,
+            investmentstrategy: investmentStrategy,
+            investmentSuccessStory: investmentSuccessStories,
+          ),
+          Fund(
+            fundId: '',
+            fundAmount: '',
+            fundPurpose: '',
+            timeline: '',
+            fundingSources:'',
+            investmentTerms: '',
+            investorBenefits: '',
+            riskFactors: '',
+            minimumInvestmentAmount: minimumInvestment,
+            maximumInvestmentAmount: maximumInvestment,
+            investmentStage: investmentStage,
+            industryFocus: industryFocus,
+            location: geographicLocation,
+            investmentGoal: investmentGoals,
+            investmentCriteria: investmentCriteria,
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Investor profile added successfully!'),
+          ),
+        );
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to add investor profile.'),
+          ),
+        );
+        print(e.toString());
+      }
+
+  }
+
+
+
 
   List<Step> stepList() => [
         Step(
@@ -317,14 +412,6 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
                       });
                     },
                   ),
-                   SizedBox(height: 20,),
-                  TextField(
-                    controller: _industryFocus,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Industry Focus',
-                    ),
-                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -358,13 +445,49 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
                   const SizedBox(
                     height: 20,
                   ),
+                  FutureBuilder<List<String>>(
+                    future: _industryController.getIndustryNames(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      }
+                      final industryNames = snapshot.data!;
+                      return Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const Text('Select your industries of interest'),
+                            const SizedBox(height: 8),
+                            MultiSelectDialogField<String>(
+                              title: const Text('Industries'),
+                              items: industryNames
+                                  .map((industry) => MultiSelectItem(industry, industry))
+                                  .toList(),
+                              initialValue: _selectedIndustries,
+                              buttonText : const Text('Select Industries'),
+                              onConfirm: (value) {
+                                setState(() {
+                                  _selectedIndustries = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             )),
         //----------------------------------Investment Portfolio-------------------
         Step(
-            state:
-                _activeStepIndex <= 2 ? StepState.editing : StepState.complete,
+            state: StepState.complete,
             isActive: _activeStepIndex >= 2,
             title: const Text('Investment Portfolio'),
             content: Container(
@@ -519,39 +642,6 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
               ),
             )),
 
-        Step(
-            state: StepState.complete,
-            isActive: _activeStepIndex >= 3,
-            title: const Text('Confirm'),
-            content: Container(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-
-                Text('Name: ${_name.text}'),
-                Text('Email: ${_email.text}'),
-                Text('Professional Background: ${_professionalBackground.map((e) => e.text).toList()}'),
-                Text('Investment Experience: ${_investmentExperience.map((e) => e.text).toList()}'),
-                Text('investment Interests : ${_investmentInterests.text}'),
-                Text(
-                    'accredited InvestorStatus : ${_accreditedInvestorStatus.text}'),
-                Text('linkedIn Profile : ${_linkedInProfile.text}'),
-
-                //----------------Investment Preferences----------------------
-                Text('minimum Investment : ${_minimumInvestment.text}'),
-                Text('maximum Investment : ${_maximumInvestment.text}'),
-                Text('investment Stage : ${_selectedInvestmentExperience}'),
-                Text('industry Focus : ${_industryFocus.text}'),
-                Text('geographic Location : ${_geographicLocation.text}'),
-                Text('investment Goals : ${_investmentGoals.text}'),
-                Text('investment Criteria : ${_investmentCriteria.text}'),
-
-                //----------------------------------Investment Portfolio-------------------
-                Text('Investment Strategy: ${_investmentStrategy.map((e) => e.text).toList()}'),
-                Text('Investment Success Stories: ${_investmentSuccessStories.map((e) => e.text).toList()}'),
-              ],
-            )))
       ];
 
   @override
@@ -586,10 +676,11 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
             print('Minimum Investment : ${_minimumInvestment.text}');
             print('Maximum Investment : ${_maximumInvestment.text}');
             print('Investment Stage : ${_investmentStage.text}');
-            print('Industry Focus : ${_industryFocus.text}');
+            print('Industry Focus : ${_industryFocus.map((e) => e.text).toList()}');
             print('Geographic Location : ${_geographicLocation.text}');
             print('Investment Goals : ${_investmentGoals.text}');
             print('Investment Criteria : ${_investmentCriteria.text}');
+            Text('Selected Industries : ${_selectedIndustries}');
 
 //----------------------------------Investment Portfolio-------------------
             print('Investment Strategy: ${_investmentStrategy.map((e) => e.text).toList()}');
@@ -627,11 +718,35 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
               const SizedBox(width: 8.0),
               Expanded(
                 child: ElevatedButton(
-                  onPressed:
-                  isCompleted ? controlsDetails.onStepContinue : null,
-                  child:
-                  isLastStep ? const Text('Submit') : const Text('Next'),
+                  onPressed: isSubmitting
+                      ? null
+                      : isLastStep
+                      ? () async {
+                    setState(() {
+                      isSubmitting = true;
+                    });
+                     _addValue();
+                    setState(() {
+                      isSubmitting = false;
+                    });
+                  }
+                      : controlsDetails.onStepContinue,
+                  child: isSubmitting
+                      ? const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      strokeWidth: 2,
+                    ),
+                  )
+                      : isLastStep
+                      ? const Text('Submit')
+                      : const Text('Next'),
                 ),
+
+
+
               ),
             ],
           );

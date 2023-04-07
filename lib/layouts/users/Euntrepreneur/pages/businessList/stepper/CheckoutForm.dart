@@ -24,7 +24,7 @@ class _CheckoutFormState extends State<CheckoutForm> {
   Entrepreneur _entrepreneur = Entrepreneur(uId: 0, name: '', email: '', mobile: '', street: '', city: '', state: '', zipCode: '', country: '', industry: '', linkedin: '', twitter: '', facebook: '', instagram: '', provider: '', imgUrl: '', professionalExperience: [], entrepreneurshipExperience: [], education: [], industryCertifications: [], awardsAchievements: [], trackRecord: [], website: '');
   BusinessTeam _businessTeam = BusinessTeam(teamMemberId: '', teamMember: '', teamMemberRole: '', teamMemberExperience: '', teamMemberAchievements: '', teamMemberLinkedIn_Profiles: '', teamMemberResponsibilities: '', teamCulture: '');
   List<BusinessTeam> teamMembers = [];
-  Fund _fund = Fund(fundId: '', fundAmount: '', fundPurpose: '', timeline: '', fundingSources: '', investmentTerms: '', investorBenefits: '', riskFactors: '', minimumInvestmentAmount: '', maximumInvestmentAmount: '', investmentStage: '', industryFocus: '');
+  Fund _fund = Fund(fundId: '', fundAmount: '', fundPurpose: '', timeline: '', fundingSources: '', investmentTerms: '', investorBenefits: '', riskFactors: '', minimumInvestmentAmount: '', maximumInvestmentAmount: '', investmentStage: '', industryFocus: [], location: '', investmentGoal: '', investmentCriteria: '');
   PersonalInfoStep _personalInfoStep =PersonalInfoStep(fullName: '', city: '', email: '', phone: '', professionalExperience: []);
   AddressStep _addressStep =AddressStep(street: '', city: '', state: '', zipCode: '');
   PaymentStep _paymentStep =PaymentStep(cardNumber: '', expirationDate: '', cvv: '');

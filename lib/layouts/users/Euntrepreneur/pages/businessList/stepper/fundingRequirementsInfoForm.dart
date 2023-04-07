@@ -41,7 +41,6 @@ class _fundingRequirementsInfoFormState extends State<fundingRequirementsInfoFor
       _minimumInvestmentAmount.text = widget.fund.minimumInvestmentAmount;
       _maximumInvestmentAmount.text = widget.fund.maximumInvestmentAmount;
       _investmentStage.text = widget.fund.investmentStage;
-      _industryFocus.text = widget.fund.industryFocus;
     }
   }
 
@@ -339,7 +338,7 @@ class _fundingRequirementsInfoFormState extends State<fundingRequirementsInfoFor
                       widget.fund.minimumInvestmentAmount = _minimumInvestmentAmount.text;
                       widget.fund.maximumInvestmentAmount = _maximumInvestmentAmount.text;
                       widget.fund.investmentStage = _investmentStage.text;
-                      widget.fund.industryFocus = _industryFocus.text;
+                      //widget.fund.industryFocus = _industryFocus.text;
                       widget.onNext();
                     }
                   },

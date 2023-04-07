@@ -1,84 +1,86 @@
 import 'package:flutter/material.dart';
+import 'package:pitchbox/backend/model/fund.dart';
 
-class RangeSeekBar extends StatefulWidget {
-  final int min;
-  final int max;
-  final int initialMinValue;
-  final int initialMaxValue;
-  final ValueChanged<int> onMinValueChanged;
-  final ValueChanged<int> onMaxValueChanged;
+import '../../../../../../backend/model/investor.dart';
+import '../../../../../../backend/service/investorService.dart';
 
-  RangeSeekBar({
-    required this.min,
-    required this.max,
-    required this.initialMinValue,
-    required this.initialMaxValue,
-    required this.onMinValueChanged,
-    required this.onMaxValueChanged,
-  });
+class AddInvestorScreen extends StatefulWidget {
+  const AddInvestorScreen({Key? key}) : super(key: key);
 
   @override
-  _RangeSeekBarState createState() => _RangeSeekBarState();
+  _AddInvestorScreenState createState() => _AddInvestorScreenState();
 }
 
-class _RangeSeekBarState extends State<RangeSeekBar> {
-  late double _minValue;
-  late double _maxValue;
+final InvestorService _investorService = InvestorService();
 
-  @override
-  void initState() {
-    super.initState();
-    _minValue = widget.initialMinValue.toDouble();
-    _maxValue = widget.initialMaxValue.toDouble();
+void addInvestorProfiles() async {
+  // Create sample investor data with multiple values in array lists
+  final List<Investor> investors = [
+    Investor(
+      investorId: '1',
+      fullName: 'John Doe',
+      email: 'johndoe@example.com',
+      investmentInterest: 'Real estate',
+      professionalBackground: ['Accountant', 'Financial analyst'],
+      investmentExperience: ['Residential', 'Commercial'],
+      accreditedInvestorStatus: 'Yes',
+      linkedinProfile: 'https://www.linkedin.com/in/johndoe',
+      investmentstrategy: ['test1','test2'],
+      investmentSuccessStory: ['test3','test4'],
+    ),
+  ];
+
+  final List<Fund> funds = [
+    Fund(
+        fundId: '1',
+        fundAmount: '500000',
+        fundPurpose: 'To invest in early-stage technology startups',
+        timeline: '3 years',
+        fundingSources: 'Individual and institutional investors',
+        investmentTerms: '10% equity stake in each portfolio company',
+        investorBenefits: 'Quarterly updates, co-investment opportunities',
+        riskFactors: 'Startup failure rates, market volatility',
+        minimumInvestmentAmount: '10000',
+        maximumInvestmentAmount: '100000',
+        investmentStage: 'Seed and Series A',
+        industryFocus: ['Artificial intelligence','Blockchain','Cybersecurity'
+        ],
+        location: 'San Francisco, CA',
+        investmentGoal:
+        'To generate returns for investors by investing in promising technology startups',
+        investmentCriteria:
+        'We seek companies with disruptive technologies, experienced teams, and strong growth potential'),
+
+  ];
+
+  // Add each investor profile to Firestore using service class
+  for (int i = 0; i < investors.length && i < funds.length; i++) {
+    await _investorService.addInvestorProfile(
+      investors[i],
+      funds[i],
+    );
   }
 
+  // Print message to confirm completion
+  print('Investor profiles added successfully!');
+}
+
+class _AddInvestorScreenState extends State<AddInvestorScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 50.0,
-          child: Row(
-            children: [
-              Text('Min: ${_minValue.toInt()}'),
-              Expanded(
-                child: Slider(
-                  value: _minValue,
-                  min: widget.min.toDouble(),
-                  max: widget.max.toDouble(),
-                  onChanged: (value) {
-                    setState(() {
-                      _minValue = value;
-                    });
-                    widget.onMinValueChanged(value.toInt());
-                  },
-                ),
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add Investor'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Call the addInvestorProfiles function here
+            addInvestorProfiles();
+          },
+          child: const Text('Add Investor'),
         ),
-        SizedBox(
-          height: 50.0,
-          child: Row(
-            children: [
-              Text('Max: ${_maxValue.toInt()}'),
-              Expanded(
-                child: Slider(
-                  value: _maxValue,
-                  min: widget.min.toDouble(),
-                  max: widget.max.toDouble(),
-                  onChanged: (value) {
-                    setState(() {
-                      _maxValue = value;
-                    });
-                    widget.onMaxValueChanged(value.toInt());
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
