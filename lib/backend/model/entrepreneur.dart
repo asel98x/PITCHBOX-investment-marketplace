@@ -1,6 +1,6 @@
 import 'package:pitchbox/backend/model/user.dart';
 
-class Entrepreneur extends User {
+class Entrepreneur extends UserPro {
   List<String> _professionalExperience;
   List<String>  _entrepreneurshipExperience;
   List<String>  _education;
@@ -26,6 +26,7 @@ class Entrepreneur extends User {
     required String website,
     required String provider,
     required String imgUrl,
+    required String pass,
     required List<String> professionalExperience,
     required List<String> entrepreneurshipExperience,
     required List<String> education,
@@ -56,6 +57,7 @@ class Entrepreneur extends User {
         website: website,
         provider: provider,
         imgUrl: imgUrl,
+        pass: pass,
       );
 
   List<String> get professionalExperience => _professionalExperience;

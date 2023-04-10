@@ -1,85 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:pitchbox/backend/model/fund.dart';
+import 'package:pitchbox/backend/controller/businessController.dart';
+import 'package:pitchbox/backend/model/business.dart';
 
-import '../../../../../../backend/model/investor.dart';
-import '../../../../../../backend/service/investorService.dart';
-
-class AddInvestorScreen extends StatefulWidget {
-  const AddInvestorScreen({Key? key}) : super(key: key);
+class BusinessListPage extends StatefulWidget {
+  // late Business business;
+  // BusinessListPage({required this.business});
 
   @override
-  _AddInvestorScreenState createState() => _AddInvestorScreenState();
+  _BusinessListPageState createState() => _BusinessListPageState();
 }
 
-final InvestorService _investorService = InvestorService();
+class _BusinessListPageState extends State<BusinessListPage> {
+  final BusinessController _controller = BusinessController();
 
-void addInvestorProfiles() async {
-  // Create sample investor data with multiple values in array lists
-  final List<Investor> investors = [
-    Investor(
-      investorId: '1',
-      fullName: 'John Doe',
-      email: 'johndoe@example.com',
-      investmentInterest: 'Real estate',
-      professionalBackground: ['Accountant', 'Financial analyst'],
-      investmentExperience: ['Residential', 'Commercial'],
-      accreditedInvestorStatus: 'Yes',
-      linkedinProfile: 'https://www.linkedin.com/in/johndoe',
-      investmentstrategy: ['test1','test2'],
-      investmentSuccessStory: ['test3','test4'],
-    ),
-  ];
+  List<Business> _businessList = [];
 
-  final List<Fund> funds = [
-    Fund(
-        fundId: '1',
-        fundAmount: '500000',
-        fundPurpose: 'To invest in early-stage technology startups',
-        timeline: '3 years',
-        fundingSources: 'Individual and institutional investors',
-        investmentTerms: '10% equity stake in each portfolio company',
-        investorBenefits: 'Quarterly updates, co-investment opportunities',
-        riskFactors: 'Startup failure rates, market volatility',
-        minimumInvestmentAmount: '10000',
-        maximumInvestmentAmount: '100000',
-        investmentStage: 'Seed and Series A',
-        industryFocus: ['Artificial intelligence','Blockchain','Cybersecurity'
-        ],
-        location: 'San Francisco, CA',
-        investmentGoal:
-        'To generate returns for investors by investing in promising technology startups',
-        investmentCriteria:
-        'We seek companies with disruptive technologies, experienced teams, and strong growth potential'),
-
-  ];
-
-  // Add each investor profile to Firestore using service class
-  for (int i = 0; i < investors.length && i < funds.length; i++) {
-    await _investorService.addInvestorProfile(
-      investors[i],
-      funds[i],
-    );
+  @override
+  void initState() {
+    super.initState();
+    _loadBusinessList();
   }
 
-  // Print message to confirm completion
-  print('Investor profiles added successfully!');
-}
+  Future<void> _loadBusinessList() async {
+    List<Business> businessList = await _controller.getNewBusinesses();
+    setState(() {
+      _businessList = businessList;
+    });
+  }
 
-class _AddInvestorScreenState extends State<AddInvestorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Investor'),
+        title: Text('New Businesses'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Call the addInvestorProfiles function here
-            addInvestorProfiles();
-          },
-          child: const Text('Add Investor'),
-        ),
+      body: _businessList.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+        itemCount: _businessList.length,
+        itemBuilder: (context, index) {
+          Business business = _businessList[index];
+          return Card(
+            child: ListTile(
+              onTap: () {
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => BusinessListPage(business: business,),));
+              },
+              title: Text(business.businessIndustry),
+              subtitle: Text(business.businessName),
+            ),
+          );
+        },
       ),
     );
   }

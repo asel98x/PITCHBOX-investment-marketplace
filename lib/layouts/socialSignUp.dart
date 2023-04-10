@@ -25,7 +25,9 @@ class SocialSignUp extends StatelessWidget {
           children: <Widget>[
             SocalIcon(
               icon: "assets/images/facebook.svg",
-              press: () {},
+              press: () {
+                handleFacebookAuth(context);
+              },
             ),
             SocalIcon(
               icon: "assets/images/google.svg",
@@ -35,7 +37,9 @@ class SocialSignUp extends StatelessWidget {
             ),
             SocalIcon(
               icon: "assets/images/twitter.svg",
-              press: () {},
+              press: () {
+                handleTwitterAuth(context);
+              },
             ),
           ],
         ),
@@ -71,6 +75,76 @@ class SocialSignUp extends StatelessWidget {
                   .then((value) => sp.setSignIn().then((value) {
                         handleAfterSignIn(context);
                       })));
+            }
+          });
+        }
+      });
+    }
+  }
+
+  Future handleFacebookAuth(BuildContext context) async {
+    final sp = context.read<SignInProvider>();
+    final ip = context.read<InternetProvider>();
+    await ip.checkInternetConnection();
+
+    if (ip.hasInternet == false) {
+      openSnackbar(context, "Check your Internet connection", Colors.red);
+    } else {
+      await sp.signInWithFacebook().then((value) {
+        if (sp.hasError == true) {
+          openSnackbar(context, sp.errorCode.toString(), Colors.red);
+        } else {
+          // checking whether user exists or not
+          sp.checkUserExists().then((value) async {
+            if (value == true) {
+              // user exists
+              await sp.getUserDataFromFirestore(sp.uid).then((value) => sp
+                  .saveDataToSharedPreferences()
+                  .then((value) => sp.setSignIn().then((value) {
+                handleAfterSignIn(context);
+              })));
+            } else {
+              // user does not exist
+              sp.saveDataToFirestore().then((value) => sp
+                  .saveDataToSharedPreferences()
+                  .then((value) => sp.setSignIn().then((value) {
+                handleAfterSignIn(context);
+              })));
+            }
+          });
+        }
+      });
+    }
+  }
+
+  Future handleTwitterAuth(BuildContext context) async {
+    final sp = context.read<SignInProvider>();
+    final ip = context.read<InternetProvider>();
+    await ip.checkInternetConnection();
+
+    if (ip.hasInternet == false) {
+      openSnackbar(context, "Check your Internet connection", Colors.red);
+    } else {
+      await sp.signInWithTwitter().then((value) {
+        if (sp.hasError == true) {
+          openSnackbar(context, sp.errorCode.toString(), Colors.red);
+        } else {
+          // checking whether user exists or not
+          sp.checkUserExists().then((value) async {
+            if (value == true) {
+              // user exists
+              await sp.getUserDataFromFirestore(sp.uid).then((value) => sp
+                  .saveDataToSharedPreferences()
+                  .then((value) => sp.setSignIn().then((value) {
+                handleAfterSignIn(context);
+              })));
+            } else {
+              // user does not exist
+              sp.saveDataToFirestore().then((value) => sp
+                  .saveDataToSharedPreferences()
+                  .then((value) => sp.setSignIn().then((value) {
+                handleAfterSignIn(context);
+              })));
             }
           });
         }

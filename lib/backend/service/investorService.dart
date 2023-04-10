@@ -48,7 +48,7 @@ class InvestorService implements InvestorInterface {
       'maximumInvestmentAmount': fund.maximumInvestmentAmount,
       'investmentStage': fund.investmentStage,
       'industryFocus': fund.industryFocus,
-      'location': fund.location,
+      'investorLocation': fund.investorLocation,
       'investmentGoal': fund.investmentGoal,
       'investmentCriteria': fund.investmentCriteria,
     });

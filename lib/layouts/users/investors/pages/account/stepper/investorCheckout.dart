@@ -132,7 +132,7 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
             maximumInvestmentAmount: maximumInvestment,
             investmentStage: investmentStage,
             industryFocus: industryFocus,
-            location: geographicLocation,
+            investorLocation: geographicLocation,
             investmentGoal: investmentGoals,
             investmentCriteria: investmentCriteria,
           ),

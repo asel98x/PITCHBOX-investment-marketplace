@@ -1,4 +1,4 @@
-abstract class User {
+abstract class UserPro {
   int _uId;
   String _name;
   String _email;
@@ -16,8 +16,9 @@ abstract class User {
   String _website;
   String _provider;
   String _imgUrl;
+  String _pass;
 
-  User({
+  UserPro({
     required int uId,
     required String name,
     required String email,
@@ -35,6 +36,7 @@ abstract class User {
     required String website,
     required String provider,
     required String imgUrl,
+    required String pass,
   })  : _uId = uId,
         _name = name,
         _email = email,
@@ -51,7 +53,8 @@ abstract class User {
         _instagram = instagram,
         _website = website,
         _provider = provider,
-        _imgUrl = imgUrl;
+        _imgUrl = imgUrl,
+        _pass = pass;
 
   int get uId => _uId;
   set uId(int uId) => _uId = uId;
@@ -103,4 +106,7 @@ abstract class User {
 
   String get imgUrl => _imgUrl;
   set imgUrl(String imgUrl) => _imgUrl = imgUrl;
+
+  String get pass => _pass;
+  set pass(String pass) => _pass = pass;
 }

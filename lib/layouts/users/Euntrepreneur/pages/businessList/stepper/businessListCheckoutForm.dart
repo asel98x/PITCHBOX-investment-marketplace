@@ -2,9 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:pitchbox/backend/controller/investorController.dart';
+import 'package:pitchbox/backend/model/business.dart';
 import 'package:pitchbox/backend/model/businessTeam.dart';
+import 'package:pitchbox/backend/model/entrepreneur.dart';
 import 'package:pitchbox/backend/model/fund.dart';
 import 'package:pitchbox/backend/model/investor.dart';
+import 'package:pitchbox/backend/service/businessService.dart';
 import 'package:pitchbox/styles/appStyles.dart';
 
 import '../../../../../../backend/service/investorService.dart';
@@ -25,6 +28,7 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
   bool isSubmitting = false;
 
   List<BusinessTeam> _teamMembersList = [];
+  EntrepreneurService _entrepreneurService = EntrepreneurService();
 
   //====================================================================================//
   //----------------------Personal Information------------------------------------------//
@@ -64,7 +68,7 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
   final _businessIndustry = TextEditingController();
   final _businessLocation = TextEditingController();
   final _companyDescription = TextEditingController();
-  final _website = TextEditingController();
+  final _website2 = TextEditingController();
   final _executiveSummary = TextEditingController();
   final _businessModel = TextEditingController();
   final _valueProposition = TextEditingController();
@@ -144,6 +148,138 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
     setState(() {
       _trackRecordController.add(TextEditingController());
     });
+  }
+
+
+  void _addValue() async {
+    //----------------------Personal Information------------------------------------------//
+    late String fullName= _fullNameController.text;
+    late String mobile= _phoneController.text;
+    late String city= _cityController.text;
+    late String country= _countryController.text;
+    late List<String> professionalExperience= _professionalExperienceController.map((e) => e.text).toList();
+    late List<String> entrepreneurshipExperience= _entrepreneurshipExperienceController.map((e) => e.text).toList();
+    late List<String> education= _educationController.map((e) => e.text).toList();
+    late List<String> industryCertifications= _industryCertificationsController.map((e) => e.text).toList();
+    late List<String> awardsAchievements= _awardsAchievementsController.map((e) => e.text).toList();
+    late List<String> trackRecord= _trackRecordController.map((e) => e.text).toList();
+    late String email= _emailController.text;
+    late String linkedin= _linkedinController.text;
+    late String twitter= _twitterController.text;
+    late String facebook= _facebookController.text;
+    late String instagram= _instagramController.text;
+    late String website= _websiteController.text;
+
+    //----------------------Business Information------------------------------------------//
+    late String businessName= _businessName.text;
+    late String businessIndustry= _businessIndustry.text;
+    late String businessLocation= _businessLocation.text;
+    late String executiveSummary= _executiveSummary.text;
+    late String companyDescription= _companyDescription.text;
+    late String businessModel= _businessModel.text;
+    late String valueProposition= _valueProposition.text;
+    late String productOrServiceOffering= _productOrServiceOffering.text;
+    late String fundingNeeds= _fundingNeeds.text;
+    late String website2 = _phoneController.text;
+
+    //----------------------Funding Requirments------------------------------------------//
+
+    late String fundAmount = _fundAmount.text;
+    late String fundPurpose = _fundPurpose.text;
+    late String timeline = _timeline.text;
+    late String fundingSources = _fundingSources.text;
+    late String investmentTerms = _investmentTerms.text;
+    late String investorBenefits = _investorBenefits.text;
+    late String riskFactors = _riskFactors.text;
+
+    late List<BusinessTeam> teamMembersList = _teamMembersList;
+
+
+    //----------------------Funding Requirments------------------------------------------//
+    late String minimumInvestmentAmount = _minimumInvestmentAmount.text;
+    late String maximumInvestmentAmount = _maximumInvestmentAmount.text;
+    late String investorLocation = _geographicLocation.text;
+    String? selectedInvestmentExperience=  _selectedInvestmentExperience;
+    late List<String> industryFocus =  _industryFocus;
+
+
+
+    try{
+      await _entrepreneurService.addNewBusiness(
+        Entrepreneur(
+            uId: 0,
+            name: fullName,
+            email: email,
+            mobile: mobile,
+            street: '',
+            city:city,
+            state: '',
+            zipCode: '',
+            country: country,
+            industry: '',
+            linkedin: linkedin,
+            twitter: twitter,
+            facebook: facebook,
+            instagram: instagram,
+            website: website,
+            provider: '',
+            imgUrl: '',
+            pass: '',
+            professionalExperience: professionalExperience,
+            entrepreneurshipExperience: entrepreneurshipExperience,
+            education: education,
+            industryCertifications: industryCertifications,
+            awardsAchievements: awardsAchievements,
+            trackRecord: trackRecord,
+            
+          ),
+        Business(
+        businessId: '',
+        businessIndustry: businessIndustry,
+        businessName: businessName,
+        businessLocation: businessLocation,
+        companyDescription: companyDescription,
+        website: website2,
+        executiveSummary: executiveSummary,
+        businessModel: businessModel,
+        valueProposition: valueProposition,
+        productOrServiceOffering: productOrServiceOffering,
+        fundingNeeds: fundingNeeds,
+      ),
+        Fund(
+            fundId: '',
+            fundAmount: fundAmount,
+            fundPurpose: fundPurpose,
+            timeline: timeline,
+            fundingSources: fundingSources,
+            investmentTerms: investmentTerms,
+            investorBenefits: investorBenefits,
+            riskFactors: riskFactors,
+
+            minimumInvestmentAmount: minimumInvestmentAmount,
+            maximumInvestmentAmount: maximumInvestmentAmount,
+            investmentStage: selectedInvestmentExperience!,
+            industryFocus: industryFocus,
+            investorLocation: investorLocation,
+          investmentGoal: '',
+          investmentCriteria: '', ),
+      );
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Business idea added successfully!'),
+        ),
+      );
+      
+    }catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to add BUsiness idea'),
+        ),
+      );
+      print(e.toString());
+    }
+    
   }
 
   List<Step> stepList() => [
@@ -257,7 +393,7 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Professional Background",
+                      "Professional Experience",
                       style: ralewayStyle.copyWith(
                         fontSize: 18.0,
                         color: AppColors.blueDarkColor,
@@ -266,7 +402,7 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
                     ),
                     IconButton(
                       icon: Icon(Icons.info_outline),
-                      tooltip: "Professional Background",
+                      tooltip: "Professional Experience",
                       onPressed: () {},
                     ),
                   ],
@@ -431,14 +567,6 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
                               child: TextFormField(
                                 controller: _educationController[index],
                                 decoration: InputDecoration(
-                                  labelText: 'Education',
-                                  suffixIcon: Tooltip(
-                                    message: 'Education',
-                                    child: IconButton(
-                                      icon: Icon(Icons.info),
-                                      onPressed: () {},
-                                    ),
-                                  ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(),
@@ -1037,7 +1165,7 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
                   ),
                   SizedBox(height: 20),
                   TextFormField(
-                    controller: _website,
+                    controller: _website2,
                     decoration: InputDecoration(
                       labelText: 'Website',
                       suffixIcon: Tooltip(
@@ -1113,13 +1241,13 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
                               setState(() {
                                 _teamMembersList.add(BusinessTeam(
                                   teamMemberId: '',
-                                  teamMember: '',
-                                  teamMemberRole: '',
-                                  teamMemberExperience: '',
-                                  teamMemberAchievements: '',
-                                  teamMemberLinkedIn_Profiles: '',
-                                  teamMemberResponsibilities: '',
-                                  teamCulture: '',
+                                  teamMember: _teamMember.text,
+                                  teamMemberRole: _teamMemberRole.text,
+                                  teamMemberExperience: _teamMemberExperience.text,
+                                  teamMemberAchievements: _teamMemberAchievements.text,
+                                  teamMemberLinkedIn_Profiles: _teamMemberLinkedInProfiles.text,
+                                  teamMemberResponsibilities: _teamMemberResponsibilities.text,
+                                  teamCulture: _teamCulture.text,
                                 ));
                               });
                             },
@@ -1679,7 +1807,7 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
                               setState(() {
                                 isSubmitting = true;
                               });
-                              //_addValue();
+                              _addValue();
                               setState(() {
                                 isSubmitting = false;
                               });

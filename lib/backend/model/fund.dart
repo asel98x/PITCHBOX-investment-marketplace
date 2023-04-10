@@ -11,7 +11,7 @@ class Fund {
   String maximumInvestmentAmount;
   String investmentStage;
   List<String> industryFocus;
-  String location;
+  String investorLocation;
   String investmentGoal;
   String investmentCriteria;
 
@@ -28,7 +28,7 @@ class Fund {
     required this.maximumInvestmentAmount,
     required this.investmentStage,
     required this.industryFocus,
-    required this.location,
+    required this.investorLocation,
     required this.investmentGoal,
     required this.investmentCriteria,
   });
@@ -47,7 +47,7 @@ class Fund {
       maximumInvestmentAmount: map['maximumInvestmentAmount'],
       investmentStage: map['investmentStage'],
       industryFocus: List<String>.from(map['industryFocus']),
-      location: map['location'],
+      investorLocation: map['investorLocation'],
       investmentGoal: map['investmentGoal'],
       investmentCriteria: map['investmentCriteria'],
     );
@@ -67,7 +67,7 @@ class Fund {
       'maximumInvestmentAmount': maximumInvestmentAmount,
       'investmentStage': investmentStage,
       'industryFocus': industryFocus,
-      'location': location,
+      'investorLocation': investorLocation,
       'investmentGoal': investmentGoal,
       'investmentCriteria': investmentCriteria,
     };

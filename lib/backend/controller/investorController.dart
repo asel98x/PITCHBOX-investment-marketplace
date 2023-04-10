@@ -65,7 +65,7 @@ class IndustryController {
     maximumInvestmentAmount: maximumInvestmentAmount,
     investmentStage: investmentStage,
     industryFocus: industryFocus,
-    location: location,
+      investorLocation: location,
     investmentGoal: investmentGoal,
     investmentCriteria: investmentCriteria,);
 

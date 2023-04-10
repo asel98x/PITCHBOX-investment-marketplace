@@ -21,10 +21,10 @@ class _CheckoutFormState extends State<CheckoutForm> {
   int _currentStep = 0;
 
   Business _business = Business(businessId: '', businessName: '', companyDescription: '', website: '', executiveSummary: '', businessModel: '', valueProposition: '', productOrServiceOffering: '', businessIndustry: '', fundingNeeds: '', businessLocation: '');
-  Entrepreneur _entrepreneur = Entrepreneur(uId: 0, name: '', email: '', mobile: '', street: '', city: '', state: '', zipCode: '', country: '', industry: '', linkedin: '', twitter: '', facebook: '', instagram: '', provider: '', imgUrl: '', professionalExperience: [], entrepreneurshipExperience: [], education: [], industryCertifications: [], awardsAchievements: [], trackRecord: [], website: '');
+  Entrepreneur _entrepreneur = Entrepreneur(uId: 0, name: '', email: '', mobile: '', street: '', city: '', state: '', zipCode: '', country: '', industry: '', linkedin: '', twitter: '', facebook: '', instagram: '', provider: '', imgUrl: '', professionalExperience: [], entrepreneurshipExperience: [], education: [], industryCertifications: [], awardsAchievements: [], trackRecord: [], website: '', pass: '');
   BusinessTeam _businessTeam = BusinessTeam(teamMemberId: '', teamMember: '', teamMemberRole: '', teamMemberExperience: '', teamMemberAchievements: '', teamMemberLinkedIn_Profiles: '', teamMemberResponsibilities: '', teamCulture: '');
   List<BusinessTeam> teamMembers = [];
-  Fund _fund = Fund(fundId: '', fundAmount: '', fundPurpose: '', timeline: '', fundingSources: '', investmentTerms: '', investorBenefits: '', riskFactors: '', minimumInvestmentAmount: '', maximumInvestmentAmount: '', investmentStage: '', industryFocus: [], location: '', investmentGoal: '', investmentCriteria: '');
+  Fund _fund = Fund(fundId: '', fundAmount: '', fundPurpose: '', timeline: '', fundingSources: '', investmentTerms: '', investorBenefits: '', riskFactors: '', minimumInvestmentAmount: '', maximumInvestmentAmount: '', investmentStage: '', industryFocus: [],  investmentGoal: '', investmentCriteria: '', investorLocation: '');
   PersonalInfoStep _personalInfoStep =PersonalInfoStep(fullName: '', city: '', email: '', phone: '', professionalExperience: []);
   AddressStep _addressStep =AddressStep(street: '', city: '', state: '', zipCode: '');
   PaymentStep _paymentStep =PaymentStep(cardNumber: '', expirationDate: '', cvv: '');

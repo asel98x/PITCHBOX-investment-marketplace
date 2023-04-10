@@ -9,6 +9,7 @@ import 'package:pitchbox/provider/signinProvider.dart';
 import 'package:provider/provider.dart';
 
 import 'layouts/users/Euntrepreneur/pages/businessList/stepper/BusinessTeamMember.dart';
+import 'layouts/users/investors/pages/account/stepper/test.dart';
 import 'layouts/users/investors/pages/dashboard/dashboardPage.dart';
 
 Future main() async {
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home:
-        EunDashboardPage(),
+        LoginScreen(),
       ),
     );
   }

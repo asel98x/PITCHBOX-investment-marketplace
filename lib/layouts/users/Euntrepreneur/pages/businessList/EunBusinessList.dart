@@ -7,11 +7,52 @@ import 'stepper/CheckoutForm.dart';
 class EunBusinessList extends StatefulWidget {
   const EunBusinessList({Key? key}) : super(key: key);
 
+
   @override
   State<EunBusinessList> createState() => _EunBusinessListState();
 }
 
 class _EunBusinessListState extends State<EunBusinessList> {
+  final List<Map<String, String>> data = [
+    {
+      'name': 'John Doe',
+      'location': 'New York, NY'
+    },
+    {
+      'name': 'Jane Smith',
+      'location': 'Los Angeles, CA'
+    },
+    {
+      'name': 'Bob Johnson',
+      'location': 'Chicago, IL'
+    },
+    {
+      'name': 'John Doe',
+      'location': 'New York, NY'
+    },
+    {
+      'name': 'Jane Smith',
+      'location': 'Los Angeles, CA'
+    },
+    {
+      'name': 'Bob Johnson',
+      'location': 'Chicago, IL'
+    },
+    {
+      'name': 'John Doe',
+      'location': 'New York, NY'
+    },
+    {
+      'name': 'Jane Smith',
+      'location': 'Los Angeles, CA'
+    },
+    {
+      'name': 'Bob Johnson',
+      'location': 'Chicago, IL'
+    }
+
+    // Add as many items as you need
+  ];
   TextEditingController _searchController = TextEditingController();
 
   @override
@@ -39,10 +80,16 @@ class _EunBusinessListState extends State<EunBusinessList> {
             ),
             Flexible(
               child: ListView.builder(
-                itemCount: 20, // replace with actual user data length
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('User $index'),
+                itemCount: data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final name = data[index]['name'];
+                  final location = data[index]['location'];
+
+                  return Card(
+                    child: ListTile(
+                      title: Text(name!),
+                      subtitle: Text(location!),
+                    ),
                   );
                 },
               ),

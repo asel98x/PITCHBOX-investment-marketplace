@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pitchbox/backend/controller/businessController.dart';
+import 'package:pitchbox/backend/model/business.dart';
 
 class BusinessListPage extends StatefulWidget {
   const BusinessListPage({Key? key}) : super(key: key);
@@ -8,163 +10,46 @@ class BusinessListPage extends StatefulWidget {
 }
 
 class _BusinessListPageState extends State<BusinessListPage> {
-  // Define a list to keep track of the completion status of each step
-  List<bool> _stepCompleted=[true,true,true];
-  int _activeStepIndex = 0;
+  final BusinessController _controller = BusinessController();
 
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController pass = TextEditingController();
-  TextEditingController address = TextEditingController();
-  TextEditingController pincode = TextEditingController();
+  List<Business> _businessList = [];
 
-  List<Step> stepList() => [
-    Step(
-      state: _activeStepIndex <= 0 ? StepState.editing : StepState.complete,
-      isActive: _activeStepIndex >= 0,
-      title: const Text('Account'),
-      content: Container(
-        child: Column(
-          children: [
-            TextField(
-              controller: name,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Full Name',
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            TextField(
-              controller: email,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Email',
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            TextField(
-              controller: pass,
-              obscureText: true,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-    Step(
-        state: _activeStepIndex <= 1 ? StepState.editing : StepState.complete,
-        isActive: _activeStepIndex >= 1,
-        title: const Text('Address'),
-        content: Container(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 8,
-              ),
-              TextField(
-                controller: address,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Full House Address',
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              TextField(
-                controller: pincode,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Pin Code',
-                ),
-              ),
-            ],
-          ),
-        )),
-    Step(
-        state: StepState.complete,
-        isActive: _activeStepIndex >= 2,
-        title: const Text('Confirm'),
-        content: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text('Name: ${name.text}'),
-                Text('Email: ${email.text}'),
-                const Text('Password: *****'),
-                Text('Address : ${address.text}'),
-                Text('PinCode : ${pincode.text}'),
-              ],
-            )))
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _loadBusinessList();
+  }
+
+  Future<void> _loadBusinessList() async {
+    List<Business> businessList = await _controller.getNewBusinesses();
+    setState(() {
+      _businessList = businessList;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-        title: const Text('Flutter Stepper'),
-    ),
-    body: Stepper(
-    type: StepperType.vertical,
-    currentStep: _activeStepIndex,
-    steps: stepList(),
-    onStepContinue: () {
-    if (_activeStepIndex < (stepList().length - 1)) {
-    setState(() {
-    // Mark the current step as completed
-    _stepCompleted[_activeStepIndex] = true;
-    // Move to the next step
-    _activeStepIndex += 1;
-    });
-    } else {
-    print('Submitted');
-    }
-    },
-    onStepCancel: () {
-    if (_activeStepIndex == 0) {
-      return;
-    }
-    setState(() {
-      _activeStepIndex -= 1;
-    });
-    },
-      onStepTapped: (int index) {
-        if (_stepCompleted[index]) {
-          setState(() {
-            _activeStepIndex = index;
-          });
-        }
-      },
-      controlsBuilder: (BuildContext context, ControlsDetails controlsDetails) {
-        final isLastStep = _activeStepIndex == stepList().length - 1;
-        final isCompleted = _stepCompleted[_activeStepIndex];
-        return Row(
-          children: [
-            if (_activeStepIndex > 0)
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: controlsDetails.onStepCancel,
-                  child: const Text('Back'),
-                ),
-              ),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: isCompleted ? controlsDetails.onStepContinue : null,
-                child: isLastStep ? const Text('Submit') : const Text('Next'),
-              ),
+      appBar: AppBar(
+        title: Text('New Businesses'),
+      ),
+      body: _businessList.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+        itemCount: _businessList.length,
+        itemBuilder: (context, index) {
+          Business business = _businessList[index];
+          return Card(
+            child: ListTile(
+              onTap: () {
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => BusinessListPage(business: business,),));
+              },
+              title: Text(business.businessIndustry),
+              subtitle: Text(business.businessName),
             ),
-          ],
-        );
-      },
-    ),
+          );
+        },
+      ),
     );
   }
 }
