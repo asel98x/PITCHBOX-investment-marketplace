@@ -1,31 +1,32 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:pitchbox/backend/controller/investorController.dart';
 import 'package:pitchbox/backend/controller/startupController.dart';
+import 'package:pitchbox/backend/model/businessModel.dart';
 import 'package:pitchbox/backend/service/startupService.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:pitchbox/styles/appStyles.dart';
 
 
-class BusinessListCheckoutForm extends StatefulWidget {
-  const BusinessListCheckoutForm({Key? key}) : super(key: key);
+class updateEunBusinessList extends StatefulWidget {
+  Business business;
+  updateEunBusinessList({required this.business, Key? key}) : super(key: key);
 
   @override
-  _BusinessListCheckoutFormState createState() =>
-      _BusinessListCheckoutFormState();
+  _updateEunBusinessListState createState() =>
+      _updateEunBusinessListState();
 }
 
-class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
+class _updateEunBusinessListState extends State<updateEunBusinessList> {
   final _formKey = GlobalKey<FormState>();
   List<bool> _stepCompleted = [true, true, true, true,true];
   int _activeStepIndex = 0;
   bool isSubmitting = false;
   File? _imageFile;
-  File? _bimageFile;
+  File? _imageFile2;
 
   //List<BusinessTeam> _teamMembersList = [];
   BusinessService _businessService = BusinessService();
@@ -39,23 +40,13 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
   final _phoneController = TextEditingController();
   final _cityController = TextEditingController();
   final _countryController = TextEditingController();
-  final _industryController = IndustryController();
-  final _professionalExperienceController = <TextEditingController>[
-    TextEditingController()
-  ];
-  final _entrepreneurshipExperienceController = <TextEditingController>[
-    TextEditingController()
-  ];
-  final _educationController = <TextEditingController>[TextEditingController()];
-  final _industryCertificationsController = <TextEditingController>[
-    TextEditingController()
-  ];
-  final _awardsAchievementsController = <TextEditingController>[
-    TextEditingController()
-  ];
-  final _trackRecordController = <TextEditingController>[
-    TextEditingController()
-  ];
+
+  final _professionalExperienceController = <TextEditingController>[];
+  final _entrepreneurshipExperienceController = <TextEditingController>[];
+  final _educationController = <TextEditingController>[];
+  final _industryCertificationsController = <TextEditingController>[];
+  final _awardsAchievementsController = <TextEditingController>[];
+  final _trackRecordController = <TextEditingController>[];
   final _emailController = TextEditingController();
   final _facebookController = TextEditingController();
   final _twitterController = TextEditingController();
@@ -105,15 +96,82 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
   final _minimumInvestmentAmount = TextEditingController();
   final _maximumInvestmentAmount = TextEditingController();
   final List<String> _selectedInvestmentStage = ['seed', 'early-stage', 'growth-stage'];
+
+  final _industryController = IndustryController();
+
   String? _selectedInvestmentExperience;
   List<String> _industryFocus = [];
   final _geographicLocation = TextEditingController();
 
+  final List<String> _status = ['Pending', 'Confirm', 'Reject'];
+  String? _selectedStatus;
 
 
   @override
   void initState() {
     super.initState();
+    _userIdController.text = widget.business.userId;
+    _fullNameController.text = widget.business.name;
+    _phoneController.text = widget.business.mobile;
+    _phoneController.text = widget.business.mobile;
+    _cityController.text = widget.business.city;
+    _countryController.text = widget.business.country;
+    widget.business.professionalExperience.forEach((element) {
+      _professionalExperienceController.add(TextEditingController(text: element.toString()));
+    });
+    widget.business.entrepreneurshipExperience.forEach((element) {
+      _entrepreneurshipExperienceController.add(TextEditingController(text: element.toString()));
+    });
+    widget.business.education.forEach((element) {
+      _educationController.add(TextEditingController(text: element.toString()));
+    });
+    widget.business.industryCertifications.forEach((element) {
+      _industryCertificationsController.add(TextEditingController(text: element.toString()));
+    });
+    widget.business.awardsAchievements.forEach((element) {
+      _awardsAchievementsController.add(TextEditingController(text: element.toString()));
+    });
+    widget.business.awardsAchievements.forEach((element) {
+      _awardsAchievementsController.add(TextEditingController(text: element.toString()));
+    });
+    widget.business.trackRecord.forEach((element) {
+      _trackRecordController.add(TextEditingController(text: element.toString()));
+    });
+    _emailController.text = widget.business.email;
+    _facebookController.text = widget.business.facebook;
+    _twitterController.text = widget.business.twitter;
+    _instagramController.text = widget.business.instagram;
+    _linkedinController.text = widget.business.linkedin;
+    _websiteController.text = widget.business.Userwebsite;
+
+
+    _businessName.text = widget.business.businessName;
+
+    _businessLocation.text = widget.business.businessLocation;
+    _companyDescription.text = widget.business.companyDescription;
+    _website2.text = widget.business.website;
+    _executiveSummary.text = widget.business.executiveSummary;
+    _businessModel.text = widget.business.businessModel;
+    _valueProposition.text = widget.business.valueProposition;
+    _productOrServiceOffering.text = widget.business.productOrServiceOffering;
+    _fundingNeeds.text = widget.business.fundingNeeds;
+
+
+    _fundAmount.text = widget.business.fundAmount;
+    _fundPurpose.text = widget.business.fundPurpose;
+    _timeline.text = widget.business.timeline;
+    _fundingSources.text = widget.business.fundingSources;
+    _investmentTerms.text = widget.business.investmentTerms;
+    _investorBenefits.text = widget.business.investorBenefits;
+    _riskFactors.text = widget.business.riskFactors;
+
+
+    _minimumInvestmentAmount.text = widget.business.minimumInvestmentAmount;
+    _maximumInvestmentAmount.text = widget.business.maximumInvestmentAmount;
+    _geographicLocation.text = widget.business.investorLocation;
+    String? _selectedStatus = widget.business.status;
+    String? _selectedInvestmentStage = widget.business.status;
+
   }
 
   void _addProfessionalExperienceField() {
@@ -153,7 +211,7 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
   }
 
 
-  void _addValue() async {
+  void _UpdateValue() async {
     //----------------------Personal Information------------------------------------------//
     late String userId= _userIdController.text;
     late String fullName= _fullNameController.text;
@@ -186,7 +244,8 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
     late String productOrServiceOffering= _productOrServiceOffering.text;
     late String fundingNeeds= _fundingNeeds.text;
     late String website2 = _phoneController.text;
-    File? Bimage = _bimageFile;
+    File? Bimage = _imageFile2;
+
 
     //----------------------Funding Requirments------------------------------------------//
 
@@ -211,71 +270,65 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
 
 
     try{
-      await _businessController.addNewBusiness(
+      await _businessService.addNewBusiness(
+          Business(
+            id: 'id',
+            businessId: 'businessId',
+            userId: userId,
+            name: fullName,
+            mobile: mobile,
+            city: city,
+            country: country,
+            professionalExperience: professionalExperience,
+            entrepreneurshipExperience: entrepreneurshipExperience,
+            education: education,
+            industryCertifications: industryCertifications,
+            awardsAchievements: awardsAchievements,
+            trackRecord: trackRecord,
+            email: email,
+            linkedin: linkedin,
+            twitter: twitter,
+            facebook: facebook,
+            instagram: instagram,
+            Userwebsite: Userwebsite,
+            UserImgUrl: Uimage != null ? Uimage.path : "",
 
-        id: userId,
-        businessId: 'businessId',
-        userId: userId,
-        name: fullName,
-        mobile: mobile,
-        city: city,
-        country: country,
-        professionalExperience: professionalExperience,
-        entrepreneurshipExperience: entrepreneurshipExperience,
-        education: education,
-        industryCertifications: industryCertifications,
-        awardsAchievements: awardsAchievements,
-        trackRecord: trackRecord,
-        email: email,
-        linkedin: linkedin,
-        twitter: twitter,
-        facebook: facebook,
-        instagram: instagram,
-        Userwebsite: Userwebsite,
-        UserImgUrl: Uimage!,
+
+            businessIndustry: businessIndustry,
+            businessName: businessName,
+            businessLocation: businessLocation,
+            companyDescription: companyDescription,
+            website: website2,
+            executiveSummary: executiveSummary,
+            businessModel: businessModel,
+            valueProposition: valueProposition,
+            productOrServiceOffering: productOrServiceOffering,
+            fundingNeeds: fundingNeeds,
+            businessImgUrl: 'businessImgUrl',
+
+            fundAmount: fundAmount,
+            avaiableFundAmount: '',
+            fundPurpose: fundPurpose,
+            timeline: timeline,
+            fundingSources: fundingSources,
+            investmentTerms: investmentTerms,
+            investorBenefits: investorBenefits,
+            riskFactors: riskFactors,
+            minimumInvestmentAmount: minimumInvestmentAmount,
+            maximumInvestmentAmount: maximumInvestmentAmount,
+            investmentStage: selectedInvestmentExperience!,
+            industryFocus: industryFocus,
+            investorLocation: investorLocation,
+            status: 'Pending',
 
 
-        businessIndustry: businessIndustry,
-        businessName: businessName,
-        businessLocation: businessLocation,
-        companyDescription: companyDescription,
-        website: website2,
-        executiveSummary: executiveSummary,
-        businessModel: businessModel,
-        valueProposition: valueProposition,
-        productOrServiceOffering: productOrServiceOffering,
-        fundingNeeds: fundingNeeds,
-        businessImgUrl: Bimage!,
-
-        fundAmount: fundAmount,
-        avaiableFundAmount: '0',
-        fundPurpose: fundPurpose,
-        timeline: timeline,
-        fundingSources: fundingSources,
-        investmentTerms: investmentTerms,
-        investorBenefits: investorBenefits,
-        riskFactors: riskFactors,
-        minimumInvestmentAmount: minimumInvestmentAmount,
-        maximumInvestmentAmount: maximumInvestmentAmount,
-        investmentStage: selectedInvestmentExperience!,
-        industryFocus: industryFocus,
-        investorLocation: investorLocation,
-        status: 'Pending',
-        street: '',
-        state: '',
-        zipCode: '',
-        industry: '',
-        investmentCriteria: '',
-        investmentGoal: '',
-        pass: '',
-        provider: '',
-
+          )
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Business idea added successfully!'),
-          )
+        const SnackBar(
+          content: Text('Business idea added successfully!'),
+        ),
       );
 
     }catch (e) {
@@ -314,7 +367,7 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
                 return null;
               },
             ),
-            const SizedBox(height: 8,),
+            const SizedBox(height: 20,),
             TextFormField(
               controller: _fullNameController,
               decoration: InputDecoration(
@@ -807,13 +860,6 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
               controller: _emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
-                suffixIcon: Tooltip(
-                  message: 'enter Email',
-                  child: IconButton(
-                    icon: Icon(Icons.info),
-                    onPressed: () {},
-                  ),
-                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: BorderSide(),
@@ -825,13 +871,6 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
               controller: _linkedinController,
               decoration: InputDecoration(
                 labelText: 'Linkedin profile',
-                suffixIcon: Tooltip(
-                  message: 'enter Linkedin profile link',
-                  child: IconButton(
-                    icon: Icon(Icons.info),
-                    onPressed: () {},
-                  ),
-                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: BorderSide(),
@@ -843,13 +882,6 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
               controller: _facebookController,
               decoration: InputDecoration(
                 labelText: 'Facebook profile',
-                suffixIcon: Tooltip(
-                  message: 'enter Facebook profile link',
-                  child: IconButton(
-                    icon: Icon(Icons.info),
-                    onPressed: () {},
-                  ),
-                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: BorderSide(),
@@ -861,13 +893,6 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
               controller: _twitterController,
               decoration: InputDecoration(
                 labelText: 'Twitter profile',
-                suffixIcon: Tooltip(
-                  message: 'enter Twitter profile link',
-                  child: IconButton(
-                    icon: Icon(Icons.info),
-                    onPressed: () {},
-                  ),
-                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: BorderSide(),
@@ -879,13 +904,6 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
               controller: _instagramController,
               decoration: InputDecoration(
                 labelText: 'Instagram profile',
-                suffixIcon: Tooltip(
-                  message: 'enter Instagram profile link',
-                  child: IconButton(
-                    icon: Icon(Icons.info),
-                    onPressed: () {},
-                  ),
-                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: BorderSide(),
@@ -897,13 +915,6 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
               controller: _websiteController,
               decoration: InputDecoration(
                 labelText: 'Website',
-                suffixIcon: Tooltip(
-                  message: 'enter Website link',
-                  child: IconButton(
-                    icon: Icon(Icons.info),
-                    onPressed: () {},
-                  ),
-                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: BorderSide(),
@@ -917,7 +928,7 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
               height: 100.0,
               width: 100.0,
             )
-                : Container(),
+                : Image.network(widget.business.UserImgUrl),
             ElevatedButton(
               onPressed: () async {
                 final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
@@ -973,27 +984,41 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
                 },
               ),
               SizedBox(height: 20),
-              TextFormField(
-                controller: _businessIndustry,
-                decoration: InputDecoration(
-                  labelText: 'Business Industry',
-                  suffixIcon: Tooltip(
-                    message: 'Business Industry',
-                    child: IconButton(
-                      icon: Icon(Icons.info),
-                      onPressed: () {},
-                    ),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(),
-                  ),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter Business Industry';
+              FutureBuilder<List<String>>(
+                future: _industryController.getIndustryNames(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
                   }
-                  return null;
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    );
+                  }
+                  final industryNames = snapshot.data!;
+                  return Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text('Select your industries of interest'),
+                        const SizedBox(height: 8),
+                        MultiSelectDialogField<String>(
+                          title: const Text('Industries'),
+                          items: industryNames
+                              .map((industry) => MultiSelectItem(industry, industry))
+                              .toList(),
+                          initialValue: _industryFocus,
+                          buttonText : const Text('Select Industries'),
+                          onConfirm: (value) {
+                            setState(() {
+                              _industryFocus = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  );
                 },
               ),
               SizedBox(height: 20),
@@ -1199,20 +1224,20 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
-              _bimageFile != null
+              SizedBox(height: 20.0),
+              _imageFile2 != null
                   ? Image.file(
-                _bimageFile!,
+                _imageFile2!,
                 height: 100.0,
                 width: 100.0,
               )
-                  : Container(),
+                  : Image.network(widget.business.businessImgUrl),
               ElevatedButton(
                 onPressed: () async {
                   final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
                   setState(() {
                     if (pickedFile != null) {
-                      _bimageFile = File(pickedFile.path);
+                      _imageFile2 = File(pickedFile.path);
                     }
                   });
                 },
@@ -1726,47 +1751,24 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
                   });
                 },
               ),
-              SizedBox(height: 20),
-              FutureBuilder<List<String>>(
-                future: _industryController.getIndustryNames(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (snapshot.hasError) {
-                    return Center(
-                      child: Text('Error: ${snapshot.error}'),
-                    );
-                  }
-                  final industryNames = snapshot.data!;
-                  return Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const Text('Select your industries of interest'),
-                        const SizedBox(height: 8),
-                        MultiSelectDialogField<String>(
-                          title: const Text('Industries'),
-                          items: industryNames
-                              .map((industry) => MultiSelectItem(industry, industry))
-                              .toList(),
-                          initialValue: _industryFocus,
-                          buttonText : const Text('Select Industries'),
-                          onConfirm: (value) {
-                            setState(() {
-                              _industryFocus = value;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+              const SizedBox( height: 20,),
+              DropdownButtonFormField<String>(
+                value: _selectedStatus,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Status',
+                ),
+                items: _status.map((String option) {
+                  return DropdownMenuItem<String>(
+                    value: option,
+                    child: Text(option),
                   );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedStatus = newValue;
+                  });
                 },
-              ),
-
-              const SizedBox(
-                height: 20,
               ),
             ],
           ),
@@ -1780,7 +1782,7 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('New Business Idea'),
+        title: const Text('Update Business Idea'),
         backgroundColor: AppColors.mainBlueColor,
       ),
       body: Stepper(
@@ -1837,7 +1839,7 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
                     setState(() {
                       isSubmitting = true;
                     });
-                    _addValue();
+                    _UpdateValue();
                     setState(() {
                       isSubmitting = false;
                     });
