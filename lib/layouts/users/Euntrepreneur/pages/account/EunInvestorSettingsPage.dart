@@ -121,7 +121,7 @@ class _EunInvestorSettingsPageState extends State<EunInvestorSettingsPage> {
               ),
               onPressed: () {
                 sp.userSignOut();
-                nextScreenReplace(context, const LoginScreen());
+                nextScreenReplace(context, const LoginScreen(userId: '',));
               },
               child: Text(
                   "SIGN OUT",

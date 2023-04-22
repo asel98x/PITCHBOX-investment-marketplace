@@ -45,6 +45,7 @@ class BusinessService implements BusinessInterface{
       'website': business.website,
       'businessImgUrl': business.businessImgUrl,
 
+      'avaiableFundAmount': business.avaiableFundAmount,
       'fundAmount': business.fundAmount,
       'fundPurpose': business.fundPurpose,
       'timeline': business.timeline,

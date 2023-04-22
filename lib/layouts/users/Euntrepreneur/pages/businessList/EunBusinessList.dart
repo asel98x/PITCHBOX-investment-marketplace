@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pitchbox/backend/controller/startupController.dart';
 import 'package:pitchbox/backend/model/businessModel.dart';
+import 'package:pitchbox/layouts/users/Euntrepreneur/pages/businessList/stepper/businessListCheckoutForm.dart';
 import 'package:pitchbox/layouts/users/Euntrepreneur/pages/businessList/updateEunBusinessList.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:pitchbox/styles/appStyles.dart';
@@ -247,6 +248,15 @@ class _EunBusinessListState extends State<EunBusinessList> {
               ),
             ),
           ]
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.mainBlueColor,
+        child: Icon(Icons.add, size: 32),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => BusinessListCheckoutForm(userId: '',)),
+          );
+        },
       ),
     );
   }

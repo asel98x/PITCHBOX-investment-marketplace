@@ -1,18 +1,24 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:pitchbox/backend/controller/investorController.dart';
 import 'package:pitchbox/backend/controller/startupController.dart';
+import 'package:pitchbox/backend/controller/userController.dart';
+import 'package:pitchbox/backend/model/mainUser.dart';
 import 'package:pitchbox/backend/service/startupService.dart';
+import 'package:pitchbox/provider/loginDetails.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:pitchbox/styles/appStyles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class BusinessListCheckoutForm extends StatefulWidget {
-  const BusinessListCheckoutForm({Key? key}) : super(key: key);
+  final String userId;
+  const BusinessListCheckoutForm({Key? key, required this.userId}) : super(key: key);
 
   @override
   _BusinessListCheckoutFormState createState() =>
@@ -20,6 +26,8 @@ class BusinessListCheckoutForm extends StatefulWidget {
 }
 
 class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
+  final LoginDetails loginDetails = LoginDetails();
+  final UserController _userController = UserController();
   final _formKey = GlobalKey<FormState>();
   List<bool> _stepCompleted = [true, true, true, true,true];
   int _activeStepIndex = 0;
@@ -152,10 +160,40 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
     });
   }
 
+  void getData()async{
+    await loginDetails.getSharedPreferences();
+    String? userId = loginDetails.userId;
+
+    // Get user details using the controller class
+    List<MainUser> userDetails = await _userController.getUserDetails(userId!);
+
+    // Print user details
+    userDetails.forEach((user) {
+      print('UserID: ${user.userId}');
+      print('UserName: ${user.userName}');
+      print('UserEmail: ${user.userEmail}');
+      print('UserType: ${user.userType}');
+      print('UserPassword: ${user.userPassword}');
+    });
+  }
+
+  void saveUserDetails(String email, String password) async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    if (user != null) {
+      String userId = user.uid ?? '';
+      }
+    }
+
+
 
   void _addValue() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    String Id = user?.uid ?? '';
+
     //----------------------Personal Information------------------------------------------//
-    late String userId= _userIdController.text;
+    late String userId= Id;
     late String fullName= _fullNameController.text;
     late String mobile= _phoneController.text;
     late String city= _cityController.text;
@@ -297,23 +335,6 @@ class _BusinessListCheckoutFormState extends State<BusinessListCheckoutForm> {
       content: Container(
         child: Column(
           children: [
-            const SizedBox(height: 8,),
-            TextFormField(
-              controller: _userIdController,
-              decoration: InputDecoration(
-                labelText: 'User ID',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(),
-                ),
-              ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter Business Name';
-                }
-                return null;
-              },
-            ),
             const SizedBox(height: 8,),
             TextFormField(
               controller: _fullNameController,

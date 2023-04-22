@@ -123,7 +123,7 @@ class _InvestorSettingsPageState extends State<InvestorSettingsPage> {
               ),
               onPressed: () {
                 sp.userSignOut();
-                nextScreenReplace(context, const LoginScreen());
+                nextScreenReplace(context, const LoginScreen(userId: '',));
               },
               child: Text(
                   "SIGN OUT",
@@ -166,7 +166,7 @@ class _InvestorSettingsPageState extends State<InvestorSettingsPage> {
         if (title == "Investor Profile Manage") {
           Navigator.push(context, MaterialPageRoute(builder: (_) => InvestorCheckout()));
         } else if (title == "Signup Screen") {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => SignupScreen()));
+
         } else if (title == "Social") {
 
         } else if (title == "Language") {

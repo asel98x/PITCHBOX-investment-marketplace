@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pitchbox/backend/model/mainUser.dart';
 import 'package:pitchbox/backend/model/user.dart';
 import 'package:pitchbox/layouts/socialSignUp.dart';
+import 'package:pitchbox/layouts/users/Euntrepreneur/pages/dashboard/EunDashboardPage.dart';
+import 'package:pitchbox/layouts/users/investors/pages/dashboard/dashboardPage.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:pitchbox/styles/appIcons.dart';
 import 'package:pitchbox/styles/appStyles.dart';
@@ -12,7 +15,8 @@ import 'package:pitchbox/layouts/loginScreen.dart';
 import 'package:pitchbox/layouts/newAcc.dart';
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+  final String userType3;
+  SignupScreen({required this.userType3});
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -29,84 +33,94 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
 
-  // void userRegister(String email, String password) async {
-  //   if (_formKey.currentState!.validate()) {
-  //     try {
-  //       await await FirebaseAuth.instance
-  //           .createUserWithEmailAndPassword(email: email, password: password)
-  //           .then((value) => {postDetailsToFirestore()})
-  //           .catchError((e) async {
-  //         Fluttertoast.showToast(msg: e!.message);
-  //
-  //         UserCredential userCredential = await FirebaseAuth.instance
-  //             .createUserWithEmailAndPassword(email: email, password: password);
-  //         User? user = userCredential.user;
-  //         print(user);
-  //       });
-  //     } on FirebaseAuthException catch (error) {
-  //       if (error.code == 'weak-password') {
-  //         print('The password provided is too weak.');
-  //       } else if (error.code == 'email-already-in-use') {
-  //         print('The account already exists for that email.');
-  //       }
-  //       switch (error.code) {
-  //         case "invalid-email":
-  //           errorMessage = "Your email address appears to be malformed.";
-  //           break;
-  //         case "wrong-password":
-  //           errorMessage = "Your password is wrong.";
-  //           break;
-  //         case "user-not-found":
-  //           errorMessage = "User with this email doesn't exist.";
-  //           break;
-  //         case "user-disabled":
-  //           errorMessage = "User with this email has been disabled.";
-  //           break;
-  //         case "too-many-requests":
-  //           errorMessage = "Too many requests";
-  //           break;
-  //         case "operation-not-allowed":
-  //           errorMessage = "Signing in with Email and Password is not enabled.";
-  //           break;
-  //         default:
-  //           errorMessage = "An undefined Error happened.";
-  //       }
-  //       Fluttertoast.showToast(msg: errorMessage!);
-  //       print(error.code);
-  //     }
-  //   }
-  // }
-  // postDetailsToFirestore() async {
-  //   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-  //   User? user = _auth.currentUser;
-  //
-  //   UserPro userModel = UserPro(
-  //       uId: user!.uid,
-  //       name: nameController.text,
-  //       email: emailController.text,
-  //       mobile: '',
-  //       street: '',
-  //       city: '',
-  //       state: '',
-  //       zipCode: '',
-  //       country: '',
-  //       industry: '',
-  //       linkedin: '',
-  //       twitter: '',
-  //       facebook: '',
-  //       instagram: '',
-  //       website: '',
-  //       provider: '',
-  //       imgUrl: '',
-  //       pass: confirmPasswordController.text);
-  //
-  //   await firebaseFirestore
-  //       .collection("Admin")
-  //       .doc(user.uid) // Use user.uid here as well
-  //       .set(userModel.toMap());
-  //   Fluttertoast.showToast(msg: "Account created successfully :) ");
-  //
-  // }
+  void userRegister(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: email, password: password)
+            .then((value) => {postDetailsToFirestore()})
+            .catchError((e) async {
+          Fluttertoast.showToast(msg: e!.message);
+
+          UserCredential userCredential = await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(email: email, password: password);
+          User? user = userCredential.user;
+          print(user);
+        });
+      } on FirebaseAuthException catch (error) {
+        if (error.code == 'weak-password') {
+          print('The password provided is too weak.');
+        } else if (error.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+        }
+        switch (error.code) {
+          case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
+            break;
+          case "wrong-password":
+            errorMessage = "Your password is wrong.";
+            break;
+          case "user-not-found":
+            errorMessage = "User with this email doesn't exist.";
+            break;
+          case "user-disabled":
+            errorMessage = "User with this email has been disabled.";
+            break;
+          case "too-many-requests":
+            errorMessage = "Too many requests";
+            break;
+          case "operation-not-allowed":
+            errorMessage = "Signing in with Email and Password is not enabled.";
+            break;
+          default:
+            errorMessage = "An undefined Error happened.";
+        }
+        Fluttertoast.showToast(msg: errorMessage!);
+        print(error.code);
+      }
+    }
+  }
+  postDetailsToFirestore() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = _auth.currentUser;
+    String userType;
+
+    if (widget.userType3 == 'euntrepreneur') {
+      MainUser userModel = MainUser(
+
+          userId: user!.uid, // Use user.uid instead of user.userId
+          userName: nameController.text,
+          userEmail: emailController.text,
+          userPassword: confirmPasswordController.text,
+          userType: widget.userType3);
+      await firebaseFirestore
+          .collection("users")
+          .doc(user.uid) // Use user.uid here as well
+          .set(userModel.toMap());
+      Fluttertoast.showToast(msg: "Euntrepreneur Account created successfully");
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => EunDashboardPage()),
+      );
+
+    } else if (widget.userType3 == 'investor') {
+      MainUser userModel = MainUser(
+
+          userId: user!.uid, // Use user.uid instead of user.userId
+          userName: nameController.text,
+          userEmail: emailController.text,
+          userPassword: confirmPasswordController.text,
+          userType: widget.userType3);
+      await firebaseFirestore
+          .collection("users")
+          .doc(user.uid) // Use user.uid here as well
+          .set(userModel.toMap());
+      Fluttertoast.showToast(msg: "Investor Account created successfully");
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => DashboardPage()),
+      );
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,7 +196,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         Container(
                           child:TextFormField(
                             autofocus: false,
-                            controller: emailController,
+                            controller: nameController,
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -358,7 +372,12 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              onTap: (){},
+                              onTap: (){
+                                if (_formKey.currentState!.validate()) {
+                                  userRegister(emailController.text, confirmPasswordController.text);
+
+                                }
+                              },
                               borderRadius: BorderRadius.circular(16.0),
                               child: Ink(
                                 padding: const EdgeInsets.symmetric(horizontal: 70.0, vertical: 18.0),
@@ -389,7 +408,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return LoginScreen();
+                                  return LoginScreen(userId: '',);
                                 },
                               ),
                             );

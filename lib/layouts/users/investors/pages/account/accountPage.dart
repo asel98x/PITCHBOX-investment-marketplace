@@ -80,7 +80,7 @@ class _AccountPageState extends State<AccountPage> {
             ElevatedButton(
                 onPressed: () {
                   sp.userSignOut();
-                  nextScreenReplace(context, const LoginScreen());
+                  nextScreenReplace(context, const LoginScreen(userId: '',));
                 },
                 child: const Text("SIGNOUT",
                     style: TextStyle(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pitchbox/layouts/signupScreen.dart';
 import 'package:pitchbox/layouts/users/investors/pages/dashboard/dashboardPage.dart';
 import 'package:pitchbox/layouts/users/passwordDialog.dart';
 import 'package:pitchbox/styles/appColors.dart';
@@ -8,13 +9,17 @@ import 'package:pitchbox/styles/appIcons.dart';
 import 'package:pitchbox/styles/appStyles.dart';
 
 class UserCheckScreen extends StatefulWidget {
-  const UserCheckScreen({ Key? key }) : super(key: key);
+  const UserCheckScreen({Key? key}) : super(key: key);
 
   @override
   _UserCheckScreenState createState() => _UserCheckScreenState();
 }
 
 class _UserCheckScreenState extends State<UserCheckScreen> {
+  late final String userType;
+  String _Euntrepreneur = 'euntrepreneur';
+  String _Investor = 'investor';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +45,14 @@ class _UserCheckScreenState extends State<UserCheckScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   InkWell(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>passwordDialog()));
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SignupScreen(userType3: _Euntrepreneur),
+                        ),
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -60,17 +71,27 @@ class _UserCheckScreenState extends State<UserCheckScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(AppIcons.entrepreneur, width: 50, height: 50),
+                          Image.asset(AppIcons.entrepreneur,
+                              width: 50, height: 50),
                           SizedBox(height: 10),
-                          Text("Euntrepreneur",style: TextStyle(color: Colors.white,fontSize: 30),)
+                          Text(
+                            _Euntrepreneur,
+                            style: TextStyle(color: Colors.white, fontSize: 30),
+                          )
                         ],
                       ),
                     ),
                   ),
                   SizedBox(height: 20),
                   InkWell(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>passwordDialog()));
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SignupScreen(userType3: _Investor),
+                        ),
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -85,13 +106,16 @@ class _UserCheckScreenState extends State<UserCheckScreen> {
                           ),
                         ],
                       ),
-                        padding: EdgeInsets.symmetric(vertical: 20),
-                        child: Column(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(AppIcons.investor, width: 50, height: 50),
                           SizedBox(height: 10),
-                          Text("Investor",style: TextStyle(color: Colors.white,fontSize: 30),)
+                          Text(
+                            _Investor,
+                            style: TextStyle(color: Colors.white, fontSize: 30),
+                          )
                         ],
                       ),
                     ),

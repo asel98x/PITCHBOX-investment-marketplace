@@ -2,28 +2,55 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pitchbox/backend/controller/userController.dart';
+import 'package:pitchbox/backend/model/mainUser.dart';
 import 'package:pitchbox/layouts/newAcc.dart';
 import 'package:pitchbox/layouts/signupScreen.dart';
+import 'package:pitchbox/layouts/users/Euntrepreneur/pages/dashboard/EunDashboardPage.dart';
+import 'package:pitchbox/layouts/users/investors/pages/dashboard/dashboardPage.dart';
 import 'package:pitchbox/layouts/users/userCheckScreen.dart';
+import 'package:pitchbox/provider/loginDetails.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:pitchbox/styles/appStyles.dart';
 import 'package:pitchbox/styles/responsiveWidget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  final String userId;
+  const LoginScreen({Key? key, required this.userId}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final LoginDetails loginDetails = LoginDetails();
+  final UserController _userController = UserController();
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   String? errorMessage;
   bool _isObscure = true; // Initially password is obscured
+
+  void getData()async{
+    await loginDetails.getSharedPreferences();
+    String? userId = loginDetails.userId;
+
+    // Get user details using the controller class
+    List<MainUser> userDetails = await _userController.getUserDetails(userId!);
+
+    // Print user details
+    userDetails.forEach((user) {
+      print('UserID: ${user.userId}');
+      print('UserName: ${user.userName}');
+      print('UserEmail: ${user.userEmail}');
+      print('UserType: ${user.userType}');
+      print('UserPassword: ${user.userPassword}');
+    });
+  }
 
   // login function
   void login(String email, String password) async {
@@ -33,8 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
           Fluttertoast.showToast(msg: "Login Successful"),
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => UserCheckScreen())),
+          saveUserDetails(email, password),
+
         });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
@@ -65,6 +92,46 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
+
+  void saveUserDetails(String email, String password) async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    if (user != null) {
+      String userEmail = user.email ?? '';
+      String userId = user.uid ?? '';
+      String userName = user.displayName ?? '';
+      String userPassword = password;
+      String userType = ''; // set the user type here
+
+      // Get user details using the controller class
+      List<MainUser> userDetails = await _userController.getUserDetails(userId);
+
+      // Check if user is an investor
+      bool isInvestor = false;
+      userDetails.forEach((user) {
+        if (user.userType == 'investor') {
+          isInvestor = true;
+        }
+      });
+
+      if (isInvestor) {
+        // Save user details to SharedPreferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('userEmail', userEmail);
+        prefs.setString('userId', userId);
+        prefs.setString('userName', userName);
+        prefs.setString('userPassword', userPassword);
+        prefs.setString('userType', 'investor');
+
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => DashboardPage()));
+      } else {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => EunDashboardPage()));
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +346,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return SignupScreen();
+                                  return UserCheckScreen();
                                 },
                               ),
                             );
