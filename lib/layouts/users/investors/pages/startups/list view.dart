@@ -5,6 +5,8 @@ import 'package:pitchbox/styles/appIcons.dart';
 import 'package:pitchbox/styles/appStyles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'payment/home_page.dart';
+
 class businessListView extends StatefulWidget {
   Business business;
   businessListView({required this.business, Key? key}) : super(key: key);
@@ -777,7 +779,10 @@ class _businessListViewState extends State<businessListView> {
                               padding: EdgeInsets.symmetric(horizontal: 10),
                               color: Colors.white,
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(builder: (context) => HomePage(title: '',)));
+                                },
                                 style: ElevatedButton.styleFrom(
                                   primary: AppColors.mainBlueColor, // set the background color of the button
                                 ),

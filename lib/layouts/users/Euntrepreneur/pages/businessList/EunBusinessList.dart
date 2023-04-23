@@ -186,20 +186,11 @@ class _EunBusinessListState extends State<EunBusinessList> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      style: ralewayStyle.copyWith(
-                                        fontSize: 20,
-                                        color: AppColors.greyColor,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      business.businessName,
-                                      textAlign: TextAlign.justify,
-                                    ),
                                     SizedBox(height: 8.0),
                                     Text(
                                       business.businessName,
                                       style: ralewayStyle.copyWith(
-                                        fontSize: 16.0,
+                                        fontSize: 18.0,
                                         color: AppColors.blueDarkColor,
                                         fontWeight: FontWeight.bold,
                                       ),
