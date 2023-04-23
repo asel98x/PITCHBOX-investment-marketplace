@@ -23,7 +23,7 @@ class _EunDashboardPageState extends State<EunDashboardPage>{
   int _currentIndex = 0;
   late PageController _pageController;
 
-  final List<Widget> _pages = [EunBusinessList(), EunNewsPage(), EunAlertsPage(), EunUserProfilePage()];
+  final List<Widget> _pages = [EunBusinessList(userId: '',), EunNewsPage(), EunAlertsPage(), EunUserProfilePage()];
 
   @override
   void initState(){

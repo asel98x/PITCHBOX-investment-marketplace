@@ -145,6 +145,18 @@ class BusinessController {
     return newBusinesses;
   }
 
+  Future<List<Business>> getNewBusinessesListINT() async {
+    List<Business> newBusinesses =
+    await _BusinessService.getNewBusinessesListINT();
+    return newBusinesses;
+  }
+
+  Future<List<Business>> getNewBusinessesListEUN(String userId) async {
+    List<Business> newBusinesses =
+    await _BusinessService.getNewBusinessesListEUN(userId);
+    return newBusinesses;
+  }
+
   Future<List<Business>> getNewBusiness(String businessName) async {
     return await _BusinessService.getNewBusiness(businessName);
   }

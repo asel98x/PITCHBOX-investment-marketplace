@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pitchbox/backend/controller/IndustryController.dart';
 import 'package:pitchbox/backend/controller/startupController.dart';
 import 'package:pitchbox/backend/model/businessModel.dart';
+import 'package:pitchbox/backend/model/industry.dart';
 import 'package:pitchbox/layouts/users/Euntrepreneur/pages/businessList/updateEunBusinessList.dart';
 import 'package:pitchbox/layouts/users/investors/pages/startups/list view.dart';
 import 'package:pitchbox/styles/appColors.dart';
@@ -15,20 +17,29 @@ class BusinessListPage extends StatefulWidget {
 
 class _BusinessListPageState extends State<BusinessListPage> {
   final BusinessController _controller = BusinessController();
+  final IndustryController _industryController = IndustryController();
   final TextEditingController _searchController = TextEditingController();
 
   List<Business> _businessList = [];
+  List<Industry> _industryList = [];
 
   @override
   void initState() {
     super.initState();
     _loadBusinessList();
+    _loadIndustryList();
   }
 
   Future<void> _loadBusinessList() async {
-    List<Business> businessList = await _controller.getNewBusinessesList();
+    List<Business> businessList = await _controller.getNewBusinessesListINT();
     setState(() {
       _businessList = businessList;
+    });
+  }
+  Future<void> _loadIndustryList() async {
+    List<Industry> industryList = await _industryController.getIndustries();
+    setState(() {
+      _industryList = industryList;
     });
   }
 
@@ -46,6 +57,8 @@ class _BusinessListPageState extends State<BusinessListPage> {
     _loadBusinessList();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,23 +69,73 @@ class _BusinessListPageState extends State<BusinessListPage> {
       ),
       body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  labelText: 'Search Startup',
-                  hintText: 'Enter a Startup name',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+            Container(
+              color: AppColors.lightBlueColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    labelText: 'Search Startup',
+                    hintText: 'Enter a Startup name',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
+                  onChanged: (value) {
+                    _filterBusinessList(value);
+                  },
                 ),
-                onChanged: (value) {
-                  _filterBusinessList(value);
-                },
               ),
             ),
+
+            Container(
+              color: AppColors.lightBlueColor,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: SizedBox(
+                  height: 70,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _industryList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Industry industry = _industryList[index];
+                      return Container(
+                        width: 100.0,
+                        height: 10.0,
+                        child: Card(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.network(
+                                industry.imgUrl,
+                                height: 30,
+                                width: 160,
+                                fit: BoxFit.cover,
+                              ),
+                              Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(
+                                    industry.name,
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              ),
+
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+
             Expanded(
               child: RefreshIndicator(
                 onRefresh: _handleRefresh,

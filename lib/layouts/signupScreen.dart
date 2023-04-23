@@ -6,6 +6,7 @@ import 'package:pitchbox/backend/model/mainUser.dart';
 import 'package:pitchbox/backend/model/user.dart';
 import 'package:pitchbox/layouts/socialSignUp.dart';
 import 'package:pitchbox/layouts/users/Euntrepreneur/pages/dashboard/EunDashboardPage.dart';
+import 'package:pitchbox/layouts/users/investors/pages/account/stepper/investorCheckout.dart';
 import 'package:pitchbox/layouts/users/investors/pages/dashboard/dashboardPage.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:pitchbox/styles/appIcons.dart';
@@ -116,7 +117,7 @@ class _SignupScreenState extends State<SignupScreen> {
           .set(userModel.toMap());
       Fluttertoast.showToast(msg: "Investor Account created successfully");
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => DashboardPage()),
+        MaterialPageRoute(builder: (context) => InvestorCheckout(userId: '',)),
       );
 
     }

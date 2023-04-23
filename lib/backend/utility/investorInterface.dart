@@ -3,5 +3,7 @@ import 'package:pitchbox/backend/model/investor.dart';
 
 abstract class InvestorInterface {
   Future<List<String>> getIndustryNames();
-  void addInvestorProfile(Investor investor, Fund fund);
+  void addInvestorProfile(String userId,Investor investor, Fund fund);
+  Future<void> updateNewBusiness(String userId,Investor investor, Fund fund);
+  Future<List<dynamic>> getNewBusinessDetails(String id);
 }

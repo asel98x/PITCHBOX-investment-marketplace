@@ -18,6 +18,7 @@ class IndustryController {
 
 
   Future<void> addInvestorProfile({
+    required String userId,
     required String investorId,
     required String fullName,
     required String email,
@@ -69,8 +70,13 @@ class IndustryController {
     investmentGoal: investmentGoal,
     investmentCriteria: investmentCriteria,);
 
-    await _investorService.addInvestorProfile(investor,fund);
+    await _investorService.addInvestorProfile(userId,investor,fund);
   }
+
+  Future<List<Map<String, dynamic>>> getNewBusinessDetails(String id) async {
+    return await _investorService.getNewBusinessDetails(id);
+  }
+
 
 }
 

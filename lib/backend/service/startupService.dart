@@ -157,4 +157,124 @@ class BusinessService implements BusinessInterface{
         .doc(business.id)
         .update(business.toMap());
   }
+
+  @override
+  Future<List<Business>> getNewBusinessesListINT() async {
+    QuerySnapshot querySnapshot = await usersCollection.where('status', isEqualTo: 'accept').get();
+
+    List<Business> newBusinesses = [];
+
+    querySnapshot.docs.forEach((doc) {
+      Business business = Business(
+        id: doc.id, // use Firebase's document ID as the business ID
+        businessId: doc['businessId'],
+        userId: doc['userId'],
+        name: doc['name'],
+        mobile: doc['mobile'],
+        city: doc['city'],
+        country: doc['country'],
+        professionalExperience: (doc['professionalExperience'] as List<dynamic>).cast<String>(),
+        entrepreneurshipExperience:(doc['entrepreneurshipExperience'] as List<dynamic>).cast<String>(),
+        education: (doc['education'] as List<dynamic>).cast<String>(),
+        industryCertifications:(doc['industryCertifications'] as List<dynamic>).cast<String>(),
+        awardsAchievements: (doc['awardsAchievements'] as List<dynamic>).cast<String>(),
+        trackRecord: (doc['trackRecord'] as List<dynamic>).cast<String>(),
+        email: doc['email'],
+        linkedin: doc['linkedin'],
+        twitter: doc['twitter'],
+        facebook: doc['facebook'],
+        instagram: doc['instagram'],
+        Userwebsite: doc['Userwebsite'],
+        UserImgUrl: doc['UserImgUrl'],
+        businessIndustry: doc['businessIndustry'],
+        businessName: doc['businessName'],
+        businessLocation: doc['businessLocation'],
+        companyDescription: doc['companyDescription'],
+        website: doc['website'],
+        executiveSummary: doc['executiveSummary'],
+        businessModel: doc['businessModel'],
+        valueProposition: doc['valueProposition'],
+        productOrServiceOffering: doc['productOrServiceOffering'],
+        fundingNeeds: doc['fundingNeeds'],
+        businessImgUrl: doc['businessImgUrl'],
+        fundAmount: doc['fundAmount'],
+        avaiableFundAmount: doc['avaiableFundAmount'],
+        fundPurpose: doc['fundPurpose'],
+        timeline: doc['timeline'],
+        fundingSources: doc['fundingSources'],
+        investmentTerms: doc['investmentTerms'],
+        investorBenefits: doc['investorBenefits'],
+        riskFactors: doc['riskFactors'],
+        minimumInvestmentAmount: doc['minimumInvestmentAmount'],
+        maximumInvestmentAmount: doc['maximumInvestmentAmount'],
+        investmentStage: doc['investmentStage'],
+        industryFocus: (doc['industryFocus'] as List<dynamic>).cast<String>(),
+        investorLocation: doc['investorLocation'],
+        status: doc['status'],
+      );
+      newBusinesses.add(business);
+    });
+
+    return newBusinesses;
+  }
+
+  @override
+  Future<List<Business>> getNewBusinessesListEUN(String userId) async {
+    QuerySnapshot querySnapshot = await usersCollection.where('userId', isEqualTo: userId).get();
+
+    List<Business> newBusinesses = [];
+
+    querySnapshot.docs.forEach((doc) {
+      Business business = Business(
+        id: doc.id, // use Firebase's document ID as the business ID
+        businessId: doc['businessId'],
+        userId: doc['userId'],
+        name: doc['name'],
+        mobile: doc['mobile'],
+        city: doc['city'],
+        country: doc['country'],
+        professionalExperience: (doc['professionalExperience'] as List<dynamic>).cast<String>(),
+        entrepreneurshipExperience:(doc['entrepreneurshipExperience'] as List<dynamic>).cast<String>(),
+        education: (doc['education'] as List<dynamic>).cast<String>(),
+        industryCertifications:(doc['industryCertifications'] as List<dynamic>).cast<String>(),
+        awardsAchievements: (doc['awardsAchievements'] as List<dynamic>).cast<String>(),
+        trackRecord: (doc['trackRecord'] as List<dynamic>).cast<String>(),
+        email: doc['email'],
+        linkedin: doc['linkedin'],
+        twitter: doc['twitter'],
+        facebook: doc['facebook'],
+        instagram: doc['instagram'],
+        Userwebsite: doc['Userwebsite'],
+        UserImgUrl: doc['UserImgUrl'],
+        businessIndustry: doc['businessIndustry'],
+        businessName: doc['businessName'],
+        businessLocation: doc['businessLocation'],
+        companyDescription: doc['companyDescription'],
+        website: doc['website'],
+        executiveSummary: doc['executiveSummary'],
+        businessModel: doc['businessModel'],
+        valueProposition: doc['valueProposition'],
+        productOrServiceOffering: doc['productOrServiceOffering'],
+        fundingNeeds: doc['fundingNeeds'],
+        businessImgUrl: doc['businessImgUrl'],
+        fundAmount: doc['fundAmount'],
+        avaiableFundAmount: doc['avaiableFundAmount'],
+        fundPurpose: doc['fundPurpose'],
+        timeline: doc['timeline'],
+        fundingSources: doc['fundingSources'],
+        investmentTerms: doc['investmentTerms'],
+        investorBenefits: doc['investorBenefits'],
+        riskFactors: doc['riskFactors'],
+        minimumInvestmentAmount: doc['minimumInvestmentAmount'],
+        maximumInvestmentAmount: doc['maximumInvestmentAmount'],
+        investmentStage: doc['investmentStage'],
+        industryFocus: (doc['industryFocus'] as List<dynamic>).cast<String>(),
+        investorLocation: doc['investorLocation'],
+        status: doc['status'],
+      );
+      newBusinesses.add(business);
+    });
+
+    return newBusinesses;
+  }
 }

@@ -14,6 +14,24 @@ class businessListView extends StatefulWidget {
 }
 
 class _businessListViewState extends State<businessListView> {
+
+  String _name = '';
+  String _mobile = '';
+  String _city = '';
+  String _country = '';
+  List<String> _professionalExperience = [];
+  List<String> _entrepreneurshipExperience = [];
+  List<String> _education = [];
+  List<String> _industryCertifications = [];
+  List<String> _awardsAchievements = [];
+  List<String> _trackRecord = [];
+  String _email = '';
+  String _linkedin = '';
+  String _twitter = '';
+  String _facebook = '';
+  String _instagram = '';
+  String _Userwebsite = '';
+
   String _businessName = '';
   String _businessLocation = '';
   String _executiveSummary = '';
@@ -34,8 +52,20 @@ class _businessListViewState extends State<businessListView> {
   @override
   void initState() {
     super.initState();
+    _name = widget.business.name;
+    _mobile = widget.business.mobile;
+    _city = widget.business.city;
+    _country = widget.business.country;
+    _professionalExperience = List<String>.from(widget.business.professionalExperience);
+    _entrepreneurshipExperience = List<String>.from(widget.business.entrepreneurshipExperience);
+    _education = List<String>.from(widget.business.education);
+    _industryCertifications = List<String>.from(widget.business.industryCertifications);
+    _industryCertifications = List<String>.from(widget.business.industryCertifications);
+    _awardsAchievements = List<String>.from(widget.business.awardsAchievements);
+    _trackRecord = List<String>.from(widget.business.trackRecord);
+    _email = widget.business.email;
+
     _businessName = widget.business.businessName;
-    _businessLocation = widget.business.businessLocation;
     _businessLocation = widget.business.businessLocation;
     _executiveSummary = widget.business.executiveSummary;
     _companyDescription = widget.business.companyDescription;
@@ -51,6 +81,288 @@ class _businessListViewState extends State<businessListView> {
     _investmentTerms = widget.business.investmentTerms;
     _investorBenefits = widget.business.investorBenefits;
     _riskFactors = widget.business.riskFactors;
+  }
+
+  void _showEunDetailsDialog(BuildContext context, Business business) {
+    GlobalKey _imageKey = GlobalKey();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Entrepreneur Information'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 4,
+                          color: Theme.of(context).scaffoldBackgroundColor),
+                      boxShadow: [
+                        BoxShadow(
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            color: Colors.black.withOpacity(0.1),
+                            offset: Offset(0, 10))
+                      ],
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            (widget.business.UserImgUrl),
+                          ))),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  _name,
+                  style: ralewayStyle.copyWith(
+                    fontSize: 16.0,
+                    color: AppColors.textColor,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Mobile : '+_mobile,
+                        textAlign: TextAlign.justify,
+                        style: ralewayStyle.copyWith(
+                          fontSize: 16.0,
+                          color: AppColors.textColor,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'City : '+_city,
+                        textAlign: TextAlign.justify,
+                        style: ralewayStyle.copyWith(
+                          fontSize: 16.0,
+                          color: AppColors.textColor,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Country  : '+_country,
+                        textAlign: TextAlign.justify,
+                        style: ralewayStyle.copyWith(
+                          fontSize: 16.0,
+                          color: AppColors.textColor,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Email  : '+_email,
+                        textAlign: TextAlign.justify,
+                        style: ralewayStyle.copyWith(
+                          fontSize: 16.0,
+                          color: AppColors.textColor,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Professional Experience',
+                        textAlign: TextAlign.start,
+                        style: ralewayStyle.copyWith(
+                          fontSize: 18.0,
+                          color: AppColors.blueDarkColor,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      Divider(thickness: 2),
+                      SizedBox(height: 8),
+                      Column(
+                        children: _professionalExperience.map((experience) =>
+                            Column(
+                              children: [
+                                Text(
+                                  '• ' + experience,
+                                  textAlign: TextAlign.justify,
+                                  style: ralewayStyle.copyWith(
+                                    fontSize: 16.0,
+                                    color: AppColors.textColor,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                              ],
+                            ),
+                        ).toList(),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Entrepreneurship Experience',
+                        textAlign: TextAlign.start,
+                        style: ralewayStyle.copyWith(
+                          fontSize: 18.0,
+                          color: AppColors.blueDarkColor,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      Divider(thickness: 2),
+                      SizedBox(height: 8),
+                      Column(
+                        children: _entrepreneurshipExperience.map((entrepreneurshipExperience) =>
+                            Column(
+                              children: [
+                                Text(
+                                  '• ' + entrepreneurshipExperience,
+                                  textAlign: TextAlign.justify,
+                                  style: ralewayStyle.copyWith(
+                                    fontSize: 16.0,
+                                    color: AppColors.textColor,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                              ],
+                            ),
+                        ).toList(),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'education',
+                        textAlign: TextAlign.start,
+                        style: ralewayStyle.copyWith(
+                          fontSize: 18.0,
+                          color: AppColors.blueDarkColor,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      Divider(thickness: 2),
+                      SizedBox(height: 8),
+                      Column(
+                        children: _education.map((education) =>
+                            Column(
+                              children: [
+                                Text(
+                                  '• ' + education,
+                                  textAlign: TextAlign.justify,
+                                  style: ralewayStyle.copyWith(
+                                    fontSize: 16.0,
+                                    color: AppColors.textColor,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                              ],
+                            ),
+                        ).toList(),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Industry Certifications',
+                        textAlign: TextAlign.start,
+                        style: ralewayStyle.copyWith(
+                          fontSize: 18.0,
+                          color: AppColors.blueDarkColor,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      Divider(thickness: 2),
+                      SizedBox(height: 8),
+                      Column(
+                        children: _industryCertifications.map((industryCertifications) =>
+                            Column(
+                              children: [
+                                Text(
+                                  '• ' + industryCertifications,
+                                  textAlign: TextAlign.justify,
+                                  style: ralewayStyle.copyWith(
+                                    fontSize: 16.0,
+                                    color: AppColors.textColor,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                              ],
+                            ),
+                        ).toList(),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Awards Achievements',
+                        textAlign: TextAlign.start,
+                        style: ralewayStyle.copyWith(
+                          fontSize: 18.0,
+                          color: AppColors.blueDarkColor,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      Divider(thickness: 2),
+                      SizedBox(height: 8),
+                      Column(
+                        children: _awardsAchievements.map((awardsAchievements) =>
+                            Column(
+                              children: [
+                                Text(
+                                  '• ' + awardsAchievements,
+                                  textAlign: TextAlign.justify,
+                                  style: ralewayStyle.copyWith(
+                                    fontSize: 16.0,
+                                    color: AppColors.textColor,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                              ],
+                            ),
+                        ).toList(),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Track Record',
+                        textAlign: TextAlign.start,
+                        style: ralewayStyle.copyWith(
+                          fontSize: 18.0,
+                          color: AppColors.blueDarkColor,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      Divider(thickness: 2),
+                      SizedBox(height: 8),
+                      Column(
+                        children: _trackRecord.map((trackRecord) =>
+                            Column(
+                              children: [
+                                Text(
+                                  '• ' + trackRecord,
+                                  textAlign: TextAlign.justify,
+                                  style: ralewayStyle.copyWith(
+                                    fontSize: 16.0,
+                                    color: AppColors.textColor,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                              ],
+                            ),
+                        ).toList(),
+                      ),
+
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+
   }
 
   @override
@@ -122,20 +434,24 @@ class _businessListViewState extends State<businessListView> {
                       ],
                     ),
                     child: Center(
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              (widget.business.UserImgUrl),
+                      child: GestureDetector(
+                        onTap: () {
+                          _showEunDetailsDialog(context,widget.business);
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(widget.business.UserImgUrl),
+                              fit: BoxFit.cover,
                             ),
-                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
                     ),
+
                   ),
                 ),
               ],
@@ -164,7 +480,7 @@ class _businessListViewState extends State<businessListView> {
                       children: [
                         InkWell(
                           onTap: () {
-                            launch('https://www.facebook.com/');
+                            launch(_facebook);
                           },
                           child: Container(
                             width: 30.0,
@@ -174,7 +490,7 @@ class _businessListViewState extends State<businessListView> {
                         ),
                         InkWell(
                           onTap: () {
-                            launch('https://twitter.com/');
+                            launch(_twitter);
                           },
                           child: Container(
                             width: 30.0,
@@ -184,7 +500,7 @@ class _businessListViewState extends State<businessListView> {
                         ),
                         InkWell(
                           onTap: () {
-                            launch('https://www.linkedin.com/');
+                            launch(_linkedin);
                           },
                           child: Container(
                             width: 30.0,
@@ -195,7 +511,7 @@ class _businessListViewState extends State<businessListView> {
 
                         InkWell(
                           onTap: () {
-                            launch('https://www.instagram.com/');
+                            launch(_instagram);
                           },
                           child: Container(
                             width: 30.0,
@@ -205,7 +521,7 @@ class _businessListViewState extends State<businessListView> {
                         ),
                         InkWell(
                           onTap: () {
-                            launch('https://www.example.com/');
+                            launch(_Userwebsite);
                           },
                           child: Icon(Icons.language),
                         ),

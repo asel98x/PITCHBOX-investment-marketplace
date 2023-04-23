@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pitchbox/layouts/signupScreen.dart';
 import 'package:pitchbox/layouts/users/investors/pages/account/stepper/investorCheckout.dart';
+import 'package:pitchbox/layouts/users/investors/pages/account/stepper/updateInvestorCheckout.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:provider/provider.dart';
 
@@ -164,7 +165,7 @@ class _InvestorSettingsPageState extends State<InvestorSettingsPage> {
       onTap: () {
 
         if (title == "Investor Profile Manage") {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => InvestorCheckout()));
+          Navigator.push(context, MaterialPageRoute(builder: (_) => UpdateInvestorCheckout(userId: '',)));
         } else if (title == "Signup Screen") {
 
         } else if (title == "Social") {
