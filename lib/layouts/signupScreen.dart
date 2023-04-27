@@ -34,6 +34,13 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
 
+  void clear(){
+    nameController.text = '';
+    emailController.text = '';
+    passwordController.text = '';
+    confirmPasswordController.text = '';
+  }
+
   void userRegister(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
@@ -116,6 +123,7 @@ class _SignupScreenState extends State<SignupScreen> {
           .doc(user.uid) // Use user.uid here as well
           .set(userModel.toMap());
       Fluttertoast.showToast(msg: "Investor Account created successfully");
+      clear();
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => InvestorCheckout(userId: '',)),
       );

@@ -228,14 +228,14 @@ class BusinessController {
             .ref('user_images/${DateTime.now().millisecondsSinceEpoch}');
         final userImageUploadTask = userImageRef.putFile(UserImgUrl!);
         final userImageSnapshot = await userImageUploadTask;
-        final userImageDownloadUrl = await userImageSnapshot.ref.getDownloadURL();
+        final userImageDownloadUrl2 = await userImageSnapshot.ref.getDownloadURL();
 
         // update business image to Firebase Storage
         final businessImageRef = FirebaseStorage.instance
             .ref('business_images/${DateTime.now().millisecondsSinceEpoch}');
         final businessImageUploadTask = businessImageRef.putFile(businessImgUrl!);
         final businessImageSnapshot = await businessImageUploadTask;
-        final businessImageDownloadUrl = await businessImageSnapshot.ref.getDownloadURL();
+        final businessImageDownloadUrl2 = await businessImageSnapshot.ref.getDownloadURL();
 
         Business business = Business(
           id: id,
@@ -250,7 +250,7 @@ class BusinessController {
           facebook: facebook,
           instagram: instagram,
           Userwebsite: Userwebsite,
-          UserImgUrl: userImageDownloadUrl,
+          UserImgUrl: userImageDownloadUrl2,
           professionalExperience: professionalExperience,
           entrepreneurshipExperience: entrepreneurshipExperience,
           education: education,
@@ -269,7 +269,7 @@ class BusinessController {
           valueProposition: valueProposition,
           productOrServiceOffering: productOrServiceOffering,
           fundingNeeds: fundingNeeds,
-          businessImgUrl: businessImageDownloadUrl,
+          businessImgUrl: businessImageDownloadUrl2,
 
           fundAmount: fundAmount,
           avaiableFundAmount:avaiableFundAmount,

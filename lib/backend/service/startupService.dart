@@ -153,14 +153,14 @@ class BusinessService implements BusinessInterface{
   @override
   Future<void> updateNewBusiness(Business business) async{
     await _firestore
-        .collection('industries')
+        .collection('startup')
         .doc(business.id)
         .update(business.toMap());
   }
 
   @override
   Future<List<Business>> getNewBusinessesListINT() async {
-    QuerySnapshot querySnapshot = await usersCollection.where('status', isEqualTo: 'accept').get();
+    QuerySnapshot querySnapshot = await usersCollection.where('status', isEqualTo: 'Accepted').get();
 
     List<Business> newBusinesses = [];
 

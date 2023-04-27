@@ -143,6 +143,7 @@ class _UpdateInvestorCheckoutState extends State<UpdateInvestorCheckout> {
     });
     _accreditedInvestorStatus.text = investor.accreditedInvestorStatus;
     _linkedInProfile.text = investor.linkedinProfile;
+    //_selectedInvestmentExperience = investor.;
 
 
     _minimumInvestment.text = fund.minimumInvestmentAmount;

@@ -82,6 +82,7 @@ class _updateEunBusinessListState extends State<updateEunBusinessList> {
   //----------------------Funding Requirments------------------------------------------//
   //====================================================================================//
   final _fundAmount = TextEditingController();
+  String availableFundAmount='';
   final _fundPurpose = TextEditingController();
   final _timeline = TextEditingController();
   final _fundingSources = TextEditingController();
@@ -114,7 +115,6 @@ class _updateEunBusinessListState extends State<updateEunBusinessList> {
     _userIdController.text = widget.business.userId;
     _fullNameController.text = widget.business.name;
     _phoneController.text = widget.business.mobile;
-    _phoneController.text = widget.business.mobile;
     _cityController.text = widget.business.city;
     _countryController.text = widget.business.country;
     widget.business.professionalExperience.forEach((element) {
@@ -136,10 +136,6 @@ class _updateEunBusinessListState extends State<updateEunBusinessList> {
       _awardsAchievementsController
           .add(TextEditingController(text: element.toString()));
     });
-    widget.business.awardsAchievements.forEach((element) {
-      _awardsAchievementsController
-          .add(TextEditingController(text: element.toString()));
-    });
     widget.business.trackRecord.forEach((element) {
       _trackRecordController
           .add(TextEditingController(text: element.toString()));
@@ -153,6 +149,7 @@ class _updateEunBusinessListState extends State<updateEunBusinessList> {
 
     _businessName.text = widget.business.businessName;
     _industryFocus = widget.business.industryFocus;
+    _businessIndustry.text = widget.business.businessIndustry;
     _businessLocation.text = widget.business.businessLocation;
     _companyDescription.text = widget.business.companyDescription;
     _website2.text = widget.business.website;
@@ -163,6 +160,7 @@ class _updateEunBusinessListState extends State<updateEunBusinessList> {
     _fundingNeeds.text = widget.business.fundingNeeds;
 
     _fundAmount.text = widget.business.fundAmount;
+    availableFundAmount = widget.business.avaiableFundAmount;
     _fundPurpose.text = widget.business.fundPurpose;
     _timeline.text = widget.business.timeline;
     _fundingSources.text = widget.business.fundingSources;
@@ -241,7 +239,7 @@ class _updateEunBusinessListState extends State<updateEunBusinessList> {
 
     //----------------------Business Information------------------------------------------//
     late String businessName = _businessName.text;
-    late String businessIndustry = _businessIndustry.text;
+    late String businessIndustry= _businessIndustry.text;
     late String businessLocation = _businessLocation.text;
     late String executiveSummary = _executiveSummary.text;
     late String companyDescription = _companyDescription.text;
@@ -249,12 +247,13 @@ class _updateEunBusinessListState extends State<updateEunBusinessList> {
     late String valueProposition = _valueProposition.text;
     late String productOrServiceOffering = _productOrServiceOffering.text;
     late String fundingNeeds = _fundingNeeds.text;
-    late String website2 = _phoneController.text;
+    late String website2 = _website2.text;
     File? Bimage = _imageFile2;
 
     //----------------------Funding Requirments------------------------------------------//
 
     late String fundAmount = _fundAmount.text;
+    late String AfundAmount = availableFundAmount;
     late String fundPurpose = _fundPurpose.text;
     late String timeline = _timeline.text;
     late String fundingSources = _fundingSources.text;
@@ -293,30 +292,33 @@ class _updateEunBusinessListState extends State<updateEunBusinessList> {
         instagram: instagram,
         Userwebsite: Userwebsite,
         UserImgUrl: _imageFile,
-        businessIndustry: businessIndustry,
+
         businessName: businessName,
+        businessIndustry: businessIndustry,
         businessLocation: businessLocation,
-        companyDescription: companyDescription,
-        website: website2,
         executiveSummary: executiveSummary,
+        companyDescription: companyDescription,
         businessModel: businessModel,
         valueProposition: valueProposition,
         productOrServiceOffering: productOrServiceOffering,
         fundingNeeds: fundingNeeds,
+        website: website2,
         businessImgUrl: _imageFile2,
+
         fundAmount: fundAmount,
-        avaiableFundAmount: '',
+        avaiableFundAmount: AfundAmount,
         fundPurpose: fundPurpose,
         timeline: timeline,
         fundingSources: fundingSources,
         investmentTerms: investmentTerms,
         investorBenefits: investorBenefits,
         riskFactors: riskFactors,
+
         minimumInvestmentAmount: minimumInvestmentAmount,
         maximumInvestmentAmount: maximumInvestmentAmount,
+        investorLocation: investorLocation,
         investmentStage: selectedInvestmentExperience!,
         industryFocus: industryFocus,
-        investorLocation: investorLocation,
         status: 'Pending',
         street: '',
         state: '',
@@ -326,8 +328,17 @@ class _updateEunBusinessListState extends State<updateEunBusinessList> {
         pass: '',
         investmentGoal: '',
         investmentCriteria: '',
-        image: null, userImageDownloadUrl: '', businessImageDownloadUrl: '',
+        image: null,
+        userImageDownloadUrl: widget.business.UserImgUrl,
+        businessImageDownloadUrl: widget.business.businessImgUrl,
       );
+      print(fundAmount);
+      print(fundPurpose);
+      print(timeline);
+      print(fundingSources);
+      print(investmentTerms);
+      print(investorBenefits);
+      print(_imageFile);
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

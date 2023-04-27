@@ -8,6 +8,8 @@ import 'package:pitchbox/provider/loginDetails.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:pitchbox/styles/appStyles.dart';
 
+import 'EunBusinessListView.dart';
+
 class EunBusinessList extends StatefulWidget {
   final String userId;
   const EunBusinessList({Key? key, required this.userId}) : super(key: key);
@@ -125,8 +127,7 @@ class _EunBusinessListState extends State<EunBusinessList> {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => updateEunBusinessList(
-                                      business: _businessList[index],
+                                builder: (context) => EunBusinessListView(business: _businessList[index],
                                     )),
                           );
                         },
@@ -239,6 +240,31 @@ class _EunBusinessListState extends State<EunBusinessList> {
                                         ),
                                       ],
                                     ),
+                                    Container(
+                                      width: double.infinity,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) => updateEunBusinessList(
+                                                  business: _businessList[index],
+                                                )),
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          primary: AppColors.mainBlueColor,
+                                        ),
+                                        child: Text(
+                                          'update',
+                                          style: ralewayStyle.copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            color: AppColors.whiteColor,
+                                            fontSize: 16.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
                                   ],
                                 ),
                               ),

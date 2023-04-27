@@ -1,30 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:payhere_mobilesdk_flutter/payhere_mobilesdk_flutter.dart';
+import 'package:pitchbox/backend/controller/loanController.dart';
 import 'package:pitchbox/backend/model/businessModel.dart';
+import 'package:pitchbox/layouts/users/Euntrepreneur/pages/businessList/updateEunBusinessList.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:pitchbox/styles/appIcons.dart';
 import 'package:pitchbox/styles/appStyles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'payment/payhere_payment.dart';
-
-class businessListView extends StatefulWidget {
+class EunBusinessListView extends StatefulWidget {
   Business business;
 
-  businessListView({required this.business, Key? key}) : super(key: key);
+  EunBusinessListView({required this.business, Key? key}) : super(key: key);
 
   @override
-  _businessListViewState createState() => _businessListViewState();
+  _EunBusinessListViewState createState() => _EunBusinessListViewState();
 }
 
-class _businessListViewState extends State<businessListView> {
+class _EunBusinessListViewState extends State<EunBusinessListView> {
   final _formKey = GlobalKey<FormState>();
   String? paymentStatus;
+  List<Business> _businessList = [];
+  LoanController _loanController = LoanController();
 
   final _nameController = TextEditingController();
   final _addressController = TextEditingController();
   final _investAmountController = TextEditingController();
 
+  var _loanAmountController = TextEditingController();
+  final _loanDescriptionController = TextEditingController();
+  int _number = 0;
+
+  String _userId = '';
   String _name = '';
   String _mobile = '';
   String _city = '';
@@ -42,6 +49,7 @@ class _businessListViewState extends State<businessListView> {
   String _instagram = '';
   String _Userwebsite = '';
 
+  String _businessId = '';
   String _businessName = '';
   String _businessLocation = '';
   String _executiveSummary = '';
@@ -61,10 +69,14 @@ class _businessListViewState extends State<businessListView> {
   String _investorBenefits = '';
   String _riskFactors = '';
 
+  String _status = 'pending';
+
   @override
   void initState() {
     super.initState();
+    _loanAmountController = TextEditingController(text: _number.toString());
     paymentStatus = "Not Paid";
+    _userId = widget.business.userId;
     _name = widget.business.name;
     _mobile = widget.business.mobile;
     _city = widget.business.city;
@@ -82,6 +94,7 @@ class _businessListViewState extends State<businessListView> {
     _trackRecord = List<String>.from(widget.business.trackRecord);
     _email = widget.business.email;
 
+    _businessId = widget.business.id;
     _businessName = widget.business.businessName;
     _businessLocation = widget.business.businessLocation;
     _executiveSummary = widget.business.executiveSummary;
@@ -103,182 +116,154 @@ class _businessListViewState extends State<businessListView> {
     _riskFactors = widget.business.riskFactors;
   }
 
-  payNow(Map<String, dynamic> paymentObjectOneTime) {
-    PayHere.startPayment(paymentObjectOneTime, (paymentId) {
-      debugPrint("One Time Payment Success. Payment Id: $paymentId");
-      setPaymentStatus("Successful");
-    }, (error) {
-      debugPrint("One Time Payment Failed. Error: $error");
-      setPaymentStatus("Failed");
-    }, () {
-      debugPrint("One Time Payment Dismissed");
-      setPaymentStatus("Dismissed");
-    });
-  }
-
-
-  void setPaymentStatus(String status) {
+  void _increment() {
     setState(() {
-      paymentStatus = status;
-      debugPrint(status);
+      _number++;
+      _loanAmountController.text = _number.toString();
     });
   }
 
-  void _showAddPaymentDetailsDialog(BuildContext context) {
+  void _decrement() {
+    setState(() {
+      if (_number > 0) {
+        _number--;
+        _loanAmountController.text = _number.toString();
+      }
+    });
+  }
+
+  void _addLoanValues() async {
+    try {
+      await _loanController.addLoan(
+          businessId:_businessId,
+          loanAmount: _loanAmountController.text,
+          loanDescription: _loanDescriptionController.text,
+          loanId: '',
+          status: _status,
+          userId: _userId
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Your loan is successfully submited. Please wait until get approval from the administrator!'),
+          )
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to get a Loan'),
+        ),
+      );
+      print(e.toString());
+    }
+  }
+
+  void _showGetLoanDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        bool _obscureText = true;
-
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return SingleChildScrollView(
-              child: AlertDialog(
-                title: const Text('Payment Details'),
-                content: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(height: 16),
-                      TextFormField(
-                        controller: _nameController,
-                        decoration: InputDecoration(
-                          labelText: 'FullName',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(),
+        return AlertDialog(
+          title: Text('Get a Loan'),
+          content: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 8),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      children: [
+                        Text(
+                          'Loan Amount',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0,
                           ),
                         ),
-                        validator: (value) {
-                          RegExp regex = new RegExp(r'^.{3,}$');
-                          if (value!.isEmpty) {
-                            return ("Name cannot be Empty");
-                          }
-                          if (!regex.hasMatch(value)) {
-                            return ("Enter Valid name(Min. 3 Character)");
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _nameController.text = value!;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      TextFormField(
-                        controller: _addressController,
-                        decoration: InputDecoration(
-                          labelText: 'Address',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(),
-                          ),
+                        SizedBox(height: 8.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.remove),
+                              onPressed: _decrement,
+                            ),
+                            SizedBox(width: 16.0),
+                            Expanded(
+                              child: TextFormField(
+                                controller: _loanAmountController,
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8.0),
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _number = int.tryParse(value) ?? 0;
+                                  });
+                                },
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter a loan amount.';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            SizedBox(width: 16.0),
+                            IconButton(
+                              icon: Icon(Icons.add),
+                              onPressed: _increment,
+                            ),
+                          ],
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your Address';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _addressController.text = value!;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      TextFormField(
-                        controller: _investAmountController,
-                        decoration: InputDecoration(
-                          labelText: 'Invest Amount',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter invest amount';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _investAmountController.text = value!;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Reserved of : \$' + _fundAmount,
-                            textAlign: TextAlign.justify,
-                            style: ralewayStyle.copyWith(
-                              fontSize: 14.0,
-                              color: AppColors.textColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Minimum Investment Amount : \$' + _minimumInvestmentAmount,
-                            textAlign: TextAlign.justify,
-                            style: ralewayStyle.copyWith(
-                              fontSize: 12.0,
-                              color: AppColors.textColor,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Maximum Investment Amount : \$' + _maximumInvestmentAmount,
-                            textAlign: TextAlign.justify,
-                            style: ralewayStyle.copyWith(
-                              fontSize: 12.0,
-                              color: AppColors.textColor,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
-
-
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('cancel'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        var payment = PayHerePayment(
-                          orderId: "ItemNo12345",
-                          items: "One Time Payment",
-                          amount: _investAmountController.text,
-                          firstName: _nameController.text,
-                          lastName: "lastName",
-                          email: "email@gmail.com",
-                          phone: "0767777777",
-                          address: _addressController.text,
-                          city: "Kurunegala",
-                          country: "Sri Lanka",
-                          deliveryAddress: "No. 46, Galle road, Kalutara South",
-                          deliveryCity: "Kalutara",
-                          deliveryCountry: "Sri Lanka",
-                          custom1: "",
-                          custom2: "",
-                        );
-                        payNow(payment.paymentObjectOneTime);
+                  SizedBox(height: 16.0),
+                  TextFormField(
+                    controller: _loanDescriptionController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Loan Description',
+                    ),
+                    maxLines: 4,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a loan description.';
                       }
+                      return null;
                     },
-                    child: const Text('pay'),
                   ),
-
                 ],
               ),
-            );
-          },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  print(_userId);
+                  print(_businessId);
+                  print(_loanAmountController.text);
+                  print(_loanDescriptionController.text);
+                  print(_status);
+                  _addLoanValues();
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text('Submit'),
+            ),
+          ],
         );
       },
     );
@@ -579,7 +564,7 @@ class _businessListViewState extends State<businessListView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.mainBlueColor,
-        title: Text('User Design Page'),
+        title: Text('Startup Information'),
       ),
       body: ListView(
         padding: EdgeInsets.all(16),
@@ -962,42 +947,31 @@ class _businessListViewState extends State<businessListView> {
                     height: 50,
                     width: double.infinity,
                     color: Colors.white,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            color: Colors.white,
-                            child: LinearProgressIndicator(
-                              backgroundColor: Colors.grey.withOpacity(0.5),
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  AppColors.mainBlueColor),
-                              value: 0.5, // set the progress bar value here
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        children: [
+                          SizedBox(width: 16.0),
+                          Expanded(
                             child: ElevatedButton(
                               onPressed: () {
-                                _showAddPaymentDetailsDialog(context);
+                                _showGetLoanDialog(context);
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: AppColors
-                                    .mainBlueColor, // set the background color of the button
+                                primary: AppColors.mainBlueColor,
                               ),
                               child: Text(
-                                'INVEST',
-                                style: TextStyle(fontSize: 18),
+                                'Get a Loan',
+                                style: ralewayStyle.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.whiteColor,
+                                  fontSize: 16.0,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

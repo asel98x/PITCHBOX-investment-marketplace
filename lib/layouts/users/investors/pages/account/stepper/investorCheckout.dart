@@ -68,6 +68,7 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
   }
 
 
+
   void _addprofessionalBackgroundField() {
     setState(() {
       _professionalBackground.add(TextEditingController());
@@ -158,6 +159,8 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => DashboardPage()),
       );
+
+      Navigator.pop(context);
 
       Navigator.pop(context);
     } catch (e) {
@@ -588,7 +591,7 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Investment Success Stories",
+                        "Success Stories",
                         style: ralewayStyle.copyWith(
                           fontSize: 18.0,
                           color: AppColors.blueDarkColor,
