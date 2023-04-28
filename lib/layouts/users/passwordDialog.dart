@@ -90,10 +90,10 @@ class _passwordDialogState extends State<passwordDialog> {
                     // Perform password validation and submit if valid
                     if (_password1Controller.text == "12") {
                       // Passwords match, submit
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>EunDashboardPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>EunDashboardPage(userId: '',)));
                     }else if (_password1Controller.text == "23") {
                       // Passwords match, submit
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>DashboardPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>DashboardPage(userId: '',)));
                     }
                     else {
                       // Passwords don't match, show error message

@@ -10,6 +10,7 @@ class LoanController {
     required String loanId,
     required String userId,
     required String businessId,
+    required String businessName,
     required String loanAmount,
     required String loanDescription,
     required String status,
@@ -19,6 +20,7 @@ class LoanController {
         loanId: loanId,
         userId: userId,
         businessId: businessId,
+      businessName: businessName,
         loanAmount: loanAmount,
         loanDescription: loanDescription,
         status: status,
@@ -26,5 +28,10 @@ class LoanController {
 
     await _loanService.addLoan(loan);
 
+  }
+
+  Future<List<Loan>> getLoanList(String userId) async {
+    List<Loan> loanList = await _loanService.getLoanList(userId);
+    return loanList;
   }
 }

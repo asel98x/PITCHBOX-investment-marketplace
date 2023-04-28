@@ -220,24 +220,24 @@ class _EunBusinessListState extends State<EunBusinessList> {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        Text(
-                                          'Text 1',
-                                          style: TextStyle(
-                                            fontSize: 16.0,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Text 2',
-                                          style: TextStyle(
-                                            fontSize: 16.0,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Text 3',
-                                          style: TextStyle(
-                                            fontSize: 16.0,
-                                          ),
-                                        ),
+                                        Wrap(
+                                          children: business.industryFocus.map((industry) => Container(
+                                            margin: EdgeInsets.only(right: 10),
+                                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.lightBlueColor,
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            child: Text(
+                                              industry,
+                                              style: ralewayStyle.copyWith(
+                                                fontSize: 16.0,
+                                                color: AppColors.blueDarkColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          )).toList(),
+                                        )
                                       ],
                                     ),
                                     Container(

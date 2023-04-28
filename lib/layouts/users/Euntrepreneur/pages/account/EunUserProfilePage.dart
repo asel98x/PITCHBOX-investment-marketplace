@@ -1,34 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:pitchbox/backend/controller/userController.dart';
+import 'package:pitchbox/backend/model/mainUser.dart';
+import 'package:pitchbox/provider/loginDetails.dart';
 import 'package:pitchbox/provider/signinProvider.dart';
 import 'package:pitchbox/styles/appColors.dart';
+import 'package:pitchbox/styles/appIcons.dart';
 import 'package:pitchbox/styles/appStyles.dart';
 import 'package:provider/provider.dart';
 
 import 'EunInvestorSettingsPage.dart';
 
 class EunUserProfilePage extends StatefulWidget {
-  const EunUserProfilePage({Key? key}) : super(key: key);
+  final String userId;
+  const EunUserProfilePage({Key? key, required this.userId}) : super(key: key);
+  //const EunUserProfilePage({Key? key}) : super(key: key);
   @override
   _EunUserProfilePageState createState() => _EunUserProfilePageState();
 }
 
 class _EunUserProfilePageState extends State<EunUserProfilePage> {
   bool showPassword = false;
+  final LoginDetails loginDetails = LoginDetails();
+  final UserController _userController = UserController();
+
+  String userId = '';
+  String userName = '';
+  String userEmail = '';
+  String userType = '';
+  String userPassword = '';
 
   Future getData() async {
     final sp = context.read<SignInProvider>();
     sp.getDataFromSharedPreferences();
   }
 
+  void getData2()async{
+    await loginDetails.getSharedPreferences();
+    String? userId = loginDetails.userId;
+
+    // Get user details using the controller class
+    List<MainUser> userDetails = await _userController.getUserDetails(userId!);
+    print(userDetails.length);
+    print(userId);
+    // Print user details
+    MainUser user = userDetails.first;
+    userId = user.userId;
+    userName = user.userName;
+    userEmail = user.userEmail;
+    userType = user.userType;
+    userPassword = user.userPassword;
+
+
+
+    print(userName);
+    print(userEmail);
+    print(userType);
+    print(userPassword);
+  }
+
   @override
   void initState() {
     super.initState();
     getData();
+    getData2();
   }
 
   @override
   Widget build(BuildContext context) {
-    final sp = context.watch<SignInProvider>();
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 5, right: 16),
@@ -58,7 +96,7 @@ class _EunUserProfilePageState extends State<EunUserProfilePage> {
                 height: 10,
               ),
               Text(
-                "Edit Profile",
+                "Profile",
                 style: ralewayStyle.copyWith(
                   fontWeight: FontWeight.w800,
                   color: AppColors.blueDarkColor,
@@ -88,9 +126,9 @@ class _EunUserProfilePageState extends State<EunUserProfilePage> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(
-                                "${sp.imageUrl}",
-                              ))),
+                            image: AssetImage(AppIcons.emptyUser),
+                          )
+                      ),
                     ),
                     Positioned(
                         bottom: 0,
@@ -117,37 +155,9 @@ class _EunUserProfilePageState extends State<EunUserProfilePage> {
               SizedBox(
                 height: 35,
               ),
-              buildTextField("Full Name", "${sp.name}", false),
-              buildTextField("E-mail", "${sp.email}", false),
-              buildTextField("Password", "${sp.uid}", true),
-              buildTextField("Location", "${sp.provider}", false),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: AppColors.mainBlueColor,
-                      padding: EdgeInsets.symmetric(horizontal: 130),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-
-                      ),
-                    ),
-                    child: Text(
-                      "SAVE",
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 2.2,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-
-                ],
-              )
+              buildTextField("E-UserName", userName, true),
+              buildTextField("UserEmail", userEmail, true),
+              buildTextField("UserType", userType, true),
             ],
           ),
         ),

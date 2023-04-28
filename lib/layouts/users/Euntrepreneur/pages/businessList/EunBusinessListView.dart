@@ -58,10 +58,12 @@ class _EunBusinessListViewState extends State<EunBusinessListView> {
   String _valueProposition = '';
   String _productOrServiceOffering = '';
   String _fundingNeeds = '';
+  List<String> _industries = [];
 
   String _minimumInvestmentAmount = '';
   String _maximumInvestmentAmount = '';
   String _fundAmount = '';
+  String _availableFundAmount = '';
   String _fundPurpose = '';
   String _timeline = '';
   String _fundingSources = '';
@@ -70,6 +72,7 @@ class _EunBusinessListViewState extends State<EunBusinessListView> {
   String _riskFactors = '';
 
   String _status = 'pending';
+  String _status2 = '';
 
   @override
   void initState() {
@@ -81,8 +84,7 @@ class _EunBusinessListViewState extends State<EunBusinessListView> {
     _mobile = widget.business.mobile;
     _city = widget.business.city;
     _country = widget.business.country;
-    _professionalExperience =
-        List<String>.from(widget.business.professionalExperience);
+    _professionalExperience =List<String>.from(widget.business.professionalExperience);
     _entrepreneurshipExperience =
         List<String>.from(widget.business.entrepreneurshipExperience);
     _education = List<String>.from(widget.business.education);
@@ -103,17 +105,19 @@ class _EunBusinessListViewState extends State<EunBusinessListView> {
     _valueProposition = widget.business.valueProposition;
     _productOrServiceOffering = widget.business.productOrServiceOffering;
     _fundingNeeds = widget.business.fundingNeeds;
+    _industries =List<String>.from(widget.business.industryFocus);
 
     _minimumInvestmentAmount = widget.business.minimumInvestmentAmount;
     _maximumInvestmentAmount = widget.business.maximumInvestmentAmount;
     _fundAmount = widget.business.fundAmount;
-    _fundAmount = widget.business.fundAmount;
+    _availableFundAmount = widget.business.avaiableFundAmount;
     _fundPurpose = widget.business.fundPurpose;
     _timeline = widget.business.timeline;
     _fundingSources = widget.business.fundingSources;
     _investmentTerms = widget.business.investmentTerms;
     _investorBenefits = widget.business.investorBenefits;
     _riskFactors = widget.business.riskFactors;
+    _status2 = widget.business.status;
   }
 
   void _increment() {
@@ -136,6 +140,7 @@ class _EunBusinessListViewState extends State<EunBusinessListView> {
     try {
       await _loanController.addLoan(
           businessId:_businessId,
+          businessName:_businessName,
           loanAmount: _loanAmountController.text,
           loanDescription: _loanDescriptionController.text,
           loanId: '',
@@ -720,23 +725,159 @@ class _EunBusinessListViewState extends State<EunBusinessListView> {
                     ],
                   ),
                 ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10),
+                Wrap(
+                  children: _industries.map((industry) => Container(
+                    margin: EdgeInsets.only(right: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppColors.lightBlueColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                     child: Text(
-                      'text',
-                      textAlign: TextAlign.right,
+                      industry,
                       style: ralewayStyle.copyWith(
                         fontSize: 16.0,
-                        color: AppColors.textColor,
-                        fontWeight: FontWeight.normal,
+                        color: AppColors.blueDarkColor,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                ),
+                  )).toList(),
+                )
+
+
               ],
             ),
           ),
+          SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'Status -',
+                style: ralewayStyle.copyWith(
+                  fontSize: 12.0,
+                  color: AppColors.textColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(width: 5.0),
+              Text(
+                _status2,
+                textAlign: TextAlign.justify,
+                style: ralewayStyle.copyWith(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.normal,
+                  color: _status2 == 'Pending'
+                      ? Colors.yellow
+                      : _status2 == 'Accepted'
+                      ? Colors.green
+                      : _status2 == 'Rejected'
+                      ? Colors.red
+                      : AppColors.textColor,
+                ),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 16),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 100,
+                    width: double.infinity,
+                    color: AppColors.lightBlueColor,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        children: [
+                          SizedBox(width: 16.0),
+                          Expanded(
+                            child: Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              width: double.infinity,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: double.infinity,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                Text(
+                                                                  'Invest Amount \$'+_fundAmount,
+                                                                  style: ralewayStyle.copyWith(
+                                                                    fontSize: 16.0,
+                                                                    color: AppColors.textColor,
+                                                                    fontWeight: FontWeight.normal,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(height: 10.0),
+                                                                Text(
+                                                                  'Avaiable Fund \$' + _availableFundAmount,
+                                                                  style: ralewayStyle.copyWith(
+                                                                    fontSize: 18.0,
+                                                                    color: AppColors.textColor,
+                                                                    fontWeight: FontWeight.bold,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(height: 10.0),
+                                                                Text(
+                                                                  'Accepted Loan \$' + _availableFundAmount,
+                                                                  style: ralewayStyle.copyWith(
+                                                                    fontSize: 16.0,
+                                                                    color: AppColors.textColor,
+                                                                    fontWeight: FontWeight.normal,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
           SizedBox(height: 16),
           Text(
             _companyDescription,

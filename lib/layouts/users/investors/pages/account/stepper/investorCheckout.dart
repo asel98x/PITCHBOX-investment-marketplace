@@ -157,7 +157,7 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
         ),
       );
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => DashboardPage()),
+        MaterialPageRoute(builder: (context) => DashboardPage(userId: '',)),
       );
 
       Navigator.pop(context);

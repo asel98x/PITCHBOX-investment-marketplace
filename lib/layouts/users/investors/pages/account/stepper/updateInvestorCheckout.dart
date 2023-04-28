@@ -232,7 +232,7 @@ class _UpdateInvestorCheckoutState extends State<UpdateInvestorCheckout> {
         ),
       );
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => DashboardPage()),
+        MaterialPageRoute(builder: (context) => DashboardPage(userId: '',)),
       );
 
       Navigator.pop(context);

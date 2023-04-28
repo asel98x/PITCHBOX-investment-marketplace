@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:payhere_mobilesdk_flutter/payhere_mobilesdk_flutter.dart';
+import 'package:pitchbox/backend/controller/startupController.dart';
+import 'package:pitchbox/backend/controller/userInvestmentController.dart';
 import 'package:pitchbox/backend/model/businessModel.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:pitchbox/styles/appIcons.dart';
@@ -21,10 +26,15 @@ class _businessListViewState extends State<businessListView> {
   final _formKey = GlobalKey<FormState>();
   String? paymentStatus;
 
+  final BusinessController _Bcontroller = BusinessController();
+  final userInvesmentController _investmentController = userInvesmentController();
   final _nameController = TextEditingController();
   final _addressController = TextEditingController();
   final _investAmountController = TextEditingController();
 
+  double sum = 0;
+
+  String _userId = '';
   String _name = '';
   String _mobile = '';
   String _city = '';
@@ -41,30 +51,44 @@ class _businessListViewState extends State<businessListView> {
   String _facebook = '';
   String _instagram = '';
   String _Userwebsite = '';
+  String _userImageDownloadUrl = '';
 
+  String _businessId = '';
   String _businessName = '';
   String _businessLocation = '';
+  String _businessIndustry = '';
   String _executiveSummary = '';
   String _companyDescription = '';
   String _businessModel = '';
   String _valueProposition = '';
   String _productOrServiceOffering = '';
   String _fundingNeeds = '';
+  String _website = '';
+  String  _investmentStage = '';
+  String  _businessImageDownloadUrl = '';
+  List<String> _industries = [];
 
   String _minimumInvestmentAmount = '';
   String _maximumInvestmentAmount = '';
   String _fundAmount = '';
+  String _availableFundAmount = '';
   String _fundPurpose = '';
   String _timeline = '';
   String _fundingSources = '';
   String _investmentTerms = '';
   String _investorBenefits = '';
   String _riskFactors = '';
+  String _investorLocation = '';
+  String _status = '';
+
+  File? _imageFile;
+  File? _imageFile2;
 
   @override
   void initState() {
     super.initState();
     paymentStatus = "Not Paid";
+    _userId = widget.business.userId;
     _name = widget.business.name;
     _mobile = widget.business.mobile;
     _city = widget.business.city;
@@ -80,27 +104,36 @@ class _businessListViewState extends State<businessListView> {
         List<String>.from(widget.business.industryCertifications);
     _awardsAchievements = List<String>.from(widget.business.awardsAchievements);
     _trackRecord = List<String>.from(widget.business.trackRecord);
+    _industries = List<String>.from(widget.business.industryFocus);
     _email = widget.business.email;
+    _userImageDownloadUrl = widget.business.UserImgUrl;
 
+    _businessId = widget.business.id;
     _businessName = widget.business.businessName;
+    _businessIndustry = widget.business.businessIndustry;
     _businessLocation = widget.business.businessLocation;
     _executiveSummary = widget.business.executiveSummary;
     _companyDescription = widget.business.companyDescription;
     _businessModel = widget.business.businessModel;
     _valueProposition = widget.business.valueProposition;
+    _investmentStage = widget.business.investmentStage;
     _productOrServiceOffering = widget.business.productOrServiceOffering;
     _fundingNeeds = widget.business.fundingNeeds;
+    _website = widget.business.website;
+    _businessImageDownloadUrl = widget.business.businessImgUrl;
 
     _minimumInvestmentAmount = widget.business.minimumInvestmentAmount;
     _maximumInvestmentAmount = widget.business.maximumInvestmentAmount;
     _fundAmount = widget.business.fundAmount;
-    _fundAmount = widget.business.fundAmount;
+    _availableFundAmount = widget.business.avaiableFundAmount;
+    _investorLocation = widget.business.investorLocation;
     _fundPurpose = widget.business.fundPurpose;
     _timeline = widget.business.timeline;
     _fundingSources = widget.business.fundingSources;
     _investmentTerms = widget.business.investmentTerms;
     _investorBenefits = widget.business.investorBenefits;
     _riskFactors = widget.business.riskFactors;
+    _status = widget.business.status;
   }
 
   payNow(Map<String, dynamic> paymentObjectOneTime) {
@@ -124,7 +157,12 @@ class _businessListViewState extends State<businessListView> {
     });
   }
 
+  void _addInvestmentValues() async {
+
+  }
+
   void _showAddPaymentDetailsDialog(BuildContext context) {
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -270,6 +308,106 @@ class _businessListViewState extends State<businessListView> {
                           custom2: "",
                         );
                         payNow(payment.paymentObjectOneTime);
+
+                        double sum = 0;
+                        String investment = _investAmountController.text;
+
+                        String avaiableFundAmount = _fundAmount;
+                        double availableFundAmountDouble = double.parse(avaiableFundAmount);
+                        double investmentAmountDouble = double.parse(investment);
+                        sum = availableFundAmountDouble + investmentAmountDouble;
+                        String availableFundAmountString = sum.toString();
+                        print(sum);
+
+                        try {
+                          final FirebaseAuth auth = FirebaseAuth.instance;
+                          final User? user = auth.currentUser;
+                          String Id = user?.uid ?? '';
+                           _investmentController.addUserInvestment(
+                              investmentId: '',
+                              userId: Id,
+                              businessId: _businessId,
+                               businessName: _businessName,
+                              investedAmount: _investAmountController.text);
+
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Failed to Invest'),
+                            ),
+                          );
+                          print(e.toString());
+                        }
+
+                        try {
+                          _Bcontroller.updateNewBusiness(
+                              id: _businessId,
+                              userId: _userId,
+                              name: _name,
+                              mobile: _mobile,
+                              city: _city,
+                              country: _country,
+                              professionalExperience: _professionalExperience,
+                              entrepreneurshipExperience: _entrepreneurshipExperience,
+                              education: _education,
+                              industryCertifications: _industryCertifications,
+                              awardsAchievements: _awardsAchievements,
+                              trackRecord: _trackRecord,
+                              email: _email,
+                              linkedin: _linkedin,
+                              twitter: _twitter,
+                              facebook: _facebook,
+                              instagram: _instagram,
+                              Userwebsite: _Userwebsite,
+                              UserImgUrl: _imageFile,
+
+
+                              businessName: _businessName,
+                              businessIndustry: _businessIndustry,
+                              businessLocation: _businessLocation,
+                              executiveSummary: _executiveSummary,
+                              companyDescription: _companyDescription,
+                              businessModel: _businessModel,
+                              valueProposition: _valueProposition,
+                              productOrServiceOffering: _productOrServiceOffering,
+                              fundingNeeds: _fundingNeeds,
+                              website: _website,
+                              businessImgUrl: _imageFile2,
+
+                              fundAmount: _fundAmount,
+                              avaiableFundAmount: availableFundAmountString,
+                              fundPurpose: _fundPurpose,
+                              timeline: _timeline,
+                              fundingSources: _fundingSources,
+                              investmentTerms: _investmentTerms,
+                              investorBenefits: _investorBenefits,
+                              riskFactors: _riskFactors,
+
+                              minimumInvestmentAmount: _minimumInvestmentAmount,
+                              maximumInvestmentAmount: _maximumInvestmentAmount,
+                              investmentStage: _investmentStage,
+                              industryFocus: _industries,
+                              investorLocation: _investorLocation,
+                              status: _status,
+                              street: '',
+                              state: '',
+                              zipCode: '',
+                              industry: '',
+                              provider: '',
+                              pass: '',
+                              investmentGoal: '',
+                              investmentCriteria: '',
+                              image: null,
+                              userImageDownloadUrl: _userImageDownloadUrl,
+                              businessImageDownloadUrl: _businessImageDownloadUrl);
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Error'),
+                            ),
+                          );
+                          print(e.toString());
+                        }
                       }
                     },
                     child: const Text('pay'),
@@ -735,21 +873,114 @@ class _businessListViewState extends State<businessListView> {
                     ],
                   ),
                 ),
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10),
+                Wrap(
+                  children: _industries.map((industry) => Container(
+                    margin: EdgeInsets.only(right: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppColors.lightBlueColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
                     child: Text(
-                      'text',
-                      textAlign: TextAlign.right,
+                      industry,
                       style: ralewayStyle.copyWith(
                         fontSize: 16.0,
-                        color: AppColors.textColor,
-                        fontWeight: FontWeight.normal,
+                        color: AppColors.blueDarkColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )).toList(),
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 16),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 70,
+                    width: double.infinity,
+                    color: AppColors.lightBlueColor,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        children: [
+                          SizedBox(width: 16.0),
+                          Expanded(
+                            child: Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              width: double.infinity,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: double.infinity,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                Text(
+                                                                  'Invest Amount \$'+_fundAmount,
+                                                                  style: ralewayStyle.copyWith(
+                                                                    fontSize: 16.0,
+                                                                    color: AppColors.textColor,
+                                                                    fontWeight: FontWeight.normal,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(height: 10.0),
+                                                                Text(
+                                                                  'Avaiable Fund \$' + _availableFundAmount,
+                                                                  style: ralewayStyle.copyWith(
+                                                                    fontSize: 18.0,
+                                                                    color: AppColors.textColor,
+                                                                    fontWeight: FontWeight.bold,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           SizedBox(height: 16),

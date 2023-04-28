@@ -13,4 +13,5 @@ class AppIcons {
   static const String entrepreneur = 'assets/images/entrepreneur.png';
   static const String instagramIcon = 'assets/images/instagram.png';
   static const String linkedinIcon = 'assets/images/linkedin.png';
+  static const String emptyUser = 'assets/images/emptyUser.png';
 }

@@ -107,7 +107,7 @@ class _SignupScreenState extends State<SignupScreen> {
           .set(userModel.toMap());
       Fluttertoast.showToast(msg: "Euntrepreneur Account created successfully");
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => EunDashboardPage()),
+        MaterialPageRoute(builder: (context) => EunDashboardPage(userId: '',)),
       );
 
     } else if (widget.userType3 == 'investor') {

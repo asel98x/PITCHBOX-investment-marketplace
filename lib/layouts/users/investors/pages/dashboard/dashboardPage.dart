@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pitchbox/layouts/users/investors/pages/Investments/investments.dart';
 import 'package:pitchbox/layouts/users/investors/pages/account/userProfilePage.dart';
-import 'package:pitchbox/layouts/users/investors/pages/alerts/alertsPage.dart';
-import 'package:pitchbox/layouts/users/investors/pages/account/accountPage.dart';
-import 'package:pitchbox/layouts/users/investors/pages/news/newsPage.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:pitchbox/layouts/users/investors/pages/startups/businessList.dart';
 import 'package:pitchbox/styles/appColors.dart';
 
 
 class DashboardPage extends StatefulWidget {
-
+  final String userId;
+  const DashboardPage({Key? key, required this.userId}) : super(key: key);
   @override
   State<DashboardPage> createState() => _DashboardPageState();
 }
@@ -20,7 +19,7 @@ class _DashboardPageState extends State<DashboardPage>{
   int _currentIndex = 0;
   late PageController _pageController;
 
-  final List<Widget> _pages = [BusinessListPage(), NewsPage(), AlertsPage(), userProfilePage()];
+  final List<Widget> _pages = [BusinessListPage(), investments(investmentId: '',), userProfilePage(userId: '',)];
 
   @override
   void initState(){
@@ -58,23 +57,13 @@ class _DashboardPageState extends State<DashboardPage>{
                   color: AppColors.blueDarkColor,)
             ),
             BottomNavyBarItem(
-                title: Text("Loan",
+                title: Text("Investment",
                   style: TextStyle(
                     color: AppColors.blueDarkColor,
                   ),
                 ),
                 icon: Icon(
                   Icons.account_balance_wallet_outlined,
-                  color: AppColors.blueDarkColor,)
-            ),
-            BottomNavyBarItem(
-                title: Text("Users",
-                  style: TextStyle(
-                    color: AppColors.blueDarkColor,
-                  ),
-                ),
-                icon: Icon(
-                  Icons.account_circle_outlined,
                   color: AppColors.blueDarkColor,)
             ),
             BottomNavyBarItem(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pitchbox/layouts/signupScreen.dart';
 import 'package:pitchbox/layouts/users/investors/pages/account/stepper/investorCheckout.dart';
 import 'package:pitchbox/layouts/users/investors/pages/account/stepper/updateInvestorCheckout.dart';
+import 'package:pitchbox/provider/loginDetails.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:provider/provider.dart';
 
@@ -19,20 +20,16 @@ class InvestorSettingsPage extends StatefulWidget {
 
 class _InvestorSettingsPageState extends State<InvestorSettingsPage> {
 
-  Future getData() async {
-    final sp = context.read<SignInProvider>();
-    sp.getDataFromSharedPreferences();
-  }
+
 
   @override
   void initState() {
     super.initState();
-    getData();
   }
 
   @override
   Widget build(BuildContext context) {
-    final sp = context.watch<SignInProvider>();
+    LoginDetails loginDetails = new LoginDetails();
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
@@ -123,7 +120,7 @@ class _InvestorSettingsPageState extends State<InvestorSettingsPage> {
                   )
               ),
               onPressed: () {
-                sp.userSignOut();
+                loginDetails.userSignOut();
                 nextScreenReplace(context, const LoginScreen(userId: '',));
               },
               child: Text(

@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void login(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
-        await _auth
+        await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
           Fluttertoast.showToast(msg: "Login Successful"),
@@ -124,10 +124,16 @@ class _LoginScreenState extends State<LoginScreen> {
         prefs.setString('userType', 'investor');
 
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => DashboardPage()));
+            MaterialPageRoute(builder: (context) => DashboardPage(userId: userId,)));
       } else {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('userEmail', userEmail);
+        prefs.setString('userId', userId);
+        prefs.setString('userName', userName);
+        prefs.setString('userPassword', userPassword);
+        prefs.setString('userType', 'euntrepreneur');
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => EunDashboardPage()));
+            MaterialPageRoute(builder: (context) => EunDashboardPage(userId: userId,)));
       }
     }
   }

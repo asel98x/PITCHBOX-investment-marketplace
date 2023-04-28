@@ -1,11 +1,26 @@
 
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pitchbox/utils/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:twitter_login/twitter_login.dart';
 
-class LoginDetails {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+class LoginDetails extends ChangeNotifier{
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FacebookAuth facebookAuth = FacebookAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final twitterLogin = TwitterLogin(
+      apiKey: Config.apikey_twitter,
+      apiSecretKey: Config.secretkey_twitter,
+      redirectURI: "socialauth://");
+
   User? _user;
+
+  bool _isSignedIn = false;
+  bool get isSignedIn => _isSignedIn;
 
   String? userEmail;
   String? userId;
@@ -43,6 +58,20 @@ class LoginDetails {
     userType = prefs.getString('userType') ?? '';
 
     // Do something with the retrieved values here
+  }
+  Future userSignOut() async {
+    await firebaseAuth.signOut;
+    await googleSignIn.signOut();
+
+    _isSignedIn = false;
+    notifyListeners();
+    // clear all storage information
+    clearStoredData();
+  }
+
+  Future clearStoredData() async {
+    final SharedPreferences s = await SharedPreferences.getInstance();
+    s.clear();
   }
 }
 

@@ -2,6 +2,7 @@
   String _loanId;
   String _userId;
   String _businessId;
+  String _businessName;
   String _loanAmount;
   String _loanDescription;
   String _status;
@@ -10,12 +11,14 @@
     required String loanId,
     required String userId,
     required String businessId,
+    required String businessName,
     required String loanAmount,
     required String loanDescription,
     required String status,
   })  : _loanId = loanId,
         _userId = userId,
         _businessId = businessId,
+        _businessName = businessName,
         _loanAmount = loanAmount,
         _loanDescription = loanDescription,
         _status = status;
@@ -28,6 +31,9 @@
 
   String get businessId => _businessId;
   set businessId(String businessId) => _businessId = businessId;
+
+  String get businessName => _businessName;
+  set businessName(String businessName) => _businessName = businessName;
 
   String get loanAmount => _loanAmount;
   set loanAmount(String loanAmount) => _loanAmount = loanAmount;
