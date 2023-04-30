@@ -1,0 +1,666 @@
+ News 
+ Software 
+ Health and Wellness 
+ E-Commerce 
+ Search 
+ Curated Web 
+ Health Care Information Technology 
+ Analytics 
+ Biotechnology 
+ Sports 
+ Pharmaceuticals 
+ Manufacturing 
+ Advertising 
+ Entertainment 
+ Games 
+ Lifestyle 
+ Video Chat 
+ Social Media 
+ Enterprise Software 
+ Art 
+ Blogging Platforms 
+ Social Fundraising 
+ Clean Technology 
+ Tourism 
+ Outsourcing 
+ Corporate IT 
+ Mobile Social 
+ Navigation 
+ Photography 
+ Transportation 
+ Finance 
+ Consumer Electronics 
+ Artificial Intelligence 
+ Services 
+ Bitcoin 
+ Mobile 
+ Electronic Health Records 
+ Customer Service 
+ 3D 
+ Drones 
+ Physicians 
+ Automotive 
+ Messaging 
+ Web Hosting 
+ Human Resources 
+ Security 
+ Flash Storage 
+ Machine Learning 
+ Entrepreneur 
+ Commercial Real Estate 
+ Web Design 
+ Cloud Computing 
+ Hardware + Software 
+ Kids 
+ Technology 
+ Video 
+ Distribution 
+ Mobile Games 
+ Internet Marketing 
+ Predictive Analytics 
+ Nanotechnology 
+ Small and Medium Businesses 
+ SEO 
+ Digital Entertainment 
+ Fashion 
+ Music 
+ Telecommunications 
+ Consulting 
+ Design 
+ SaaS 
+ Mobile Payments 
+ Travel & Tourism 
+ Business Productivity 
+ Communications Hardware 
+ Batteries 
+ Advertising Platforms 
+ Financial Services 
+ Medical 
+ Health Care 
+ Fitness 
+ Cloud Infrastructure 
+ Accounting 
+ Solar 
+ Identity Management 
+ Business Services 
+ Education 
+ Apps 
+ Medical Devices 
+ Cloud Management 
+ Payments 
+ Sales and Marketing 
+ Nonprofits 
+ Recruiting 
+ Semiconductors 
+ Healthcare Services 
+ Internet Radio Market 
+ Marketplaces 
+ Public Relations 
+ Incentives 
+ Gamification 
+ Internet of Things 
+ Networking 
+ Android 
+ Semantic Search 
+ Marketing Automation 
+ Internet 
+ Collectibles 
+ Business Intelligence 
+ Real Estate 
+ Mobile Security 
+ Ad Targeting 
+ Development Platforms 
+ Mass Customization 
+ Social Media Advertising 
+ Television 
+ Bio-Pharm 
+ Semantic Web 
+ Collaboration 
+ Big Data 
+ Assisitive Technology 
+ Publishing 
+ Location Based Services 
+ Trusted Networks 
+ Data Visualization 
+ Social Buying 
+ Optimization 
+ Real Time 
+ Local Based Services 
+ Travel 
+ Creative 
+ Auctions 
+ Digital Signage 
+ RIM 
+ Displays 
+ Social Commerce 
+ Outdoor Advertising 
+ Mobile Advertising 
+ Clean Energy 
+ App Marketing 
+ Adventure Travel 
+ Legal 
+ Hospitality 
+ Consumers 
+ Wireless 
+ DOD/Military 
+ Product Development Services 
+ Cloud Data Services 
+ Privacy 
+ Chat 
+ Match-Making 
+ Business Development 
+ Startups 
+ Insurance 
+ Retail Technology 
+ Twitter Applications 
+ Mobility 
+ Agriculture 
+ Social Bookmarking 
+ Hospitals 
+ Content Syndication 
+ Sensors 
+ Public Transportation 
+ Developer APIs 
+ Aerospace 
+ Coupons 
+ iPhone 
+ Groceries 
+ Computer Vision 
+ Therapeutics 
+ Credit 
+ Cloud Security 
+ Craigslist Killers 
+ Information Services 
+ Consumer Goods 
+ iOS 
+ Data Mining 
+ Local Businesses 
+ Open Source 
+ Stock Exchanges 
+ Financial Exchanges 
+ Big Data Analytics 
+ Colleges 
+ Data Integration 
+ Retail 
+ Digital Media 
+ College Recruiting 
+ Alumni 
+ Reviews and Recommendations 
+ Broadcasting 
+ Pets 
+ Portals 
+ Communities 
+ Energy 
+ Smart Grid 
+ Brand Marketing 
+ Chemicals 
+ Water Purification 
+ Databases 
+ Venture Capital 
+ Virtual Worlds 
+ Craft Beer 
+ Bioinformatics 
+ Non Profit 
+ Online Dating 
+ Opinions 
+ Consumer Internet 
+ Information Technology 
+ Reputation 
+ Shopping 
+ Subscription Businesses 
+ Mobile Software Tools 
+ Ticketing 
+ Content Creators 
+ Mobile Enterprise 
+ Online Rental 
+ Training 
+ Mobile Devices 
+ Developer Tools 
+ Loyalty Programs 
+ PaaS 
+ Restaurants 
+ Application Performance Monitoring 
+ Genetic Testing 
+ Testing 
+ User Experience Design 
+ Enterprises 
+ QR Codes 
+ Virtualization 
+ Cyber Security 
+ Media 
+ Distributed Generation 
+ Energy Management 
+ Angels 
+ Online Gaming 
+ Online Scheduling 
+ Finance Technology 
+ Business Analytics 
+ Mobile Commerce 
+ Web Tools 
+ Video Games 
+ Home Decor 
+ Career Management 
+ Identity 
+ Diabetes 
+ Oil and Gas 
+ Diagnostics 
+ Computers 
+ Social Network Media 
+ Knowledge Management 
+ Tracking 
+ RFID 
+ Real Estate Investors 
+ E-Commerce Platforms 
+ Productivity Software 
+ Home Automation 
+ Email 
+ Contact Management 
+ Industrial Automation 
+ Content Delivery 
+ Monetization 
+ Augmented Reality 
+ Life Sciences 
+ Service Providers 
+ Hardware 
+ Web CMS 
+ IT Management 
+ Local Advertising 
+ Creative Industries 
+ Robotics 
+ Video Conferencing 
+ Minerals 
+ Unifed Communications 
+ SMS 
+ Network Security 
+ Women 
+ Direct Marketing 
+ Farmers Market 
+ Video Streaming 
+ Baby Accessories 
+ Parenting 
+ Crowdfunding 
+ Social Travel 
+ Application Platforms 
+ Online Shopping 
+ Music Services 
+ Email Marketing 
+ VoIP 
+ Personal Finance 
+ Social Search 
+ Facebook Applications 
+ Water 
+ Peer-to-Peer 
+ Organic 
+ CRM 
+ Fantasy Sports 
+ Jewelry 
+ Risk Management 
+ Electronics 
+ Beauty 
+ Market Research 
+ Wine And Spirits 
+ Collaborative Consumption 
+ Web Development 
+ Babies 
+ iPad 
+ Data Privacy 
+ Nutrition 
+ Incubators 
+ Coworking 
+ 3D Technology 
+ Content 
+ Events 
+ Game Mechanics 
+ IT and Cybersecurity 
+ Project Management 
+ Dental 
+ Mobile Health 
+ Maps 
+ mHealth 
+ Synthetic Biology 
+ B2B 
+ Tutoring 
+ Advice 
+ Social Media Marketing 
+ Office Space 
+ Semiconductor Manufacturing Equipment 
+ Storage 
+ Photo Sharing 
+ Wholesale 
+ Image Recognition 
+ Weddings 
+ Flash Sales 
+ Cooking 
+ Coffee 
+ Recycling 
+ IaaS 
+ Home & Garden 
+ Construction 
+ Ediscovery 
+ Boating Industry 
+ Textiles 
+ Price Comparison 
+ Shoes 
+ Teachers 
+ Textbooks 
+ E-Books 
+ Event Management 
+ Tech Field Support 
+ Personalization 
+ Freelancers 
+ K-12 Education 
+ Spas 
+ Defense 
+ File Sharing 
+ World Domination 
+ Personal Health 
+ Private Social Networking 
+ Moneymaking 
+ Local 
+ Printing 
+ Social Media Platforms 
+ Home Renovation 
+ Politics 
+ Customer Support Tools 
+ Organic Food 
+ Lead Generation 
+ Bridging Online and Offline 
+ Biometrics 
+ Crowdsourcing 
+ MicroBlogging 
+ Food Processing 
+ Lead Management 
+ Hotels 
+ Group Buying 
+ Search Marketing 
+ Utilities 
+ Digital Rights Management 
+ Medical Marijuana Patients 
+ Social Business 
+ Banking 
+ Health and Insurance 
+ Data Centers 
+ Communications Infrastructure 
+ All Markets 
+ Tablets 
+ Charter Schools 
+ Gift Card 
+ P2P Money Transfer 
+ Auto 
+ Staffing Firms 
+ Senior Citizens 
+ Logistics 
+ Oil & Gas 
+ Gps 
+ Advanced Materials 
+ Cars 
+ Document Management 
+ Distributors 
+ Specialty Foods 
+ MMO Games 
+ Billing 
+ Charity 
+ Brokers 
+ Sales Automation 
+ Sponsorship 
+ iPod Touch 
+ Religion 
+ Film 
+ Governments 
+ Engineering Firms 
+ Interest Graph 
+ Classifieds 
+ All Students 
+ Environmental Innovation 
+ Medical Professionals 
+ Social Recruiting 
+ Nightclubs 
+ Local Search 
+ Forums 
+ Google Apps 
+ Windows Phone 7 
+ Performance Marketing 
+ Language Learning 
+ Leisure 
+ Proximity Internet 
+ Rental Housing 
+ WebOS 
+ Browser Extensions 
+ Information Security 
+ Natural Resources 
+ Gambling 
+ Procurement 
+ Meeting Software 
+ Recipes 
+ PC Gaming 
+ Law Enforcement 
+ Data Security 
+ Property Management 
+ Sex 
+ Social Media Monitoring 
+ Journalism 
+ Q&A 
+ Embedded Hardware and Software 
+ Credit Cards 
+ Social Games 
+ Video on Demand 
+ Online Travel 
+ Shipping 
+ Funeral Industry 
+ Indoor Positioning 
+ Sporting Goods 
+ Concerts 
+ Residential Solar 
+ Domains 
+ Discounts 
+ Cosmetics 
+ Film Distribution 
+ Enterprise Application 
+ Investment Management 
+ Trading 
+ Personal Branding 
+ App Discovery 
+ Wealth Management 
+ Supply Chain Management 
+ Enterprise Security 
+ Translation 
+ Renewable Energies 
+ Freemium 
+ Motion Capture 
+ Sustainability 
+ Intelligent Systems 
+ Intellectual Asset Management 
+ Product Search 
+ Promotional 
+ Energy Efficiency 
+ Heavy Industry 
+ Celebrity 
+ Virtual Workforces 
+ TV Production 
+ Green 
+ Educational Games 
+ Comparison Shopping 
+ High Schools 
+ Synchronization 
+ Infrastructure 
+ Internet TV 
+ Technical Continuing Education 
+ Business Information Systems 
+ Innovation Management 
+ Corporate Wellness 
+ Point of Sale 
+ Speech Recognition 
+ Professional Services 
+ Online Video Advertising 
+ Green Consumer Goods 
+ Logistics Company 
+ ICT 
+ Self Development 
+ Social CRM 
+ Career Planning 
+ Artists Globally 
+ Retirement 
+ Enterprise Resource Planning 
+ Animal Feed 
+ Exercise 
+ Algorithms 
+ Web Browsers 
+ NFC 
+ Presentations 
+ Guides 
+ Swimming 
+ 3D Printing 
+ Outdoors 
+ Kinect 
+ Mobile Coupons 
+ Humanitarian 
+ Linux 
+ Surveys 
+ Geospatial 
+ Audio 
+ Online Reservations 
+ Commodities 
+ Golf Equipment 
+ Taxis 
+ Social Television 
+ Skill Assessment 
+ Local Coupons 
+ Mining Technologies 
+ Commercial Solar 
+ Task Management 
+ Corporate Training 
+ Clinical Trials 
+ Biotechnology and Semiconductor 
+ Radical Breakthrough Startups 
+ Social + Mobile + Local 
+ Content Discovery 
+ Human Resource Automation 
+ Architecture 
+ Graphics 
+ Visual Search 
+ Internet Infrastructure 
+ Vertical Search 
+ Telephony 
+ Visualization 
+ Mobile Shopping 
+ Mobile Video 
+ Consumer Behavior 
+ Psychology 
+ App Stores 
+ Product Design 
+ Rapidly Expanding 
+ Game 
+ Virtual Goods 
+ Employment 
+ Oil 
+ Face Recognition 
+ Plumbers 
+ Lifestyle Businesses 
+ Families 
+ Archiving 
+ Licensing 
+ Realtors 
+ Offline Businesses 
+ Film Production 
+ Specialty Chemicals 
+ Vacation Rentals 
+ Toys 
+ Internet Service Providers 
+ Governance 
+ Enterprise Search 
+ Systems 
+ Demographies 
+ Certification Test 
+ DIY 
+ Employer Benefits Programs 
+ Doctors 
+ Cosmetic Surgery 
+ Neuroscience 
+ Energy IT 
+ Mac 
+ Government Innovation 
+ Virtual Currency 
+ Gas 
+ Cable 
+ Senior Health 
+ Space Travel 
+ Mechanical Solutions 
+ Bicycles 
+ Entertainment Industry 
+ Interior Design 
+ Mobile Analytics 
+ Renewable Tech 
+ Professional Networking 
+ Enterprise 2.0 
+ Industrial 
+ English-Speaking 
+ Lighting 
+ Advertising Networks 
+ M2M 
+ Photo Editing 
+ Human Computer Interaction 
+ Advertising Exchanges 
+ Google Glass 
+ Material Science 
+ Home Owners 
+ Social Media Management 
+ FreetoPlay Gaming 
+ Parking 
+ High Tech 
+ Innovation Engineering 
+ Software Compliance 
+ Mobile Infrastructure 
+ Interface Design 
+ Data Center Infrastructure 
+ Data Center Automation 
+ Industrial Energy Efficiency 
+ Internet Technology 
+ Universities 
+ Text Analytics 
+ Music Venues 
+ Email Newsletters 
+ Direct Sales 
+ Tea 
+ Specialty Retail 
+ Self Storage 
+ Farming 
+ Postal and Courier Services 
+ Public Safety 
+ Elder Care 
+ Dietary Supplements 
+ Writers 
+ Fleet Management 
+ Social Opinion Platform 
+ Contests 
+ Cyber 
+ Early-Stage Technology 
+ Fraud Detection 
+ Enterprise Purchasing 
+ Registrars 
+ Hedge Funds 
+ Estimation and Quoting 
+ Twin-Tip Skis 
+ EBooks 
+ Electrical Distribution 
+ Lifestyle Products 
+ Test and Measurement 
+ Franchises 
+ Sunglasses 
+ University Students 
+ Social Investing 
+ Designers 
+ Baby Boomers 
+ Polling 
+ Quantitative Marketing 
+ Online Identity 
+ Natural Language Processing 
+ College Campuses 
+ Timeshares 
+ Multi-level Marketing 
+ Group SMS 
+ Service Industries 
+ Cloud-Based Music 
+ Electric Vehicles 
+ Mobile Emergency&Health 
+ Wind 
+ Emerging Markets 

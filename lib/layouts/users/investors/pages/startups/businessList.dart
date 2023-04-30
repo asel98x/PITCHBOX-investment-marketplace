@@ -69,7 +69,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
       body: Column(
           children: [
             Container(
-              color: AppColors.lightBlueColor,
+              color: AppColors.backColor,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -90,47 +90,83 @@ class _BusinessListPageState extends State<BusinessListPage> {
                 ),
               ),
             ),
-
             Container(
-              color: AppColors.lightBlueColor,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10),
-                child: SizedBox(
-                  height: 70,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _industryList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      Industry industry = _industryList[index];
-                      return Container(
-                        width: 100.0,
-                        height: 10.0,
-                        child: Card(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.network(
-                                industry.imgUrl,
-                                height: 30,
-                                width: 160,
-                                fit: BoxFit.cover,
-                              ),
-                              Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Text(
-                                    industry.name,
-                                    style: TextStyle(fontSize: 18),
-                                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 4.0),
+                    Padding(
+                      padding: EdgeInsets.only(left: 16.0),
+                      child: Text(
+                        'Industries',
+                        style: ralewayStyle.copyWith(
+                          fontSize: 18.0,
+                          color: AppColors.blueDarkColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    SizedBox(
+                      height: 40,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _industryList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          Industry industry = _industryList[index];
+                          return Expanded(
+                            child: Container(
+                              width: 170.0,
+                              child: Card(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Image.network(
+                                    //   industry.imgUrl,
+                                    //   height: 30,
+                                    //   width: 160,
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                    Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Text(
+                                          industry.name,
+                                          style: ralewayStyle.copyWith(
+                                            fontSize: 18.0,
+                                            color: AppColors.blueDarkColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
+                            ),
+                          );
+                        },
+                      ),
 
-                            ],
-                          ),
+                    ),
+                    SizedBox(height: 20.0),
+                    Padding(
+                      padding: EdgeInsets.only(left: 16.0),
+                      child: Text(
+                        'Startups',
+                        style: ralewayStyle.copyWith(
+                          fontSize: 18.0,
+                          color: AppColors.blueDarkColor,
+                          fontWeight: FontWeight.bold,
                         ),
-                      );
-                    },
-                  ),
+                        textAlign: TextAlign.justify,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -169,12 +205,12 @@ class _BusinessListPageState extends State<BusinessListPage> {
                                     child: Image.network(
                                       business.businessImgUrl,
                                       fit: BoxFit.cover,
-                                      height: 125.0,
+                                      height: 170.0,
                                     ),
                                   ),
                                   Positioned(
-                                    bottom: 0.0,
-                                    right: 0.0,
+                                    bottom: 20.0,
+                                    right: 20.0,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
@@ -203,11 +239,10 @@ class _BusinessListPageState extends State<BusinessListPage> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(16.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: 8.0),
                                   Text(
                                     business.businessName,
                                     style: ralewayStyle.copyWith(
@@ -217,7 +252,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
                                     ),
                                     textAlign: TextAlign.justify,
                                   ),
-                                  SizedBox(height: 16.0),
+                                  SizedBox(height: 8.0),
                                   Text(
                                     business.executiveSummary,
                                     style: ralewayStyle.copyWith(
@@ -227,7 +262,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
                                     ),
                                     textAlign: TextAlign.justify,
                                   ),
-                                  SizedBox(height: 16.0),
+                                  SizedBox(height: 8.0),
                                   Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -235,9 +270,9 @@ class _BusinessListPageState extends State<BusinessListPage> {
                                       Text(
                                         '\$'+business.fundAmount,
                                         style: ralewayStyle.copyWith(
-                                          fontSize: 22.0,
+                                          fontSize: 16.0,
                                           color: AppColors.blueDarkColor,
-                                          fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                       Wrap(
@@ -260,6 +295,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
                                       )
                                     ],
                                   ),
+                                  SizedBox(height: 8.0),
                                 ],
                               ),
                             ),

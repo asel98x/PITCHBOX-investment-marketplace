@@ -70,6 +70,7 @@ class _EunBusinessListState extends State<EunBusinessList> {
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, true),
+
               child: Text('Delete'),
             ),
           ],
@@ -79,6 +80,11 @@ class _EunBusinessListState extends State<EunBusinessList> {
       if (confirmed == true) {
         // Call the delete method on the controller to delete the industry
         _controller.deleteNewBusiness(business.id);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Business deleted!'),
+          ),
+        );
         // Refresh the list after deletion
         _handleRefresh();
       }
@@ -148,12 +154,12 @@ class _EunBusinessListState extends State<EunBusinessList> {
                                       child: Image.network(
                                         business.businessImgUrl,
                                         fit: BoxFit.cover,
-                                        height: 125.0,
+                                        height: 170.0,
                                       ),
                                     ),
                                     Positioned(
-                                      bottom: 0.0,
-                                      right: 0.0,
+                                      bottom: 20.0,
+                                      right: 20.0,
                                       child: Container(
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
@@ -183,21 +189,20 @@ class _EunBusinessListState extends State<EunBusinessList> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(16.0),
+                                padding: EdgeInsets.all(8.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 8.0),
                                     Text(
                                       business.businessName,
                                       style: ralewayStyle.copyWith(
-                                        fontSize: 18.0,
+                                        fontSize: 16.0,
                                         color: AppColors.blueDarkColor,
                                         fontWeight: FontWeight.bold,
                                       ),
                                       textAlign: TextAlign.justify,
                                     ),
-                                    SizedBox(height: 16.0),
+                                    SizedBox(height: 8.0),
                                     Text(
                                       business.executiveSummary,
                                       style: ralewayStyle.copyWith(
@@ -207,7 +212,7 @@ class _EunBusinessListState extends State<EunBusinessList> {
                                       ),
                                       textAlign: TextAlign.justify,
                                     ),
-                                    SizedBox(height: 16.0),
+                                    SizedBox(height: 8.0),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -215,7 +220,7 @@ class _EunBusinessListState extends State<EunBusinessList> {
                                         Text(
                                           '\$' + business.fundAmount,
                                           style: ralewayStyle.copyWith(
-                                            fontSize: 22.0,
+                                            fontSize: 18.0,
                                             color: AppColors.blueDarkColor,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -240,6 +245,7 @@ class _EunBusinessListState extends State<EunBusinessList> {
                                         )
                                       ],
                                     ),
+                                    SizedBox(height: 8.0),
                                     Container(
                                       width: double.infinity,
                                       child: ElevatedButton(
