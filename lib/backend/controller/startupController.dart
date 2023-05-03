@@ -351,4 +351,8 @@ class BusinessController {
   Future<void> deleteNewBusiness(String businessId) async {
     await _BusinessService.deleteNewBusiness(businessId);
   }
+
+  Future<Business> getBusiness(String businessId) async {
+    return await _BusinessService.getBusiness(businessId);
+  }
 }

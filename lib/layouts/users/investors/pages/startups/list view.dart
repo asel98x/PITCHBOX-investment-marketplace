@@ -329,6 +329,7 @@ class _businessListViewState extends State<businessListView> {
                               businessId: _businessId,
                                businessName: _businessName,
                               investedAmount: _investAmountController.text);
+                          Navigator.of(context).pop();
 
                         } catch (e) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -405,6 +406,7 @@ class _businessListViewState extends State<businessListView> {
                             const SnackBar(
                               content: Text('Error'),
                             ),
+
                           );
                           print(e.toString());
                         }
@@ -656,7 +658,7 @@ class _businessListViewState extends State<businessListView> {
                                 children: [
                                   Text(
                                     '• ' + awardsAchievements,
-                                    textAlign: TextAlign.justify,
+                                    textAlign: TextAlign.left,
                                     style: ralewayStyle.copyWith(
                                       fontSize: 16.0,
                                       color: AppColors.textColor,
@@ -688,7 +690,7 @@ class _businessListViewState extends State<businessListView> {
                                 children: [
                                   Text(
                                     '• ' + trackRecord,
-                                    textAlign: TextAlign.justify,
+                                    textAlign: TextAlign.left,
                                     style: ralewayStyle.copyWith(
                                       fontSize: 16.0,
                                       color: AppColors.textColor,
@@ -748,9 +750,9 @@ class _businessListViewState extends State<businessListView> {
             _executiveSummary,
             textAlign: TextAlign.justify,
             style: ralewayStyle.copyWith(
-              fontSize: 18.0,
+              fontSize: 16.0,
               color: AppColors.blueDarkColor,
-              fontWeight: FontWeight.w900,
+              fontWeight: FontWeight.w600,
             ),
           ),
           SizedBox(height: 16),
@@ -951,7 +953,7 @@ class _businessListViewState extends State<businessListView> {
                                                                 Text(
                                                                   'Avaiable Fund \$' + _availableFundAmount,
                                                                   style: ralewayStyle.copyWith(
-                                                                    fontSize: 18.0,
+                                                                    fontSize: 16.0,
                                                                     color: AppColors.textColor,
                                                                     fontWeight: FontWeight.bold,
                                                                   ),

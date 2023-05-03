@@ -668,8 +668,9 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter Stepper'),
+        title: const Text('Investor Information'),
         automaticallyImplyLeading: false,
+        backgroundColor: AppColors.mainBlueColor,
       ),
       body: Stepper(
         type: StepperType.vertical,

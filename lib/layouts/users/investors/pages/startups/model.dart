@@ -14,6 +14,7 @@ class MyWidget extends StatefulWidget {
 class _MyWidgetState extends State<MyWidget> {
   late Interpreter _interpreter;
 
+
   @override
   void initState() {
     super.initState();
@@ -29,25 +30,38 @@ class _MyWidgetState extends State<MyWidget> {
       // Create an interpreter from the loaded model
       final interpreterOptions = InterpreterOptions();
       _interpreter = Interpreter.fromBuffer(model, options: interpreterOptions);
-      print('load the model.');
     } catch (e) {
       print('Failed to load the model.');
       print(e);
     }
   }
 
-  Future<List<double>> predict(
-      {required String categoryList,
-        required String market,
-        required double fundingTotalUsd,
-        required String region}) async {
+  Future<List<double>> predict({
+    required String categoryList,
+    required String market,
+    required double fundingTotalUsd,
+    required String region,
+  }) async {
+    // Check if preprocessInput is null
+    if (preprocessInput == null) {
+      print('preprocessInput function is null');
+      return [];
+    }
+
     // Preprocess the input data
     List<double> input = preprocessInput(
-        categoryList: categoryList,
-        market: market,
-        fundingTotalUsd: fundingTotalUsd,
-        region: region,
-        userInput: []);
+      categoryList: categoryList,
+      market: market,
+      fundingTotalUsd: fundingTotalUsd,
+      region: region,
+      userInput: [],
+    );
+
+    // Check if input is empty
+    if (input.isEmpty) {
+      print('Input is empty');
+      return [];
+    }
 
     // Pass the input data to the interpreter
     final output = Float32List.fromList([0, 0]); // replace with actual output from interpreter
@@ -58,17 +72,20 @@ class _MyWidgetState extends State<MyWidget> {
     return prediction;
   }
 
+
   List<double> preprocessInput(
       {required String categoryList,
         required String market,
         required double fundingTotalUsd,
         required String region,
-        required List<List<double>> userInput}) {
+        required List<List<double>> userInput,
+      }) {
     // Perform the necessary preprocessing steps on the input data
     List<double> input = [0, 0, 0, 0]; // replace with actual preprocessed input
 
     return input;
   }
+
 
   List<double> postprocessOutput(Float32List output) {
     // Convert the output data to a List of doubles
@@ -105,6 +122,8 @@ class _MyWidgetState extends State<MyWidget> {
               // Make the prediction
               final output = Float32List.fromList(List.filled(1 * 13, 0));
               _interpreter.run(input, output); // run the model
+
+              print(output);
               final prediction = postprocessOutput(output);
 
               // Print the predicted category list

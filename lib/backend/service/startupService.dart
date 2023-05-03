@@ -277,4 +277,11 @@ class BusinessService implements BusinessInterface{
 
     return newBusinesses;
   }
+
+  @override
+  Future<Business> getBusiness(String businessID) async {
+    DocumentSnapshot documentSnapshot = await _firestore.collection('startup').doc(businessID).get();
+    Business business = Business.fromSnapshot(documentSnapshot);
+    return business;
+  }
 }

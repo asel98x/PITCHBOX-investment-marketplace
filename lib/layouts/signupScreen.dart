@@ -336,41 +336,43 @@ class _SignupScreenState extends State<SignupScreen> {
 
                         const SizedBox(height: 6.0),
                         Container(
-                          height: 50.0,
-                          width: width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.0),
-                            color: AppColors.whiteColor,
-                          ),
-                            child: TextFormField(
-                              autofocus: false,
-                              controller: confirmPasswordController,
-                              obscureText: _isObscure,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please confirm your password';
-                                }
-                                if (value != passwordController.text) {
-                                  return 'Passwords do not match';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                confirmPasswordController.text = value!;
-                              },
-                              textInputAction: TextInputAction.done,
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.lock,
-                                  color: AppColors.blueDarkColor,),
-                                contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                                hintText: "Enter Password",
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                          child: TextFormField(
+                            autofocus: false,
+                            controller: confirmPasswordController,
+                            obscureText: _isObscure,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please confirm your password';
+                              }
+                              if (value != passwordController.text) {
+                                return 'Passwords do not match';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              confirmPasswordController.text = value!;
+                            },
+                            textInputAction: TextInputAction.done,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.lock,
+                                color: AppColors.blueDarkColor,),
+                              contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                              hintText: "Enter Password",
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(_isObscure ? Icons.visibility_off : Icons.visibility),
+                                onPressed: () {
+                                  setState(() {
+                                    _isObscure = !_isObscure;
+                                  });
+                                },
                               ),
                             ),
+                          ),
                         ),
 
 

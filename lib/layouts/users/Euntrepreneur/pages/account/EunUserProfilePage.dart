@@ -155,9 +155,9 @@ class _EunUserProfilePageState extends State<EunUserProfilePage> {
               SizedBox(
                 height: 35,
               ),
-              buildTextField("E-UserName", userName, true),
-              buildTextField("UserEmail", userEmail, true),
-              buildTextField("UserType", userType, true),
+              buildTextField("User Name", userName, true),
+              buildTextField("User Email", userEmail, true),
+              buildTextField("User Type", userType, true),
             ],
           ),
         ),

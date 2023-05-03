@@ -124,21 +124,15 @@ class _BusinessListPageState extends State<BusinessListPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // Image.network(
-                                    //   industry.imgUrl,
-                                    //   height: 30,
-                                    //   width: 160,
-                                    //   fit: BoxFit.cover,
-                                    // ),
                                     Center(
                                       child: Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Text(
                                           industry.name,
                                           style: ralewayStyle.copyWith(
-                                            fontSize: 18.0,
+                                            fontSize: 16.0,
                                             color: AppColors.blueDarkColor,
-                                            fontWeight: FontWeight.bold,
+                                            fontWeight: FontWeight.w600,
                                           ),
                                           textAlign: TextAlign.justify,
                                         ),

@@ -28,7 +28,8 @@ class LoanList extends StatefulWidget {
 }
 
 class _LoanListState extends State<LoanList> {
-  final BusinessController _controller = BusinessController();
+  final _formKey = GlobalKey<FormState>();
+  final BusinessController _Bcontroller = BusinessController();
   final LoanController _loanController = LoanController();
   final TextEditingController _searchController = TextEditingController();
   final UserController _userController = UserController();
@@ -38,7 +39,7 @@ class _LoanListState extends State<LoanList> {
   List<Loan> _loanList = [];
   //late userInvestment uInvestment;
   late Business business;
-
+  String? _selectedStatus;
   File? _imageFile;
   File? _imageFile2;
 
@@ -73,7 +74,241 @@ class _LoanListState extends State<LoanList> {
     _loadLoanList();
   }
 
+  Future<void> getData(String businessId) async {
+    business = await _Bcontroller.getBusiness(businessId);
+    print(business.fundAmount);
+  }
 
+  Future<void> _showLoanDetailsDialog(BuildContext context, Loan loan) async {
+    GlobalKey _imageKey = GlobalKey();
+
+    await getData(loan.businessId);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String loanId = loan.loanId;
+        String userId = loan.userId;
+        String businessId = loan.businessId;
+        String loanAmount = loan.loanAmount;
+        double loanAmountFloat = double.parse(loanAmount);
+
+        String loanDescription = loan.loanDescription;
+
+        String avaiableFundAmount = business.avaiableFundAmount;
+        double availableFundAmountFloat = double.parse(avaiableFundAmount);
+        double sum = 0;
+        sum = loanAmountFloat + availableFundAmountFloat;
+        String availableFundAmountString = sum.toString();
+
+        String name = business.name;
+        String mobile = business.mobile;
+        String city = business.city;
+        String country = business.country;
+        List<String> professionalExperience = business.professionalExperience;
+        List<String> entrepreneurshipExperience = business.entrepreneurshipExperience;
+        List<String> education = business.education;
+        List<String> industryCertifications = business.industryCertifications;
+        List<String> awardsAchievements = business.awardsAchievements;
+        List<String> trackRecord = business.trackRecord;
+        String email = business.email;
+        String facebook = business.facebook;
+        String twitter = business.twitter;
+        String instagram = business.instagram;
+        String linkedin = business.linkedin;
+        String Userwebsite = business.Userwebsite;
+        String userImageDownloadUrl =business.UserImgUrl;
+
+        String businessName = business.businessName;
+        String businessIndustry = business.businessIndustry;
+        List<String> industryFocus = business.industryFocus;
+        String businessLocation = business.businessLocation;
+        String companyDescription = business.companyDescription;
+        String website = business.website;
+        String executiveSummary = business.executiveSummary;
+        String businessModel = business.businessModel;
+        String valueProposition = business.valueProposition;
+        String productOrServiceOffering = business.productOrServiceOffering;
+        String fundingNeeds = business.fundingNeeds;
+        String businessImageDownloadUrl = business.businessImgUrl;
+
+        String fundAmount = business.fundAmount;
+        String fundPurpose = business.fundPurpose;
+        String timeline = business.timeline;
+        String fundingSources = business.fundingSources;
+        String investmentTerms = business.investmentTerms;
+        String investorBenefits = business.investorBenefits;
+        String riskFactors = business.riskFactors;
+
+        String minimumInvestmentAmount = business.minimumInvestmentAmount;
+        String maximumInvestmentAmount = business.maximumInvestmentAmount;
+        String investorLocation = business.investorLocation;
+        String investmentStage = business.investmentStage;
+        String status = business.status;
+
+
+        try {
+          _Bcontroller.updateNewBusiness(
+              id: businessId,
+              userId: userId,
+              name: name,
+              mobile: mobile,
+              city: city,
+              country: country,
+              professionalExperience: professionalExperience,
+              entrepreneurshipExperience: entrepreneurshipExperience,
+              education: education,
+              industryCertifications: industryCertifications,
+              awardsAchievements: awardsAchievements,
+              trackRecord: trackRecord,
+              email: email,
+              linkedin: linkedin,
+              twitter: twitter,
+              facebook: facebook,
+              instagram: instagram,
+              Userwebsite: Userwebsite,
+              UserImgUrl: _imageFile,
+
+
+              businessName: businessName,
+              businessIndustry: businessIndustry,
+              businessLocation: businessLocation,
+              executiveSummary: executiveSummary,
+              companyDescription: companyDescription,
+              businessModel: businessModel,
+              valueProposition: valueProposition,
+              productOrServiceOffering: productOrServiceOffering,
+              fundingNeeds: fundingNeeds,
+              website: website,
+              businessImgUrl: _imageFile2,
+
+              fundAmount: fundAmount,
+              avaiableFundAmount: availableFundAmountString,
+              fundPurpose: fundPurpose,
+              timeline: timeline,
+              fundingSources: fundingSources,
+              investmentTerms: investmentTerms,
+              investorBenefits: investorBenefits,
+              riskFactors: riskFactors,
+
+              minimumInvestmentAmount: minimumInvestmentAmount,
+              maximumInvestmentAmount: maximumInvestmentAmount,
+              investmentStage: investmentStage,
+              industryFocus: industryFocus,
+              investorLocation: investorLocation,
+              status: status,
+              street: '',
+              state: '',
+              zipCode: '',
+              industry: '',
+              provider: '',
+              pass: '',
+              investmentGoal: '',
+              investmentCriteria: '',
+              image: null,
+              userImageDownloadUrl: userImageDownloadUrl,
+              businessImageDownloadUrl: businessImageDownloadUrl);
+        } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Error'),
+            ),
+          );
+          print(e.toString());
+        }
+
+        return AlertDialog(
+          title: Text('Loan Information'),
+          content: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 8),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Business : ' + businessId,
+                          textAlign: TextAlign.justify,
+                          style: ralewayStyle.copyWith(
+                            fontSize: 12.0,
+                            color: AppColors.textColor,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'User : ' + userId,
+                          textAlign: TextAlign.justify,
+                          style: ralewayStyle.copyWith(
+                            fontSize: 12.0,
+                            color: AppColors.textColor,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'Loan Amount',
+                          textAlign: TextAlign.justify,
+                          style: ralewayStyle.copyWith(
+                            fontSize: 16.0,
+                            color: AppColors.textColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          '\$' + loanAmount,
+                          textAlign: TextAlign.justify,
+                          style: ralewayStyle.copyWith(
+                            fontSize: 16.0,
+                            color: AppColors.textColor,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'Loan Description',
+                          textAlign: TextAlign.justify,
+                          style: ralewayStyle.copyWith(
+                            fontSize: 16.0,
+                            color: AppColors.textColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          loanDescription,
+                          textAlign: TextAlign.justify,
+                          style: ralewayStyle.copyWith(
+                            fontSize: 16.0,
+                            color: AppColors.textColor,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () async {
+                  Navigator.of(context).pop();
+              },
+              child: Text('Ok'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +355,7 @@ class _LoanListState extends State<LoanList> {
                         Loan loan = _loanList[index];
                         return GestureDetector(
                           onTap: () {
-                            //_showLoanDetailsDialog(context, investment);
+                            _showLoanDetailsDialog(context, loan);
                           },
                           onLongPress: () {},
                           child: Card(

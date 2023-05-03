@@ -6,4 +6,5 @@ abstract class BusinessInterface {
   Future<List<Business>> getNewBusinessesListINT();
   Future<List<Business>> getNewBusinessesListEUN(String id);
   Future<void> updateNewBusiness(Business business);
+  Future<Business> getBusiness(String businessID);
 }
