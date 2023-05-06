@@ -29,11 +29,108 @@ class _LoginScreenState extends State<LoginScreen> {
   final UserController _userController = UserController();
 
   final _formKey = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController2 = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   String? errorMessage;
   bool _isObscure = true; // Initially password is obscured
+
+  void _forgotPasswordDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        bool _obscureText = true;
+
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return SingleChildScrollView(
+              child: AlertDialog(
+                title: const Text('Forgot Password'),
+                content: Form(
+                  key: _formKey2,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: emailController2,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          final RegExp emailRegex =
+                          RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                          if (!emailRegex.hasMatch(value)) {
+                            return 'Please enter a valid email address';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) {
+                          emailController2.text = value!;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Cancel'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey2.currentState!.validate()) {
+                        var forgotEmail = emailController2.text.trim();
+                        try {
+                          FirebaseAuth.instance
+                              .sendPasswordResetEmail(email: forgotEmail)
+                              .then((value) => {
+                            Fluttertoast.showToast(
+                                msg:
+                                "Check your email for a verification link!"),
+                          });
+                          emailController2.text = '';
+                        } on FirebaseAuthException catch (e) {
+                          String errorMessage = '';
+                          switch (e.code) {
+                            case 'user-not-found':
+                              errorMessage =
+                              'No account is associated with this email address. Please enter a valid email address.';
+                              break;
+                            case 'invalid-email':
+                              errorMessage =
+                              'Please enter a valid email address.';
+                              break;
+                            default:
+                              errorMessage =
+                              'An unexpected error occurred. Please try again later.';
+                          }
+                          Fluttertoast.showToast(msg: errorMessage);
+                        }
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: const Text('Verify'),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
 
   void getData()async{
     await loginDetails.getSharedPreferences();
@@ -144,8 +241,6 @@ class _LoginScreenState extends State<LoginScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     bool _obscureText = true;
-
-
     return Scaffold(
       backgroundColor: AppColors.backColor,
       body: SizedBox(
@@ -306,7 +401,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           alignment: Alignment.centerRight,
                           child: TextButton(
                             onPressed: ()async{
-
+                              _forgotPasswordDialog(context);
                             },
                             child: Text('Forgot Password?',
                               style: ralewayStyle.copyWith(

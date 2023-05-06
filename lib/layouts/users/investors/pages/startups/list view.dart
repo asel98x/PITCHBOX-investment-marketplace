@@ -312,7 +312,7 @@ class _businessListViewState extends State<businessListView> {
                         double sum = 0;
                         String investment = _investAmountController.text;
 
-                        String avaiableFundAmount = _fundAmount;
+                        String avaiableFundAmount = _availableFundAmount;
                         double availableFundAmountDouble = double.parse(avaiableFundAmount);
                         double investmentAmountDouble = double.parse(investment);
                         sum = availableFundAmountDouble + investmentAmountDouble;

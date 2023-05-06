@@ -1,17 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:pitchbox/layouts/loginScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:pitchbox/layouts/splashScreen.dart';
-import 'package:pitchbox/layouts/users/Euntrepreneur/pages/dashboard/EunDashboardPage.dart';
-import 'package:pitchbox/layouts/users/investors/pages/startups/model.dart';
 import 'package:pitchbox/provider/internetProvider.dart';
 import 'package:pitchbox/provider/signinProvider.dart';
 import 'package:provider/provider.dart';
 
-import 'layouts/users/Euntrepreneur/pages/businessList/stepper/BusinessTeamMember.dart';
-import 'layouts/users/investors/pages/account/stepper/test.dart';
-import 'layouts/users/investors/pages/dashboard/dashboardPage.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

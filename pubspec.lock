@@ -190,6 +190,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.8"
+  email_auth:
+    dependency: "direct main"
+    description:
+      name: email_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   equatable:
     dependency: transitive
     description:
@@ -267,27 +274,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.3.0"
-  firebase_ml_custom:
-    dependency: "direct main"
-    description:
-      name: firebase_ml_custom
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0+3"
-  firebase_ml_model_downloader:
-    dependency: "direct main"
-    description:
-      name: firebase_ml_model_downloader
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.1+1"
-  firebase_ml_model_downloader_platform_interface:
-    dependency: transitive
-    description:
-      name: firebase_ml_model_downloader_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.2+1"
   firebase_storage:
     dependency: "direct main"
     description:

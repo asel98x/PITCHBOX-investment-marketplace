@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,6 +20,7 @@ class SignupScreen extends StatefulWidget {
   final String userType3;
   SignupScreen({required this.userType3});
 
+
   @override
   State<SignupScreen> createState() => _SignupScreenState();
 }
@@ -28,11 +30,22 @@ class _SignupScreenState extends State<SignupScreen> {
   bool _isObscure = true; // Initially password is obscured
   final _auth = FirebaseAuth.instance;
   String? errorMessage;
+  late EmailAuth emailAuth;
+  bool submitValid = false;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController otpcontroller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
+
 
   void clear(){
     nameController.text = '';
@@ -40,6 +53,8 @@ class _SignupScreenState extends State<SignupScreen> {
     passwordController.text = '';
     confirmPasswordController.text = '';
   }
+
+
 
   void userRegister(String email, String password) async {
     if (_formKey.currentState!.validate()) {

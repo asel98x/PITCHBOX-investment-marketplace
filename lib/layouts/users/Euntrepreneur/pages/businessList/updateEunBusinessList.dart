@@ -7,6 +7,8 @@ import 'package:pitchbox/backend/controller/investorController.dart';
 import 'package:pitchbox/backend/controller/startupController.dart';
 import 'package:pitchbox/backend/model/businessModel.dart';
 import 'package:pitchbox/backend/service/startupService.dart';
+import 'package:pitchbox/layouts/users/Euntrepreneur/pages/businessList/EunBusinessList.dart';
+import 'package:pitchbox/layouts/users/Euntrepreneur/pages/dashboard/EunDashboardPage.dart';
 import 'package:pitchbox/styles/appColors.dart';
 import 'package:pitchbox/styles/appStyles.dart';
 
@@ -340,11 +342,15 @@ class _updateEunBusinessListState extends State<updateEunBusinessList> {
       print(investorBenefits);
       print(_imageFile);
 
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => EunDashboardPage(userId: '',)),
+      );
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Business idea updated successfully!'),
         ),
       );
+
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

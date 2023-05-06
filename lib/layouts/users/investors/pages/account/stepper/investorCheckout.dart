@@ -35,31 +35,40 @@ class _InvestorCheckoutState extends State<InvestorCheckout> {
 
 
 //---------------Personal Information----------------------
-  final _name = TextEditingController();
-  final _email = TextEditingController();
+  final _name = TextEditingController(text: 'test investor');
+  final _email = TextEditingController(text: 'investor@gmail.com');
   final _professionalBackground = <TextEditingController>[
-    TextEditingController()
+    TextEditingController(text: 'MBA in Finance from Harvard University'),
+    TextEditingController(text: 'Worked as an investment banker at Goldman Sachs for 10 years'),
   ];
-  final _investmentExperience = <TextEditingController>[TextEditingController()];
-  final _investmentInterests = TextEditingController();
-  final _accreditedInvestorStatus = TextEditingController();
-  final _linkedInProfile = TextEditingController();
+  final _investmentExperience = <TextEditingController>[
+    TextEditingController(text: 'Invested in stock market for over 15 years'),
+    TextEditingController(text: 'Has experience investing in real estate and private equity'),
+  ];
+  final _investmentInterests = TextEditingController(text: 'Technology');
+  final _accreditedInvestorStatus = TextEditingController(text: 'Yes');
+  final _linkedInProfile = TextEditingController(text:'www.linkedin.com');
 
   //----------------Investment Preferences----------------------
-  final _minimumInvestment = TextEditingController();
-  final _maximumInvestment = TextEditingController();
+  final _minimumInvestment = TextEditingController(text:'1000');
+  final _maximumInvestment = TextEditingController(text:'15000');
   final List<String> _selectedInvestmentStage = ['seed', 'early-stage', 'growth-stage'];
   String? _selectedInvestmentExperience;
   final _investmentStage = TextEditingController();
   final _industryFocus = <TextEditingController>[TextEditingController()];
-  final _geographicLocation = TextEditingController();
-  final _investmentGoals = TextEditingController();
-  final _investmentCriteria = TextEditingController();
+  final _geographicLocation = TextEditingController(text:'New Zealand');
+  final _investmentGoals = TextEditingController(text:'Achieve long-term capital appreciation through investment in technology companies with high growth potential.');
+  final _investmentCriteria = TextEditingController(text:'Reasonable valuation based on industry comparables and financial metrics such as P/E ratio and PEG ratio.');
 
   //----------------------------------Investment Portfolio-------------------
-  final _investmentStrategy = <TextEditingController>[TextEditingController()];
+  final _investmentStrategy = <TextEditingController>[
+    TextEditingController(text: 'Focuses on long-term investment opportunities'),
+    TextEditingController(text: 'Invests in companies with strong fundamentals and growth potential'),
+  ];
+
   final _investmentSuccessStories = <TextEditingController>[
-    TextEditingController()
+    TextEditingController(text: 'Invested in Amazon in its early days and made a significant return on investment'),
+    TextEditingController(text: 'Successfully invested in a startup that was acquired by a larger company'),
   ];
 
   @override
